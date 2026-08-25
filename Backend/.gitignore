@@ -1,0 +1,18 @@
+# Build outputs
+bin/
+obj/
+
+# IDE files
+.vs/
+*.user
+
+# Dependencies
+packages/
+node_modules/
+
+# Logs
+*.log
+
+#appsettings
+appsettings.json
+appsettings.Development.json
