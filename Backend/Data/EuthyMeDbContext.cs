@@ -47,7 +47,7 @@ namespace Backend.Data
                 SecurityStamp = "2"
             };
 
-            //Update User passwords using PasswordHasher in separate method to avoid issues with EF Core migrations
+            //Passwords added later for seed data users to not break the standard Identity password flow
             builder.Entity<User>()
                 .HasData(seedUser1, seedUser2);
 

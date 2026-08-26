@@ -14,9 +14,15 @@ namespace Backend.Services
         {
             userRepository = _userRepository;
         }
-        public async Task<IEnumerable<DisplayUserDTO>>? GetUsersAsync()
+        public async Task<IEnumerable<DisplayUserDTO>?> GetUsersAsync()
         {
             IEnumerable<User>? users = await userRepository.GetUsersAsync();
+
+            if (users == null)
+            {
+                return null;
+            }
+
             return users.Select(u => new DisplayUserDTO
             {
                 DisplayName = u.DisplayName,

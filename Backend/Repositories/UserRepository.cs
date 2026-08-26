@@ -14,7 +14,7 @@ namespace Backend.Repositories
         {
             context = _context;
         }
-        public async Task<IEnumerable<User>>? GetUsersAsync()
+        public async Task<IEnumerable<User>?> GetUsersAsync()
         {
             return await context.Users
                 .AsNoTracking()
