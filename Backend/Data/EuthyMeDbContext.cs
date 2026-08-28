@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Backend.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Backend.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Backend.Data
 {
@@ -10,6 +11,9 @@ namespace Backend.Data
         public EuthyMeDbContext(DbContextOptions<EuthyMeDbContext> options) : base(options)
         {
         }
+
+        public DbSet<MoodReport> MoodReports { get; set; }
+        public DbSet<Settings> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,7 +63,7 @@ namespace Backend.Data
                     new MoodReport
                     {
                         Id = 1,
-                        UserId = 1,
+                        UserId = 2,
                         MoodScore = 5,
                         SleepScore = 3,
                         MedsTaken = true,
@@ -69,15 +73,6 @@ namespace Backend.Data
                     {
                         Id = 2,
                         UserId = 2,
-                        MoodScore = 5,
-                        SleepScore = 3,
-                        MedsTaken = true,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1))
-                    },
-                    new MoodReport
-                    {
-                        Id = 3,
-                        UserId = 2,
                         MoodScore = 3,
                         SleepScore = 4,
                         MedsTaken = false,
@@ -85,7 +80,7 @@ namespace Backend.Data
                     },
                     new MoodReport
                     {
-                        Id = 4,
+                        Id = 3,
                         UserId = 2,
                         MoodScore = 3,
                         SleepScore= 4,
@@ -96,6 +91,24 @@ namespace Backend.Data
 
             builder.Entity<MoodReport>()
                 .HasIndex(m => new { m.UserId, m.Date });
+
+            builder.Entity<IdentityRole<int>>()
+                .HasData(
+                    new IdentityRole<int>
+                    {
+                        Id = 1,
+                        Name = "Admin",
+                        NormalizedName = "ADMIN",
+                        ConcurrencyStamp = "admin-concurrency-stamp-001"
+                    },
+                    new IdentityRole<int>
+                    {
+                        Id = 2,
+                        Name = "User",
+                        NormalizedName = "USER",
+                        ConcurrencyStamp = "user-concurrency-stamp-002"
+                    }
+                );
 
             base.OnModelCreating(builder);
         }

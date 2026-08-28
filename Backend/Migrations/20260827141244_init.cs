@@ -34,7 +34,7 @@ namespace Backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DisplayName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    DisplayName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -162,7 +162,7 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MoodReport",
+                name: "MoodReports",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -175,13 +175,44 @@ namespace Backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MoodReport", x => x.Id);
+                    table.PrimaryKey("PK_MoodReports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MoodReport_AspNetUsers_UserId",
+                        name: "FK_MoodReports_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Settings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ShowMeds = table.Column<bool>(type: "bit", nullable: false),
+                    PanicLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Settings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Settings_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, "admin-concurrency-stamp-001", "Admin", "ADMIN" },
+                    { 2, "user-concurrency-stamp-002", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -194,14 +225,14 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "MoodReport",
+                table: "MoodReports",
                 columns: new[] { "Id", "Date", "MedsTaken", "MoodScore", "SleepScore", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(2026, 8, 24), true, 5, 3, 1 },
-                    { 2, new DateOnly(2026, 8, 24), true, 5, 3, 2 },
-                    { 3, new DateOnly(2026, 8, 25), false, 3, 4, 2 },
-                    { 4, new DateOnly(2026, 8, 23), true, 3, 4, 2 }
+                    { 1, new DateOnly(2026, 8, 26), true, 5, 3, 1 },
+                    { 2, new DateOnly(2026, 8, 26), true, 5, 3, 2 },
+                    { 3, new DateOnly(2026, 8, 27), false, 3, 4, 2 },
+                    { 4, new DateOnly(2026, 8, 25), true, 3, 4, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -249,9 +280,14 @@ namespace Backend.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MoodReport_UserId_Date",
-                table: "MoodReport",
+                name: "IX_MoodReports_UserId_Date",
+                table: "MoodReports",
                 columns: new[] { "UserId", "Date" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Settings_UserId",
+                table: "Settings",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -273,7 +309,10 @@ namespace Backend.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "MoodReport");
+                name: "MoodReports");
+
+            migrationBuilder.DropTable(
+                name: "Settings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

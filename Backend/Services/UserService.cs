@@ -31,7 +31,8 @@ namespace Backend.Services
                 {
                     MoodScore = m.MoodScore,
                     SleepScore = m.SleepScore,
-                    Date = m.Date
+                    Date = m.Date,
+                    MedsTaken = m.MedsTaken
                 })
                 .OrderBy(m => m.Date)
                 .ToList()

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(EuthyMeDbContext))]
-    [Migration("20260825144510_init")]
+    [Migration("20260827141244_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -52,13 +52,13 @@ namespace Backend.Migrations
 
                     b.HasIndex("UserId", "Date");
 
-                    b.ToTable("MoodReport");
+                    b.ToTable("MoodReports");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Date = new DateOnly(2026, 8, 24),
+                            Date = new DateOnly(2026, 8, 26),
                             MedsTaken = true,
                             MoodScore = 5,
                             SleepScore = 3,
@@ -67,7 +67,7 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 2,
-                            Date = new DateOnly(2026, 8, 24),
+                            Date = new DateOnly(2026, 8, 26),
                             MedsTaken = true,
                             MoodScore = 5,
                             SleepScore = 3,
@@ -76,7 +76,7 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 3,
-                            Date = new DateOnly(2026, 8, 25),
+                            Date = new DateOnly(2026, 8, 27),
                             MedsTaken = false,
                             MoodScore = 3,
                             SleepScore = 4,
@@ -85,12 +85,40 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 4,
-                            Date = new DateOnly(2026, 8, 23),
+                            Date = new DateOnly(2026, 8, 25),
                             MedsTaken = true,
                             MoodScore = 3,
                             SleepScore = 4,
                             UserId = 2
                         });
+                });
+
+            modelBuilder.Entity("Backend.Models.Settings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PanicLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ShowMeds")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Settings");
                 });
 
             modelBuilder.Entity("Backend.Models.User", b =>
@@ -109,6 +137,7 @@ namespace Backend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DisplayName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -229,6 +258,22 @@ namespace Backend.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "admin-concurrency-stamp-001",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "user-concurrency-stamp-002",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -338,6 +383,17 @@ namespace Backend.Migrations
                 {
                     b.HasOne("Backend.Models.User", "User")
                         .WithMany("MoodReports")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Backend.Models.Settings", b =>
+                {
+                    b.HasOne("Backend.Models.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
