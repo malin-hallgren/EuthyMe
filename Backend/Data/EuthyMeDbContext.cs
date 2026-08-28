@@ -58,6 +58,14 @@ namespace Backend.Data
             builder.Entity<User>()
                 .HasIndex(u => u.Email);
 
+            builder.Entity<User>()
+                .Property(u => u.Email)
+                .IsRequired();
+
+            builder.Entity<User>()
+                .Property(u => u.UserName)
+                .IsRequired();
+
             builder.Entity<MoodReport>()
                 .HasData(
                     new MoodReport
