@@ -19,6 +19,7 @@ namespace Backend
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var corsConfig = "AllowFrontend";
 
             builder.Configuration.AddUserSecrets<Program>(optional: true);
 
@@ -31,7 +32,16 @@ namespace Backend
                 options.UseSqlServer(builder.Configuration["ConnectionString"]);
             });
 
-            //builder.Services.AddCors();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: corsConfig,
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:5173")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
 
             builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
             {
@@ -71,6 +81,8 @@ namespace Backend
                 app.MapScalarApiReference();
                 await app.CompleteUserSeedAsync();
             }
+
+            app.UseCors(corsConfig);
 
             app.UseHttpsRedirection();
 
