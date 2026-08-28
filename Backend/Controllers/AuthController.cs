@@ -24,10 +24,10 @@ namespace Backend.Controllers
 
             if (!result.isSuccess)
             {
-                return BadRequest(result.errors);
+                return BadRequest(new { message = result.errors });
             }
 
-            return Ok(new { Token = result.token });
+            return Ok(new { message = $"Logged in user {logInUser.UserName}" });
         }
     }
 }

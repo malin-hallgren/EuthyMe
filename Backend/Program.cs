@@ -1,4 +1,5 @@
 using Backend.Data;
+using Backend.Middlewares;
 using Backend.Models;
 using Backend.Repositories;
 using Backend.Repositories.IRepositories;
@@ -87,7 +88,9 @@ namespace Backend
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-            app.UseAuthentication(); 
+            app.UseAuthentication();
+
+            app.UseMiddleware<GlobalException>();
 
             app.MapControllers();
 

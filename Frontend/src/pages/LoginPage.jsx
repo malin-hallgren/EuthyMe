@@ -1,9 +1,11 @@
-export function Login() {
+import Login from "../components/Login.jsx";
 
-
+export function LoginPage() {
+    
     return (
-        <div className="login-container">
+        <div className="login-page">
             <h1>Login</h1>
+            <Login />
         </div>
     )
 }

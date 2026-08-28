@@ -20,21 +20,21 @@ namespace Backend.Services
             tokenService = _tokenService;
         }
 
-        public async Task<(bool isSuccess, List<string>? errors, string? token)> AuthenticateUserAsync(LogInUser logInUser)
+        public async Task<(bool isSuccess, List<string>? errors)> AuthenticateUserAsync(LogInUser logInUser)
         {
             var errors = new List<string>();
             var user = await userManager.FindByEmailAsync(logInUser.UserName); //UserName is duplicated from Email
             if (user == null || !await userManager.CheckPasswordAsync(user, logInUser.Password))
             {
-                errors.Add("Felaktiga inloggningsuppgifter");
-                return (false, errors, null);
+                errors.Add("Invalid credentials");
+                return (false, errors);
             }
             
             await signInManager.SignInAsync(user, false);
 
             var token = await tokenService.GenerateJwtToken(user);
 
-            return (true, null, token);
+            return (true, null);
         }
     }
 }
