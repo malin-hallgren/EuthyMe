@@ -27,7 +27,13 @@ namespace Backend.Controllers
                 return BadRequest(new { message = result.errors });
             }
 
-            return Ok(new { message = $"Logged in user {logInUser.UserName}" });
+            var options = await authService.GetCookieOptionsAsync();
+            Response.Cookies.Append("auth_token", result.token!, options);
+
+            return Ok(new
+            {
+                message = $"Logged in user {logInUser.UserName}"
+            });
         }
     }
 }

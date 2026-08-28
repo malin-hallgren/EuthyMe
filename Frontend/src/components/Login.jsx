@@ -15,7 +15,8 @@ export default function Login() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                        body: JSON.stringify({ UserName: email, Password: password })
+                body: JSON.stringify({ UserName: email, Password: password }),
+                credentials: 'include' // Include cookies in the request
             });
 
             const responseData = await response.json();

@@ -23,7 +23,9 @@ namespace Backend.Repositories
         }
         public async Task<User>? GetUserByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            return await context.Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Id == userId);
         }
     }
 }

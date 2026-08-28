@@ -6,6 +6,7 @@ using Backend.Repositories.IRepositories;
 using Backend.Seeding;
 using Backend.Services;
 using Backend.Services.IServices;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ namespace Backend
                 options.UseSqlServer(builder.Configuration["ConnectionString"]);
             });
 
+            
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: corsConfig,
@@ -40,7 +43,8 @@ namespace Backend
                     {
                         policy.WithOrigins("http://localhost:5173")
                         .AllowAnyMethod()
-                        .AllowAnyHeader();
+                        .AllowAnyHeader()
+                        .AllowCredentials();
                     });
             });
 
@@ -54,9 +58,32 @@ namespace Backend
             })
                 .AddEntityFrameworkStores<EuthyMeDbContext>();
 
+            builder.Services.PostConfigure<CookieAuthenticationOptions>(
+                 IdentityConstants.ApplicationScheme, options =>
+                 {
+                     options.LoginPath = null;  // Disable redirect to login
+                 });
+
+
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            if (context.Request.Cookies.TryGetValue("auth_token", out var token))
+                            {
+                                context.Token = token;
+                            }
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            return Task.CompletedTask;
+                        }
+                    };
+
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -70,9 +97,11 @@ namespace Backend
                 });
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IMoodReportRepository, MoodReportRepository>();
+
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IMoodReportService, MoodReportService>();
 
             var app = builder.Build();
 
@@ -87,10 +116,10 @@ namespace Backend
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseMiddleware<GlobalException>();
+            //app.UseMiddleware<GlobalException>();
 
             app.MapControllers();
 
