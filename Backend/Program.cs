@@ -22,6 +22,7 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
             var corsConfig = "AllowFrontend";
+            var isDevelopment = builder.Environment.IsDevelopment();
 
             builder.Configuration.AddUserSecrets<Program>(optional: true);
 
@@ -41,7 +42,11 @@ namespace Backend
                 options.AddPolicy(name: corsConfig,
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:5173")
+                        string origin = isDevelopment
+                            ? "http://localhost:5173"    // HTTP in dev
+                            : "https://yourdomain.com";  // HTTPS in prod
+
+                        policy.WithOrigins(origin)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials();
@@ -107,14 +112,21 @@ namespace Backend
 
             if (app.Environment.IsDevelopment())
             {
+                
                 app.MapOpenApi();
                 app.MapScalarApiReference();
                 await app.CompleteUserSeedAsync();
             }
+            else
+            {
+                app.UseHttpsRedirection();
+                app.UseHsts();
+            }
+
+            
 
             app.UseCors(corsConfig);
 
-            app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();

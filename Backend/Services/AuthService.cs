@@ -76,11 +76,13 @@ namespace Backend.Services
 
         public Task<CookieOptions> GetCookieOptionsAsync()
         {
+            var isProd = !env.IsDevelopment();
+
             return Task.FromResult(new CookieOptions
             {
                 HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.None, //Can't use as frontend and backend have different origins
+                Secure = isProd,
+                SameSite = isProd ? SameSiteMode.None : SameSiteMode.Lax, //Can't use as frontend and backend have different origins
                 Path = "/",
                 Expires = DateTimeOffset.UtcNow.AddHours(1)
             });
