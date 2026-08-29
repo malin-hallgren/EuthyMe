@@ -81,8 +81,8 @@ namespace Backend.Services
             return Task.FromResult(new CookieOptions
             {
                 HttpOnly = true,
-                Secure = isProd,
-                SameSite = isProd ? SameSiteMode.None : SameSiteMode.Lax, //Can't use as frontend and backend have different origins
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
                 Path = "/",
                 Expires = DateTimeOffset.UtcNow.AddHours(1)
             });
