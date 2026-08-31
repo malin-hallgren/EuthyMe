@@ -6,7 +6,6 @@ using Backend.Repositories.IRepositories;
 using Backend.Seeding;
 using Backend.Services;
 using Backend.Services.IServices;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -42,14 +41,14 @@ namespace Backend
                 options.AddPolicy(name: corsConfig,
                     policy =>
                     {
-                        policy.WithOrigins("https://localhost:5173")
+                        policy.WithOrigins("https://localhost:5173") //Todo, set up for production in Azure
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials();
                     });
             });
 
-            builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
+            builder.Services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
@@ -57,13 +56,8 @@ namespace Backend
                 options.Password.RequireLowercase = true;
                 options.Password.RequireDigit = true;
             })
-                .AddEntityFrameworkStores<EuthyMeDbContext>();
-
-            builder.Services.PostConfigure<CookieAuthenticationOptions>(
-                 IdentityConstants.ApplicationScheme, options =>
-                 {
-                     options.LoginPath = null;  // Disable default redirect to login from Idenitity cookies
-                 });
+                .AddRoles<IdentityRole<int>>()
+                .AddEntityFrameworkStores<EuthyMeDbContext>(); 
 
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -113,11 +107,8 @@ namespace Backend
                 app.MapScalarApiReference();
                 await app.CompleteUserSeedAsync();
             }
-            //else
-            //{
-                app.UseHttpsRedirection();
-            //    app.UseHsts();
-            //}
+
+            app.UseHttpsRedirection();
 
             app.UseCors(corsConfig);
 
@@ -125,7 +116,7 @@ namespace Backend
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMiddleware<GlobalException>();
+            app.UseMiddleware<GlobalException>();
 
             app.MapControllers();
 

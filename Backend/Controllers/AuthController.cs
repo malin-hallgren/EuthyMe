@@ -1,6 +1,7 @@
 ﻿using Backend.DTOs.User;
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 
 namespace Backend.Controllers
@@ -27,7 +28,7 @@ namespace Backend.Controllers
                 return BadRequest(new { message = result.errors });
             }
 
-            var options = await authService.GetCookieOptionsAsync();
+            var options = await authService.GetCookieOptionsAsync(); 
             Response.Cookies.Append("auth_token", result.token!, options);
 
             return Ok(new
@@ -40,7 +41,7 @@ namespace Backend.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            var options = await authService.GetCookieOptionsAsync();
+            var options = await authService.GetCookieOptionsAsync(); 
             Response.Cookies.Delete("auth_token", options);
 
             return Ok(new

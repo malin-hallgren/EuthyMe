@@ -12,15 +12,13 @@ namespace Backend.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         private readonly IConfiguration config;
 
         private readonly IWebHostEnvironment env;
 
-        public AuthService(SignInManager<User> _signInManager, UserManager<User> _userManager, IConfiguration _config, IWebHostEnvironment _env)
+        public AuthService(UserManager<User> _userManager, IConfiguration _config, IWebHostEnvironment _env)
         {
-            signInManager = _signInManager;
             userManager = _userManager;
             config = _config;
             env = _env;
@@ -45,19 +43,18 @@ namespace Backend.Services
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var userRole = await userManager.GetRolesAsync(user);
+            var userRoles = await userManager.GetRolesAsync(user);
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("role", userRole.FirstOrDefault() ?? "User")
+                new Claim("role", userRoles.FirstOrDefault() ?? "User")
             };
 
-            var roles = await userManager.GetRolesAsync(user);
 
-            foreach (var role in roles)
+            foreach (var role in userRoles)
 
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));
