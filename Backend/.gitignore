@@ -16,3 +16,7 @@ node_modules/
 #appsettings
 appsettings.json
 appsettings.Development.json
+
+#Testing certs
+ca.crt
+ca.key

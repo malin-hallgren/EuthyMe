@@ -42,11 +42,11 @@ namespace Backend
                 options.AddPolicy(name: corsConfig,
                     policy =>
                     {
-                        string origin = isDevelopment
-                            ? "http://localhost:5173"    // HTTP in dev
-                            : "https://yourdomain.com";  // HTTPS in prod
+                        //string origin = isDevelopment
+                        //    ? "http://localhost:5173"    // HTTP in dev, certificates makes cookies a pain when in https
+                        //    : "https://yourdomain.com";  // HTTPS in prod
 
-                        policy.WithOrigins(origin)
+                        policy.WithOrigins("https://localhost:5173")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials();
@@ -117,13 +117,11 @@ namespace Backend
                 app.MapScalarApiReference();
                 await app.CompleteUserSeedAsync();
             }
-            else
-            {
+            //else
+            //{
                 app.UseHttpsRedirection();
-                app.UseHsts();
-            }
-
-            
+            //    app.UseHsts();
+            //}
 
             app.UseCors(corsConfig);
 
