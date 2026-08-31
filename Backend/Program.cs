@@ -42,10 +42,6 @@ namespace Backend
                 options.AddPolicy(name: corsConfig,
                     policy =>
                     {
-                        //string origin = isDevelopment
-                        //    ? "http://localhost:5173"    // HTTP in dev, certificates makes cookies a pain when in https
-                        //    : "https://yourdomain.com";  // HTTPS in prod
-
                         policy.WithOrigins("https://localhost:5173")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
@@ -66,7 +62,7 @@ namespace Backend
             builder.Services.PostConfigure<CookieAuthenticationOptions>(
                  IdentityConstants.ApplicationScheme, options =>
                  {
-                     options.LoginPath = null;  // Disable redirect to login
+                     options.LoginPath = null;  // Disable default redirect to login from Idenitity cookies
                  });
 
 

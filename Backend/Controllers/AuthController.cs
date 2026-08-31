@@ -35,5 +35,18 @@ namespace Backend.Controllers
                 message = $"Logged in user {logInUser.UserName}"
             });
         }
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            var options = await authService.GetCookieOptionsAsync();
+            Response.Cookies.Delete("auth_token", options);
+
+            return Ok(new
+            {
+                message = "Logged out successfully"
+            });
+        }
     }
 }

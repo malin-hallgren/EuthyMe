@@ -10,7 +10,7 @@ export default function Login() {
         e.preventDefault();
         
         try {
-                    const response = await fetch(`${API_BASE_URL}/Auth/login`, {
+                const response = await fetch(`${API_BASE_URL}/Auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,8 +38,8 @@ export default function Login() {
     return (
         <div className="login-container">
             <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value) } required />
-            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value) } required />
+            <input id ="email" type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value) } required />
+            <input id="password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value) } required />
             <button type="submit">Login</button>
             </form>
         </div>
