@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {API_BASE_URL} from '../api/api.jsx'
+import api from '../api/axios.js';
 
 export default function Login() {
 
@@ -10,27 +10,18 @@ export default function Login() {
         e.preventDefault();
         
         try {
-                const response = await fetch(`${API_BASE_URL}/Auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ UserName: email, Password: password }),
-                credentials: 'include' // Include cookies in the request
+            const response = await api.post('/Auth/login', {
+                UserName: email, 
+                Password: password 
+            })
+            .then(response => response.data)
+            .then(data => {
+                console.log('Login response:', data);
             });
-
-            const responseData = await response.json();
-
-            if (!response.ok) {
-                console.error('Login failed:', responseData.message);
-                return;
-            }
-
-            console.log(responseData.message);
         }
         
         catch (error) {
-            console.error('Error during login:', error);
+            console.error('Error during login:', error.response.data.message);
             return
         }
     }

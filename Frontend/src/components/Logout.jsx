@@ -1,15 +1,16 @@
 import React from "react";
-import {API_BASE_URL} from '../api/api.jsx'
+import api from '../api/axios.js';
 
 export default function Logout() {
 
     const handleClick = async () => {
         try {
-            await fetch(`${API_BASE_URL}/Auth/logout`, {
-                method: 'POST',
-                credentials: 'include' // Include cookies in the request
+            await api.post('/Auth/logout')
+            .then(response => {
+                console.log('Logged out from EuthyMe');
             });
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error during logout:', error);
         }
     }

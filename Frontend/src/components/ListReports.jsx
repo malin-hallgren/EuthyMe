@@ -1,25 +1,25 @@
 import {useState} from 'react'
-import {API_BASE_URL} from '../api/api.jsx';
+import api from '../api/axios.js';
 
 export default function ListReports() {
     const [reports, setReports] = useState([])
 
     const ListMoodReports = async (event) => {
         event.preventDefault();
-        const response = await fetch(`${API_BASE_URL}/moodreport`, {
-            method: 'GET',
-            credentials: 'include'
-        });
+        try {
+            const response = api.get(`/moodreport`)
+            .then((response) => {
+                setReports(response.data);
+                console.log('Mood reports response:', response.data);
+            });
+        }
 
-        if(!response.ok)
+        catch (error)
         {
-            console.error('Failed to fetch mood reports:', response.status, response.statusText);
+            console.error('Failed to fetch mood reports:', error.response.status,error.response.data.message);
             return;
         }
 
-        const responseData = await response.json();
-        setReports(responseData);
-        console.log('Fetched mood reports:', responseData);
     }
 
     return (
