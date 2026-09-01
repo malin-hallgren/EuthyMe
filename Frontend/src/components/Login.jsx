@@ -1,10 +1,13 @@
 import {useState} from 'react'
 import api from '../api/axios.js';
+import {useAuth} from '../context/AuthContext.jsx';
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { setIsAuthenticated, setUserRole } = useAuth();
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,13 +18,25 @@ export default function Login() {
                 Password: password 
             })
             .then(response => response.data)
-            .then(data => {
-                console.log('Login response:', data);
+            .then (data => {
+                setIsAuthenticated(true);
+                setUserRole(data.role);
+                return data;
             });
+
+            if (response.role === 'ADMIN') {
+                navigate('/admin', { replace: true });
+            } 
+            else if (response.role === 'USER') {
+                navigate('/dashboard', { replace: true });
+            }
+
+            console.log('Login successful:', data);
+            
         }
         
         catch (error) {
-            console.error('Error during login:', error.response.data.message);
+            //console.error('Error during login:', error.response.data.message || error.response.data);
             return
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Backend.DTOs.User;
 using Backend.Models;
 using Backend.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace Backend.Controllers
 
 
         [HttpGet]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<IEnumerable<DisplayUserDTO>>> GetUsers()
         {
             var users = await userService.GetUsersAsync();

@@ -1,6 +1,5 @@
 ﻿using Backend.DTOs.User;
 using Backend.Models;
-using Backend.Repositories.IRepositories;
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -17,6 +16,7 @@ namespace Backend.Services
 
         private readonly IWebHostEnvironment env;
 
+
         public AuthService(UserManager<User> _userManager, IConfiguration _config, IWebHostEnvironment _env)
         {
             userManager = _userManager;
@@ -24,19 +24,22 @@ namespace Backend.Services
             env = _env;
         }
 
-        public async Task<(bool isSuccess, List<string>? errors, string? token)> AuthenticateUserAsync(LogInUser logInUser)
+        public async Task<(bool isSuccess, List<string>? errors, string? token, string? role)> AuthenticateUserAsync(LogInUser logInUser)
         {
             var errors = new List<string>();
             var user = await userManager.FindByEmailAsync(logInUser.UserName); //UserName is duplicated from Email
             if (user == null || !await userManager.CheckPasswordAsync(user, logInUser.Password))
             {
                 errors.Add("Invalid credentials");
-                return (false, errors, null);
+                return (false, errors, null, null);
             }
+
+            var roles = await userManager.GetRolesAsync(user);
+            var primaryRole = roles.FirstOrDefault() ?? "USER";
 
             var token = await GenerateJwtToken(user);
 
-            return (true, null, token);
+            return (true, null, token, primaryRole);
         }
 
         public async Task<string> GenerateJwtToken(User user)
@@ -83,6 +86,41 @@ namespace Backend.Services
                 Path = "/",
                 Expires = DateTimeOffset.UtcNow.AddHours(1)
             });
+        }
+
+        public async Task<(bool isAuthenticated, string? message)> IsUserAuthenticatedAsync(HttpContext context)
+        {
+            var token = context.Request.Cookies["auth_token"];
+            if (token == null)
+            {
+                return (false, null);
+            }
+
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);
+                var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidIssuer = config["Jwt:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = config["Jwt:Audience"],
+                    ValidateLifetime = true,
+                }, out SecurityToken validatedToken);
+
+                var role = principal.FindFirst("role")?.Value
+                    ?? principal.FindFirst(ClaimTypes.Role)?.Value;
+                return (true, role);
+
+            }
+            catch (Exception)
+            {
+                return (false, "Invalid user session.");
+
+            }
         }
     }
 }

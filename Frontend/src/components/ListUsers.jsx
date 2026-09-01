@@ -20,6 +20,6 @@ export default function ListUsers() {
     }
 
     return (
-        <button onClick={ListUsers}>Hämta användare</button>
+        <button onClick={ListUsers}>Get Users</button>
     )
 }

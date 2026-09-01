@@ -1,5 +1,6 @@
 ﻿using Backend.DTOs.User;
 using Backend.Services.IServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -28,11 +29,12 @@ namespace Backend.Controllers
                 return BadRequest(new { message = result.errors });
             }
 
-            var options = await authService.GetCookieOptionsAsync(); 
+            var options = await authService.GetCookieOptionsAsync();
             Response.Cookies.Append("auth_token", result.token!, options);
 
             return Ok(new
             {
+                role = result.role.ToUpper(),
                 message = $"Logged in user {logInUser.UserName}"
             });
         }
@@ -41,13 +43,28 @@ namespace Backend.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            var options = await authService.GetCookieOptionsAsync(); 
+            var options = await authService.GetCookieOptionsAsync();
             Response.Cookies.Delete("auth_token", options);
 
             return Ok(new
             {
                 message = "Logged out successfully"
             });
+        }
+
+        [HttpGet]
+        [Route("status")]
+        public async Task<IActionResult> Status()
+        {
+            var result = await authService.IsUserAuthenticatedAsync(HttpContext);
+            if (result.isAuthenticated)
+            {
+                return Ok(new { isAuthenticated = result.isAuthenticated, role = result.message?.ToUpper() });
+            }
+            else
+            {
+                return Unauthorized(new { message = result.message });
+            }
         }
     }
 }

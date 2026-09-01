@@ -21,7 +21,7 @@ namespace Backend.Controllers
             userService = _userService;
         }
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "UserOnly")]
         public async Task<ActionResult<List<DisplayMoodReportDTO>>> GetMoodReportsForUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
