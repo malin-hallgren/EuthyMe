@@ -5,6 +5,6 @@ namespace Backend.Repositories.IRepositories
     public interface IUserRepository
     {
         Task<IEnumerable<User>?> GetUsersAsync();
-        Task<User>? GetUserByIdAsync(int userId);
+        Task<User?> GetUserByIdAsync(int userId);
     }
 }

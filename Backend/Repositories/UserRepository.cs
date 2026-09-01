@@ -21,7 +21,7 @@ namespace Backend.Repositories
                 .Include(u => u.MoodReports)
                 .ToListAsync();
         }
-        public async Task<User>? GetUserByIdAsync(int userId)
+        public async Task<User?> GetUserByIdAsync(int userId)
         {
             return await context.Users
                 .AsNoTracking()

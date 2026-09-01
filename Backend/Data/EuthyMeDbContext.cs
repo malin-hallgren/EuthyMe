@@ -56,7 +56,8 @@ namespace Backend.Data
                 .HasData(seedUser1, seedUser2);
 
             builder.Entity<User>()
-                .HasIndex(u => u.Email);
+                .HasIndex(u => u.Email)
+                .IsUnique();
 
             builder.Entity<User>()
                 .Property(u => u.Email)

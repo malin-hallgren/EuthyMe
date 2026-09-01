@@ -57,14 +57,8 @@ namespace Backend.Controllers
         public async Task<IActionResult> Status()
         {
             var result = await authService.IsUserAuthenticatedAsync(HttpContext);
-            if (result.isAuthenticated)
-            {
-                return Ok(new { isAuthenticated = result.isAuthenticated, role = result.message?.ToUpper() });
-            }
-            else
-            {
-                return Unauthorized(new { message = result.message });
-            }
+
+            return Ok(new { isAuthenticated = result.isAuthenticated, role = result.message });
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Backend.Services
             }
 
             var roles = await userManager.GetRolesAsync(user);
-            var primaryRole = roles.FirstOrDefault() ?? "USER";
+            var primaryRole = roles.FirstOrDefault().ToUpper() ?? "USER";
 
             var token = await GenerateJwtToken(user);
 
@@ -113,7 +113,7 @@ namespace Backend.Services
 
                 var role = principal.FindFirst("role")?.Value
                     ?? principal.FindFirst(ClaimTypes.Role)?.Value;
-                return (true, role);
+                return (true, role.ToUpper());
 
             }
             catch (Exception)

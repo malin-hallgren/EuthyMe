@@ -9,26 +9,36 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let cancelled = false; 
+
         const checkAuth = async () => {
-            setLoading(true);
             try {
                 const response = await api.get('/Auth/status');
-                setIsAuthenticated(response.data.isAuthenticated);
-                setUserRole(response.data.role);
+                
+                if (cancelled) return;
+
+                setIsAuthenticated(Boolean(response.data.isAuthenticated));
+                setUserRole(response.data.role ?? null);
             }
             catch (error) {
-                console.error('Error checking authentication status:', error);
+                if (cancelled) return;
+                console.error('Error checking authentication status:', error.message);
             }
             finally {
-                setLoading(false);
+                if (!cancelled) {
+                    setLoading(false);
+                }
             }
-        }
+        };
 
         checkAuth();
+
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
-    if (loading) 
-    {
+    if (loading) {
         return <div>Loading...</div>;
     }
     
@@ -36,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{ isAuthenticated, userRole, setIsAuthenticated, setUserRole }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export const useAuth = () => useContext(AuthContext);

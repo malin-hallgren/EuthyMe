@@ -1,5 +1,6 @@
 ﻿using Backend.DTOs.User;
 using Backend.Models;
+using Backend.Services;
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,12 +13,10 @@ namespace Backend.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<User> userManager;
         private readonly IUserService userService;
 
-        public UserController(UserManager<User> _userManager, IUserService _userService)
+        public UserController(IUserService _userService)
         {
-           userManager = _userManager;
            userService = _userService;
         }
 
@@ -28,6 +27,21 @@ namespace Backend.Controllers
         {
             var users = await userService.GetUsersAsync();
             return Ok(users);
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterUserDTO registerUser)
+        {
+            var result = await userService.RegisterUserAsync(registerUser);
+
+            if(!result.isSuccess)
+            {
+                return BadRequest(result.message);
+            }
+
+            return Created("", new {message = result.message});
+
         }
     }
 }
