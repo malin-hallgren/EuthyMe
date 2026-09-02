@@ -22,5 +22,18 @@ namespace Backend.Repositories
                 .OrderBy(m => m.Date)
                 .ToListAsync();
         }
+
+        public async Task<bool> CheckDailyReportExistsAsync(int userId, DateOnly date)
+        {
+            return await context.MoodReports
+                .AsNoTracking()
+                .AnyAsync(m => m.UserId == userId && m.Date == date);
+        }
+
+        public async Task<bool> CreateMoodReportAsync(MoodReport moodReport)
+        {
+            await context.MoodReports.AddAsync(moodReport);
+            return await context.SaveChangesAsync() > 0;
+        }
     }
 }

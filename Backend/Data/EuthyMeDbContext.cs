@@ -85,7 +85,7 @@ namespace Backend.Data
                         MoodScore = 3,
                         SleepScore = 4,
                         MedsTaken = false,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow)
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-2))
                     },
                     new MoodReport
                     {
@@ -94,7 +94,7 @@ namespace Backend.Data
                         MoodScore = 3,
                         SleepScore= 4,
                         MedsTaken = true,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-2))
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-3))
                     }
                 );
 

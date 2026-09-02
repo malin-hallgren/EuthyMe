@@ -20,8 +20,11 @@ namespace Backend.Controllers
             moodReportService = _moodReportService;
             userService = _userService;
         }
+
+        //Update this to have a Take() to get only the appropriate number of reports
+        //based on the settings in the graph 
         [HttpGet]
-        [Authorize(Policy = "UserOnly")]
+        [Authorize(Policy = "UserOnly")] 
         public async Task<ActionResult<List<DisplayMoodReportDTO>>> GetMoodReportsForUser()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -39,6 +42,28 @@ namespace Backend.Controllers
             }
 
             return Ok(moodReports);
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "UserOnly")]
+        public async Task<ActionResult> CreateMoodReport([FromBody] CreateMoodReportDTO createMoodReportDTO)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userId, out int id))
+            {
+                return BadRequest(new { message = "Invalid user ID" });
+            }
+            var user = await userService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found" });
+            }
+            var moodReport = await moodReportService.CreateMoodReportAsync(id, createMoodReportDTO);
+            if (!moodReport.isSuccess)
+            {
+                return BadRequest(new { message = moodReport.message });
+            }
+            return Created("", new { message = moodReport.message });
         }
     }
 }

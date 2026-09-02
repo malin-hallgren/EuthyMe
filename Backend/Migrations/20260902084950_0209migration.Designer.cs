@@ -4,6 +4,7 @@ using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(EuthyMeDbContext))]
-    partial class EuthyMeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260902084950_0209migration")]
+    partial class _0209migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +67,7 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 2,
-                            Date = new DateOnly(2026, 8, 31),
+                            Date = new DateOnly(2026, 9, 2),
                             MedsTaken = false,
                             MoodScore = 3,
                             SleepScore = 4,
@@ -73,7 +76,7 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 3,
-                            Date = new DateOnly(2026, 8, 30),
+                            Date = new DateOnly(2026, 8, 31),
                             MedsTaken = true,
                             MoodScore = 3,
                             SleepScore = 4,
