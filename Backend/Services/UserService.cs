@@ -18,7 +18,7 @@ namespace Backend.Services
             userRepository = _userRepository;
             userManager = _userManager;
         }
-        public async Task<IEnumerable<DisplayUserDTO>?> GetUsersAsync()
+        public async Task<IEnumerable<UserActivityDTO>?> GetUsersAsync()
         {
             IEnumerable<User>? users = await userRepository.GetUsersAsync();
 
@@ -27,21 +27,31 @@ namespace Backend.Services
                 return null;
             }
 
-            return users.Select(u => new DisplayUserDTO
+            return users.Select(u =>
             {
-                DisplayName = u.DisplayName,
-                Email = u.Email,
-                MoodReports = u.MoodReports.Select(m => new DisplayMoodReportDTO
+                if (!u.MoodReports.Any())
                 {
-                    MoodScore = m.MoodScore,
-                    SleepScore = m.SleepScore,
-                    Date = m.Date,
-                    MedsTaken = m.MedsTaken
-                })
-                .OrderBy(m => m.Date)
-                .ToList()
-            });
+                    return new UserActivityDTO
+                    {
+                        DisplayName = u.DisplayName,
+                        LastActive = "No activity recorded"
+                    };
+                }
+
+                int days = (int)(DateTime.Now - u.MoodReports.Max(m => m.Date.ToDateTime(TimeOnly.MinValue))).TotalDays;
+
+                string timeAgo = $"{days} {(days == 1 ? "day" : "days")} ago";
+
+                return new UserActivityDTO
+                {
+                    DisplayName = u.DisplayName,
+                    DaysAgo = days,
+                    LastActive = timeAgo
+                };
+            })
+            .OrderBy(u => u.DaysAgo);
         }
+        
         public async Task<ThinDisplayUserDTO?> GetUserByIdAsync(int userId)
         {
             User? user = await userRepository.GetUserByIdAsync(userId);

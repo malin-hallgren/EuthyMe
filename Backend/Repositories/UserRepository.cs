@@ -16,8 +16,15 @@ namespace Backend.Repositories
         }
         public async Task<IEnumerable<User>?> GetUsersAsync()
         {
+            var adminRole = await context.Roles
+                .AsNoTracking()
+                .Where(r => r.Name == "Admin")
+                .Select(r => r.Id)
+                .FirstOrDefaultAsync();
+
             return await context.Users
                 .AsNoTracking()
+                .Where(u => adminRole == null || !context.UserRoles.Any(ur => ur.UserId == u.Id && ur.RoleId == adminRole))
                 .Include(u => u.MoodReports)
                 .ToListAsync();
         }
