@@ -67,6 +67,7 @@ namespace Backend.Services
             };
 
             var result = await userManager.CreateAsync(user, registerUser.Password);
+            await userManager.AddToRoleAsync(user, "User");
 
             if (result.Succeeded)
             {
