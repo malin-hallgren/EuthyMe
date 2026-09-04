@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import api from '../api/axios.js';
+import {LogoutIcon} from "./UI/icons/LogoutIcon.jsx";
 
 export default function Logout() {
     const { setIsAuthenticated, setUserRole } = useAuth();
@@ -27,7 +28,11 @@ export default function Logout() {
 
     return (
         <div className="logout-container">
-            <button onClick={handleClick}>Logout</button>
+            <button className="logout-button" onClick={handleClick}>
+                <LogoutIcon className="custom-icon logout-icon" />
+                <span>Logout</span>
+            </button>
+
         </div>
     )
 }

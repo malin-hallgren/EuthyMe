@@ -23,8 +23,6 @@ export default function Dashboard() {
                     <CreateMoodReport onClose={handleCloseCreateReport} />
                 </ContentCard>
             </PopUp>
-
-            <Logout />
         </>
     )
 }
