@@ -1,0 +1,38 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16, 1rem);
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin-top: var(--spacing-32, 2rem);
+ }
+
+ .register-container h2 {
+    color: var(--color-text);
+    font-size: 2rem;
+}
+ 
+ .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16, 1rem);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--spacing-16, 1rem);
+    padding: var(--spacing-16, 1rem);
+ }
+ 
+ 
+.register-form .primary-button {
+    width: 80%;
+    margin: var(--spacing-12) auto;
+}
+
+.register-container .content-card .secondary-button {
+    width: 60%;
+    display: flex;
+    margin: 0 auto var(--spacing-12) auto;
+    
+}

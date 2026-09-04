@@ -1,6 +1,11 @@
 import api from "../api/axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ContentCard from "./UI/ContentCard.jsx";
+import PrimaryButton from "./UI/PrimaryButton.jsx";
+import InputField from "./InputField.jsx";
+import SecondaryButton from "./UI/SecondaryButton.jsx";
+import "./Register.css";
 
 export default function registerUser() {
     const [email, setEmail] = useState('');
@@ -43,51 +48,54 @@ export default function registerUser() {
     return (
         <>
             <div className="register-container">
-                <form onSubmit={handleSubmit}>
-                    <input
-                        htmlFor="Email"
-                        label="Email"
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <input
-                        htmlFor="Password"
-                        label="Password"
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <input
-                        htmlFor="ConfirmPassword"
-                        label="Confirm Password"
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    <input
-                        htmlFor="DisplayName"
-                        label="Display Name"
-                        type="text"
-                        placeholder="Display Name (optional)"
-                        value={displayName}
-                        onChange={(e) => setDisplayName(e.target.value)}
-                    />
-                    <button type="submit">Register</button>
-                </form> 
+                <ContentCard>
+                    <h2>Register</h2>
+                    <form onSubmit={handleSubmit} className="register-form">
+                        <InputField
+                            htmlFor="Email"
+                            label="Email:"
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <InputField
+                            htmlFor="Password"
+                            label="Password:"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <InputField
+                            htmlFor="ConfirmPassword"
+                            label="Confirm Password:"
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        <InputField
+                            htmlFor="DisplayName"
+                            label="Display Name:"
+                            type="text"
+                            placeholder="Display Name (optional)"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                        />
+                        <PrimaryButton text="Register" type="submit" />
+                    </form> 
+                    <p>
+                        {hasSubmitted && message.type === 'success' && (
+                            <span style={{ color: 'green' }}>{message.text}</span>
+                        )}
+                        {hasSubmitted && message.type === 'error' && (
+                            <span style={{ color: 'red' }}>{message.text}</span>
+                        )}
+                    </p>
+                <SecondaryButton onClick={() => { navigate('/login') }} text="Back to Login"/>
+                </ContentCard>
             </div> 
-            <p>
-                {hasSubmitted && message.type === 'success' && (
-                    <span style={{ color: 'green' }}>{message.text}</span>
-                )}
-                {hasSubmitted && message.type === 'error' && (
-                    <span style={{ color: 'red' }}>{message.text}</span>
-                )}
-            </p>
-            <button onClick={() => { navigate('/login') }}>Back to Login</button>
         </>
          
 

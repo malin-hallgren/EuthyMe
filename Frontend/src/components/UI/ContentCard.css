@@ -3,5 +3,8 @@
     background-color: var(--color-bg); 
     padding: var(--spacing-20); 
     border-radius: var(--radius-medium); 
+    border: var(--border-width-thin) solid var(--color-border);
     box-shadow: var(--box-shadow); 
+    width: clamp(280px, 90vw, 420px);
+    padding: var(--spacing-20);
 }

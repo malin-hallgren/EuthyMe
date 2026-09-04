@@ -1,0 +1,24 @@
+.primary-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-8, 0.5rem);
+  padding: var(--spacing-16, 1rem) var(--spacing-24, 1.5rem);
+  border-radius: var(--radius-pill);
+  color: var(--color-white);
+  background-color: var(--color-button-active);
+  border: none;
+  width: 100%;  
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.primary-button:hover {
+  box-shadow: inset 0 0 0 var(--border-width-medium, 3px) var(--color-text);
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  background: var(--state-disabled, --color-grey);
+  opacity: 0.6;
+}

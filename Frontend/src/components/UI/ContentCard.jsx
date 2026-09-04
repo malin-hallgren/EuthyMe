@@ -1,5 +1,5 @@
 import react from 'react';
-import './ContenCard.css';
+import './ContentCard.css';
 
 export default function ContentCard({ children }) {
 
