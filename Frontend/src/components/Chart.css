@@ -1,0 +1,35 @@
+.chart-shell 
+{
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 1.5rem;
+}
+
+.chart-title 
+{
+    color: var(--color-text);
+    font-size: 1.25rem;
+}
+
+.chart-area 
+{ 
+    margin-left: calc(var(--spacing-20) * -1);
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: clamp(320px, 38vw, 480px);
+}
+
+@media (max-width: 1024px) {
+    .chart-area 
+    { 
+        margin-left: 0;
+    }
+}
+
+.chart-area canvas 
+{
+    display: block;
+}

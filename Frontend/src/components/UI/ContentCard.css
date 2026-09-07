@@ -5,6 +5,8 @@
     border-radius: var(--radius-medium); 
     border: var(--border-width-thin) solid var(--color-border);
     box-shadow: var(--box-shadow); 
-    width: clamp(280px, 90vw, 420px);
+    width: min(100%, 420px);
+    max-width: 100%;
+    min-width: 0;
     padding: var(--spacing-20);
 }

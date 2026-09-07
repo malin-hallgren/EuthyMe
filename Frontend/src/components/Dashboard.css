@@ -1,0 +1,115 @@
+.dashboard-container
+{
+    width: min(100% - 2rem, 1200px);
+    margin: var(--spacing-20) auto;
+}
+
+.dashboard-container > h2
+{
+    margin-bottom: var(--spacing-20);
+}
+
+.dashboard-content
+{
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    align-items: start;
+    margin: 0 auto;
+    gap: var(--spacing-20);
+}
+
+
+.graph-card-big
+{
+    width: 100%;
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr);
+    gap: var(--spacing-20);
+}
+
+.dashboard-graph-stats
+{
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-20);
+}
+.graph-card-graph,
+.graph-card-small,
+.dashboard-right-side,
+.dashboard-right-side > .content-card
+{
+    width: 100%;
+    max-width: none;
+}
+
+.dashboard-right-side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+}
+
+.graph-card-title {
+    color: var(--color-text-muted);
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 0;
+}
+
+.graph-card-value {
+    color: var(--color-text);
+    font-size: 5rem;
+}
+
+.graph-card-small > .primary-button {
+    margin-top: var(--spacing-20);
+    font-size: 1.25rem;
+}
+
+.warning-message
+{
+    text-align: left;
+    padding: var(--spacing-20) var(--spacing-48) var(--spacing-32) var(--spacing-48);
+    background-color: var(--color-banner);
+    box-shadow: var(--box-shadow);
+}
+
+@media (max-width: 1024px) {
+
+    .dashboard-container > h2
+    {
+        font-size: 2rem;
+    }
+    .dashboard-content
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin: 0 auto;
+        gap: var(--spacing-20);
+    }
+
+    .graph-card-big
+    {
+        width: 100%;
+        max-width: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--spacing-20);
+    }
+
+    .dashboard-right-side
+    {
+        display: contents;
+    }
+
+    .dashboard-right-side > .content-card:first-child
+    {
+        order: -1;
+    }
+
+    .warning-message
+    {
+        padding: var(--spacing-12) var(--spacing-20) var(--spacing-16) var(--spacing-20);
+    }
+}

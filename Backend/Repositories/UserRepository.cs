@@ -28,6 +28,16 @@ namespace Backend.Repositories
                 .Include(u => u.MoodReports)
                 .ToListAsync();
         }
+
+        public async Task<User?> GetDashboardUserAsync(int userId, DateOnly cutoff)
+        {
+
+            return await context.Users
+                .AsNoTracking()
+                .Include(u => u.MoodReports.Where(m => m.Date >= cutoff && m.Date <= DateOnly.FromDateTime(DateTime.Today)))
+                .FirstOrDefaultAsync(u => u.Id == userId);
+        }
+
         public async Task<User?> GetUserByIdAsync(int userId)
         {
             return await context.Users

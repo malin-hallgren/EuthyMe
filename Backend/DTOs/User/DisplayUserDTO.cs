@@ -8,5 +8,9 @@ namespace Backend.DTOs.User
         public string Email { get; set; }
 
         public List<DisplayMoodReportDTO> MoodReports { get; set; } = new List<DisplayMoodReportDTO>();
+
+        public float AverageMoodScore { get; set; }
+        public float AverageSleepScore { get; set; }
+        public int AmountMissedMeds { get; set; }
     }
 }

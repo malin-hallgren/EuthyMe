@@ -16,6 +16,8 @@
   --color-button-inactive: #C0CBBD;
   --color-warning: #FFC20C;
   --color-banner: #FFF0C4;
+  --color-sleep-graph: rgb(129, 197, 245);
+  --color-mood-graph: rgb(49, 40, 214);
   --drop-shadow: 0px 4px 4px rgba(90, 98, 88, 0.32);
   --box-shadow: 0 0 8.1px 0 rgba(90, 98, 88, 0.18);
 

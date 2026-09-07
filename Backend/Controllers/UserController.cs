@@ -5,6 +5,7 @@ using Backend.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace Backend.Controllers
@@ -41,7 +42,20 @@ namespace Backend.Controllers
             }
 
             return Created("", new {message = result.message});
+        }
 
+        [HttpGet]
+        [Route("dashboard")]
+        public async Task<IActionResult> GetDashboard()
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if(!int.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var result = await userService.GetDashboardUser(userId, 7);
+            return Ok(result);
         }
     }
 }

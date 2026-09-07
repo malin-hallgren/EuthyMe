@@ -1,10 +1,10 @@
 import react from 'react';
 import './ContentCard.css';
 
-export default function ContentCard({ children }) {
+export default function ContentCard({ children, className }) {
 
     return (
-        <div className="content-card">
+        <div className={`content-card ${className}`}>
             {children}
         </div>
     )

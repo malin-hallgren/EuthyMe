@@ -22,8 +22,4 @@ export default function ListReports() {
 
     }
 
-    return (
-        <button onClick={ListMoodReports}>Get Mood Reports</button>
-    )
-
 }

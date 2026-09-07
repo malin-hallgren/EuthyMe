@@ -6,5 +6,7 @@ namespace Backend.Repositories.IRepositories
     {
         Task<IEnumerable<User>?> GetUsersAsync();
         Task<User?> GetUserByIdAsync(int userId);
+
+        Task<User?> GetDashboardUserAsync(int userId, DateOnly cutoff);
     }
 }

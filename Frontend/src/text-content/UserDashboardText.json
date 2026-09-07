@@ -1,0 +1,11 @@
+{
+    "greeting": "Hello, {{name}}!",
+    "charttitle": "your 7 day summary",
+    "avgsleep": "Average sleep score:",
+    "avgmood": "Average mood score:",
+    "missedmeds": "Days of meds missed:",
+    "createmoodreport": "Create Mood Report",
+    "resourcestitle": "Resources",
+    "resourcesdescription": "Here are some resources that may be helpful for you:\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "bannerwarning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!"
+}

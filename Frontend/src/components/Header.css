@@ -17,6 +17,7 @@
 
 .header-title-auth {
     text-align: left;
+    margin-left: var(--spacing-24);
 }
 
 .header-auth .header-buttons-section {
@@ -82,6 +83,7 @@
 
     .header-title-auth {
         order:2;
+        margin-left: 0;
         text-align: center;
         position: absolute;
         top: 1%;

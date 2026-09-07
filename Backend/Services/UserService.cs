@@ -87,5 +87,72 @@ namespace Backend.Services
             var message = string.Join("; ", result.Errors.Select(e => e.Description));
             return (false, message);
         }
+
+        public async Task<DisplayUserDTO?> GetDashboardUser(int userId, int days)
+        {
+            var cutoff = DateOnly.FromDateTime(DateTime.Today.AddDays(-(days -1 )));
+
+            var user = await userRepository.GetDashboardUserAsync(userId, cutoff);
+            if (user == null)
+            {
+                return null;
+            }
+
+            var reportLookup = user.MoodReports.ToDictionary(m => m.Date);
+
+            var displayMoodReports = new List<DisplayMoodReportDTO>();
+
+            var moodValues = new List<int>();
+            var moodSum = 0;
+            var sleepValues = new List<int>();
+            var sleepSum = 0;
+            var medsValues = new List<bool>();
+            var medsSum = 0;
+
+            for (int i = 0; i < days; i++)
+            {
+                var currentDate = cutoff.AddDays(i);
+
+                if (reportLookup.TryGetValue(currentDate, out var report))
+                {
+                    displayMoodReports.Add(new DisplayMoodReportDTO
+                    {
+                        Date = report.Date,
+                        MoodScore = report.MoodScore,
+                        SleepScore = report.SleepScore,
+                        MedsTaken = report.MedsTaken
+                    });
+
+                    moodValues.Add(report.MoodScore);
+                    sleepValues.Add(report.SleepScore); 
+                    medsValues.Add(report.MedsTaken);
+                }
+                else
+                {
+                    displayMoodReports.Add(new DisplayMoodReportDTO
+                    {
+                        Date = currentDate,
+                        MoodScore = -1,
+                        SleepScore = -1,
+                        MedsTaken = true
+                    });
+
+                    moodValues.Add(-1);
+                    sleepValues.Add(-1);
+                    medsValues.Add(true);
+                }
+            }
+
+
+            return new DisplayUserDTO
+            {
+                DisplayName = user.DisplayName,
+                Email = user.Email,
+                MoodReports = displayMoodReports.OrderBy(m => m.Date).ToList(),
+                AverageMoodScore = (float)Math.Round(moodValues.Where(m => m > 0).Average(), 2),
+                AverageSleepScore = (float)Math.Round(sleepValues.Where(m => m > 0).Average(), 2),
+                AmountMissedMeds = medsValues.Count(m => !m)
+            };
+        }
     }
 }
