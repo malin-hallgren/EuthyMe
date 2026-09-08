@@ -1,6 +1,6 @@
 import './InputField.css';
 
-export default function InputField({ id, type, label, placeholder, value, onChange }) {
+export default function InputField({ id, type, label, placeholder, value, autocomplete, onChange }) {
     return (
         <div className="input-field">
             <label className="input-field__label" htmlFor={id}>
@@ -12,6 +12,7 @@ export default function InputField({ id, type, label, placeholder, value, onChan
                 type={type}
                 placeholder={placeholder}
                 value={value}
+                autoComplete={autocomplete}
                 onChange={onChange}
             />
         </div>

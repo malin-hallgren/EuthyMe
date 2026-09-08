@@ -6,6 +6,7 @@ import PrimaryButton from "./UI/PrimaryButton.jsx";
 import InputField from "./InputField.jsx";
 import SecondaryButton from "./UI/SecondaryButton.jsx";
 import "./Register.css";
+import LoginRegisterText from "../text-content/LoginRegisterText.json";
 
 export default function registerUser() {
     const [email, setEmail] = useState('');
@@ -49,11 +50,11 @@ export default function registerUser() {
         <>
             <div className="register-container">
                 <ContentCard>
-                    <h2>Register</h2>
+                    <h2>{LoginRegisterText.RegisterPage.register}</h2>
                     <form onSubmit={handleSubmit} className="register-form">
                         <InputField
                             htmlFor="Email"
-                            label="Email:"
+                            label={`${LoginRegisterText.RegisterPage.email}`}
                             type="email"
                             placeholder="Email"
                             value={email}
@@ -61,7 +62,7 @@ export default function registerUser() {
                         />
                         <InputField
                             htmlFor="Password"
-                            label="Password:"
+                            label={`${LoginRegisterText.RegisterPage.password}`}
                             type="password"
                             placeholder="Password"
                             value={password}
@@ -69,7 +70,7 @@ export default function registerUser() {
                         />
                         <InputField
                             htmlFor="ConfirmPassword"
-                            label="Confirm Password:"
+                            label={`${LoginRegisterText.RegisterPage.confirmPassword}`}
                             type="password"
                             placeholder="Confirm Password"
                             value={confirmPassword}
@@ -77,13 +78,13 @@ export default function registerUser() {
                         />
                         <InputField
                             htmlFor="DisplayName"
-                            label="Display Name:"
+                            label={`${LoginRegisterText.RegisterPage.display_name}`}
                             type="text"
                             placeholder="Display Name (optional)"
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
                         />
-                        <PrimaryButton text="Register" type="submit" />
+                        <PrimaryButton text={`${LoginRegisterText.RegisterPage.register_btn}`} type="submit" />
                     </form> 
                     <p>
                         {hasSubmitted && message.type === 'success' && (
@@ -93,7 +94,7 @@ export default function registerUser() {
                             <span style={{ color: 'red' }}>{message.text}</span>
                         )}
                     </p>
-                <SecondaryButton onClick={() => { navigate('/login') }} text="Back to Login"/>
+                <SecondaryButton onClick={() => { navigate('/login') }} text={`${LoginRegisterText.RegisterPage.back_to_login}`}/>
                 </ContentCard>
             </div> 
         </>

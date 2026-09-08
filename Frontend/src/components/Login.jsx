@@ -6,6 +6,7 @@ import ContentCard from './UI/ContentCard.jsx';
 import PrimaryButton from './UI/PrimaryButton.jsx';
 import SecondaryButton from './UI/SecondaryButton.jsx';
 import InputField from './InputField.jsx';
+import LoginRegisterText from '../text-content/LoginRegisterText.json';
 import './Login.css'
 
 export default function Login() {
@@ -42,13 +43,31 @@ export default function Login() {
     return (
         <div className="login-container">
             <ContentCard>
-                <h2>Login</h2>
+                <h2>{LoginRegisterText.LoginPage.login}</h2>
                 <form className="login-form" onSubmit={handleSubmit}>
-                    <InputField label="Email:" id="email" type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />
-                    <InputField label="Password:" id="password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
-                    <PrimaryButton text="Login" type="submit" />
+                    <InputField 
+                        label={`${LoginRegisterText.LoginPage.email}`} 
+                        id="email"
+                        type="text" 
+                        placeholder="Email" 
+                        autocomplete="username" 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        required />
+                    <InputField 
+                        label={`${LoginRegisterText.LoginPage.password}`}
+                        id="password" 
+                        type="password" 
+                        placeholder="Password" 
+                        autocomplete="current-password" 
+                        onChange={(e) => setPassword(e.target.value)}
+                        required />
+                    <PrimaryButton 
+                        text={`${LoginRegisterText.LoginPage.login}`} 
+                        type="submit" />
                 </form>
-                <SecondaryButton text="Register" onClick={() => navigate('/register')} />
+                <SecondaryButton 
+                    text={`${LoginRegisterText.LoginPage.register}`} 
+                    onClick={() => navigate('/register')} />
             </ContentCard>
         </div>
     );

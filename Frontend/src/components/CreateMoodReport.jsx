@@ -4,7 +4,7 @@ import ContentCard from './UI/ContentCard.jsx';
 import api from '../api/axios.js';
 import ScaleSelector from './UI/ScaleSelector.jsx';
 
-export default function CreateMoodReport({onClose}) {
+export default function CreateMoodReport({onClose, onCreated}) {
     const [mood, setMood] = useState('');
     const [sleep, setSleep] = useState('');
     const [medsTaken, setMedsTaken] = useState(false);
@@ -37,8 +37,12 @@ export default function CreateMoodReport({onClose}) {
             .then(response => response.data);
             console.log(response.message);
             
+            if (onCreated) {
+                onCreated(); // Notify parent component of successful creation
+            }
+
             if (onClose) {
-                onClose(); // Close the popup after successful submission
+                onClose(); // Close the popup after submission
             }
 
         } catch (error) {
@@ -48,6 +52,7 @@ export default function CreateMoodReport({onClose}) {
 
 
     return (
+        <ContentCard>
             <form onSubmit={handleSubmit}>
                 <ScaleSelector
                     label="Mood"
@@ -72,5 +77,6 @@ export default function CreateMoodReport({onClose}) {
                 />
                 <button type="submit">Submit Mood Report</button>
             </form>
+        </ContentCard>
     )
 }

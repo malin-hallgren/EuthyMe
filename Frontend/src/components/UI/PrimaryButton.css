@@ -19,6 +19,12 @@
 }
 
 .primary-button:disabled {
-  background: var(--state-disabled, --color-grey);
+  background: var(--color-text-muted);
   opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primary-button:hover:disabled {
+  box-shadow: none;
+  cursor: not-allowed;
 }

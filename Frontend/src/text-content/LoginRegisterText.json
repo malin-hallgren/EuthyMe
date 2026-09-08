@@ -1,0 +1,17 @@
+{
+    "LoginPage": {
+        "login": "Login",
+        "email": "Email:",
+        "password": "Password:",
+        "register": "Register"
+    },
+    "RegisterPage": {
+        "register": "Register",
+        "email": "Email:",
+        "password": "Password:",
+        "confirmPassword": "Confirm Password:",
+        "display_name": "Display Name:",
+        "register_btn": "Register",
+        "back_to_login": "Back to Login"
+    }
+}

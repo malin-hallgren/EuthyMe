@@ -103,11 +103,8 @@ namespace Backend.Services
             var displayMoodReports = new List<DisplayMoodReportDTO>();
 
             var moodValues = new List<int>();
-            var moodSum = 0;
             var sleepValues = new List<int>();
-            var sleepSum = 0;
             var medsValues = new List<bool>();
-            var medsSum = 0;
 
             for (int i = 0; i < days; i++)
             {
@@ -132,8 +129,8 @@ namespace Backend.Services
                     displayMoodReports.Add(new DisplayMoodReportDTO
                     {
                         Date = currentDate,
-                        MoodScore = -1,
-                        SleepScore = -1,
+                        MoodScore = null,
+                        SleepScore = null,
                         MedsTaken = true
                     });
 
@@ -149,6 +146,7 @@ namespace Backend.Services
                 DisplayName = user.DisplayName,
                 Email = user.Email,
                 MoodReports = displayMoodReports.OrderBy(m => m.Date).ToList(),
+                HasReportedToday = reportLookup.ContainsKey(DateOnly.FromDateTime(DateTime.Today)),
                 AverageMoodScore = (float)Math.Round(moodValues.Where(m => m > 0).Average(), 2),
                 AverageSleepScore = (float)Math.Round(sleepValues.Where(m => m > 0).Average(), 2),
                 AmountMissedMeds = medsValues.Count(m => !m)

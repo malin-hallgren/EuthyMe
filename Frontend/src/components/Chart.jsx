@@ -1,5 +1,6 @@
 import {Chart, LineElement} from 'chart.js/auto';
 import {Line} from 'react-chartjs-2';
+import UserDashboardText from '../text-content/UserDashboardText.json';
 import './Chart.css';
 
 Chart.register(LineElement);
@@ -60,15 +61,19 @@ export default function LineChart({ chartData = [], chartOptions }) {
         datasets: [
             {
                 label: 'Mood',
-                data: chartData.map(item => item.moodScore === -1 ? null : item.moodScore),
+                data: chartData.map(item => item.moodScore),
                 spanGaps: false,
+                pointRadius: 5,
+                pointHoverRadius: 7,
                 borderColor: 'rgb(75, 192, 192)',
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
             },
             {
                 label: 'Sleep',
-                data: chartData.map(item => item.sleepScore === -1 ? null : item.sleepScore),
+                data: chartData.map(item => item.sleepScore),
                 spanGaps: false,
+                pointRadius: 5,
+                pointHoverRadius: 7,
                 borderColor: 'rgb(49, 40, 214)',
                 backgroundColor: 'rgba(129, 197, 245, 0.2)',
                 borderDash: [5, 5],
@@ -88,7 +93,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
 
     return (
         <div className="chart-shell">
-            <h2 className="chart-title">Your 7 Day Summary</h2>
+            <h2 className="chart-title">{UserDashboardText.chart_title}</h2>
             <div className="chart-area">
                 <Line data={data} options={options} />
             </div>

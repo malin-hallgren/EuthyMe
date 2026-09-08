@@ -1,11 +1,14 @@
 {
     "greeting": "Hello, {{name}}!",
-    "charttitle": "your 7 day summary",
-    "avgsleep": "Average sleep score:",
-    "avgmood": "Average mood score:",
-    "missedmeds": "Days of meds missed:",
-    "createmoodreport": "Create Mood Report",
-    "resourcestitle": "Resources",
-    "resourcesdescription": "Here are some resources that may be helpful for you:\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "bannerwarning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!"
+    "chart_title": "Your 7 day summary",
+    "avg_sleep": "Average sleep score:",
+    "avg_mood": "Average mood score:",
+    "missed_meds": "Days of meds missed:",
+    "create_mood_report_title": "Create Mood Report",
+    "create_mood_report_description": "Please fill out the following questions to create your daily mood report. This will help you track your mental health and provide valuable insights for your well-being.",
+    "create_mood_report_btn_active": "Create Mood Report",
+    "create_mood_report_btn_inactive": "Daily Report Done!",
+    "resources_title": "Resources",
+    "resources_description": "Here are some resources that may be helpful for you:\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "banner_warning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!"
 }

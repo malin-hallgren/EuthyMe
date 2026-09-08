@@ -26,6 +26,11 @@ export default function Dashboard() {
             console.error('Error fetching user data:', error);
         }
     }
+
+    async function handleReportCreated() {
+        await fetchUserData(); // Refresh user data after a new report is created
+        setIsCreateReportOpen(false); // Close the popup after report creation
+    }
    
     function showWarningIfNeeded(response) {
         return (
@@ -43,7 +48,7 @@ export default function Dashboard() {
         <>
             {showWarning && (
                 <div className="warning-message">
-                    <p>{DashboardText.bannerwarning}</p>
+                    <p>{DashboardText.banner_warning}</p>
                 </div>
             )}
             <section className="dashboard-container">
@@ -55,32 +60,42 @@ export default function Dashboard() {
                         </ContentCard>
                         <section className="dashboard-graph-stats">
                             <ContentCard className = "graph-card-small">
-                                <h3 className="graph-card-title">{DashboardText.avgsleep}</h3>
+                                <h3 className="graph-card-title">{DashboardText.avg_sleep}</h3>
                                 <p className="graph-card-value">{user.averageSleepScore}</p>
                             </ContentCard>
                             <ContentCard className = "graph-card-small">
-                                <h3 className="graph-card-title">{DashboardText.avgmood}</h3>
+                                <h3 className="graph-card-title">{DashboardText.avg_mood}</h3>
                                 <p className="graph-card-value">{user.averageMoodScore}</p>
                             </ContentCard>
                             <ContentCard className = "graph-card-small">
-                                <h3 className="graph-card-title">{DashboardText.missedmeds}</h3>
+                                <h3 className="graph-card-title">{DashboardText.missed_meds}</h3>
                                 <p className="graph-card-value">{user.amountMissedMeds}</p>
                             </ContentCard>
                         </section>
                     </ContentCard>
                     <section className="dashboard-right-side">
                         <ContentCard className = "graph-card-small">
-                            <h3 className="graph-card-title">{DashboardText.createmoodreport}</h3>
-                            <PrimaryButton className="graph-card-create-mood-report-button" text={DashboardText.createmoodreport} onClick={() => setIsCreateReportOpen(true)} />
+                            <h3 className="graph-card-title">
+                                {user.hasReportedToday ? DashboardText.create_mood_report_btn_inactive : DashboardText.create_mood_report_btn_active}
+                            </h3>
+                            <p className="graph-card-description">{DashboardText.create_mood_report_description}</p>
+                            <PrimaryButton 
+                                className="graph-card-create-mood-report-button" 
+                                disabled={user.hasReportedToday}
+                                text={user.hasReportedToday ? DashboardText.create_mood_report_btn_inactive : DashboardText.create_mood_report_btn_active}
+                                onClick={() => setIsCreateReportOpen(true)} />
                             <PopUp isOpen={isCreateReportOpen} onClose={handleCloseCreateReport}>
                                 <ContentCard>
-                                    <CreateMoodReport onClose={handleCloseCreateReport} />
+                                    <CreateMoodReport 
+                                        onCreated={handleReportCreated} 
+                                        onClose={handleCloseCreateReport} 
+                                    />
                                 </ContentCard>
                             </PopUp>
                         </ContentCard>
                         <ContentCard className = "graph-card-small">
-                            <p className="graph-card-title resourcesTitle">{DashboardText.resourcestitle}</p>
-                            <p className="graph-card-description">{DashboardText.resourcesdescription}</p>
+                            <p className="graph-card-title resourcesTitle">{DashboardText.resources_title}</p>
+                            <p className="graph-card-description">{DashboardText.resources_description}</p>
                         </ContentCard>
                     </section>
                 </section>

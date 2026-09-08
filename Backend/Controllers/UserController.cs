@@ -46,7 +46,7 @@ namespace Backend.Controllers
 
         [HttpGet]
         [Route("dashboard")]
-        public async Task<IActionResult> GetDashboard()
+        public async Task<IActionResult> GetDashboard([FromBody] int days = 7)
         {
             var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if(!int.TryParse(userIdClaim, out var userId))
@@ -54,7 +54,7 @@ namespace Backend.Controllers
                 return Unauthorized();
             }
 
-            var result = await userService.GetDashboardUser(userId, 7);
+            var result = await userService.GetDashboardUser(userId, days);
             return Ok(result);
         }
     }
