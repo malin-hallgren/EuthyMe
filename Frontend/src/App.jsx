@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import { AuthProvider} from './context/AuthContext.jsx'
+import { AuthProvider } from "./context/auth/AuthProvider.jsx";
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 import PublicRoute from './routes/PublicRoute.jsx'
 import Header from './components/Header.jsx'

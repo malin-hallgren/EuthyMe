@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {LoginUser} from '../services/AuthServices.js';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useAuth } from "../hooks/useAuth.js";
 import ContentCard from './UI/ContentCard.jsx';
 import PrimaryButton from './UI/PrimaryButton.jsx';
 import SecondaryButton from './UI/SecondaryButton.jsx';

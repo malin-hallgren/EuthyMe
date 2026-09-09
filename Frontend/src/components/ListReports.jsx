@@ -1,27 +1,27 @@
-import {useState} from 'react'
-import api from '../api/axios.js';
+// import {useState} from 'react'
+// import api from '../api/axios.js';
 
-// DEPRECATED
+// // DEPRECATED
 
-export default function ListReports() {
-    const [reports, setReports] = useState([])
+// export default function ListReports() {
+//     const [reports, setReports] = useState([])
 
-    const ListMoodReports = async (event) => {
-        event.preventDefault();
-        try {
-            const response = api.get(`moodreport`)
-            .then((response) => {
-                setReports(response.data);
-                console.log('Mood reports response:', response.data);
-            });
-        }
+//     const ListMoodReports = async (event) => {
+//         event.preventDefault();
+//         try {
+//             const response = api.get(`moodreport`)
+//             .then((response) => {
+//                 setReports(response.data);
+//                 console.log('Mood reports response:', response.data);
+//             });
+//         }
 
-        catch (error)
-        {
-            console.error('Failed to fetch mood reports:', error.response.status,error.response.data.message);
-            return;
-        }
+//         catch (error)
+//         {
+//             console.error('Failed to fetch mood reports:', error.response.status,error.response.data.message);
+//             return;
+//         }
 
-    }
+//     }
 
-}
+// }

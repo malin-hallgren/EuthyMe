@@ -13,10 +13,13 @@ namespace Backend.Services
         private readonly IUserRepository userRepository;
         private readonly UserManager<User> userManager;
 
-        public UserService(IUserRepository _userRepository, UserManager<User> _userManager)
+        private readonly IMoodReportService moodReportService;
+
+        public UserService(IUserRepository _userRepository, UserManager<User> _userManager, IMoodReportService _moodReportService)
         {
             userRepository = _userRepository;
             userManager = _userManager;
+            moodReportService = _moodReportService;
         }
         public async Task<IEnumerable<UserActivityDTO>?> GetUsersAsync()
         {
@@ -98,58 +101,18 @@ namespace Backend.Services
                 return null;
             }
 
-            var reportLookup = user.MoodReports.ToDictionary(m => m.Date);
-
-            var displayMoodReports = new List<DisplayMoodReportDTO>();
-
-            var moodValues = new List<int>();
-            var sleepValues = new List<int>();
-            var medsValues = new List<bool>();
-
-            for (int i = 0; i < days; i++)
-            {
-                var currentDate = cutoff.AddDays(i);
-
-                if (reportLookup.TryGetValue(currentDate, out var report))
-                {
-                    displayMoodReports.Add(new DisplayMoodReportDTO
-                    {
-                        Date = report.Date,
-                        MoodScore = report.MoodScore,
-                        SleepScore = report.SleepScore,
-                        MedsTaken = report.MedsTaken
-                    });
-
-                    moodValues.Add(report.MoodScore);
-                    sleepValues.Add(report.SleepScore); 
-                    medsValues.Add(report.MedsTaken);
-                }
-                else
-                {
-                    displayMoodReports.Add(new DisplayMoodReportDTO
-                    {
-                        Date = currentDate,
-                        MoodScore = null,
-                        SleepScore = null,
-                        MedsTaken = true
-                    });
-
-                    moodValues.Add(-1);
-                    sleepValues.Add(-1);
-                    medsValues.Add(true);
-                }
-            }
+            var moodReports = await moodReportService.GetMoodReportsForDashboardAsync(userId, days);
 
 
             return new DisplayUserDTO
             {
                 DisplayName = user.DisplayName,
                 Email = user.Email,
-                MoodReports = displayMoodReports.OrderBy(m => m.Date).ToList(),
-                HasReportedToday = reportLookup.ContainsKey(DateOnly.FromDateTime(DateTime.Today)),
-                AverageMoodScore = (float)Math.Round(moodValues.Where(m => m > 0).Average(), 2),
-                AverageSleepScore = (float)Math.Round(sleepValues.Where(m => m > 0).Average(), 2),
-                AmountMissedMeds = medsValues.Count(m => !m)
+                MoodReports = moodReports.MoodReports.OrderBy(m => m.Date).ToList(),
+                HasReportedToday = moodReports.HasReportedToday,
+                AverageMoodScore = moodReports.AverageMoodScore,
+                AverageSleepScore = moodReports.AverageSleepScore,
+                AmountMissedMeds = moodReports.AmountMissedMeds
             };
         }
     }

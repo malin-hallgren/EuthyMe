@@ -65,5 +65,23 @@ namespace Backend.Controllers
             }
             return Created("", new { message = moodReport.message });
         }
+
+        [HttpGet]
+        [Authorize(Policy = "UserOnly")]
+        [Route("refresh")]
+        public async Task<ActionResult<List<DashboardMoodReportDTO>>> RefreshMoodReportsForUser(int days = 7)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userId, out int id))
+            {
+                return BadRequest(new { message = "Invalid user ID" });
+            }
+            var moodReports = await moodReportService.GetMoodReportsForDashboardAsync(id, days);
+            if (moodReports == null)
+            {
+                return NotFound(new { message = "No mood reports found for the specified user" });
+            }
+            return Ok(moodReports);
+        }
     }
 }

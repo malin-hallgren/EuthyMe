@@ -1,4 +1,17 @@
-import React from 'react'; // Fixed capitalization typo
+import React from 'react';
+import { ScaleSelectorValue1 } from './icons/ScaleSelectorValue1.jsx';
+import { ScaleSelectorValue2 } from './icons/ScaleSelectorValue2.jsx';
+import { ScaleSelectorValue3 } from './icons/ScaleSelectorValue3.jsx';
+import { ScaleSelectorValue4 } from './icons/ScaleSelectorValue4.jsx';
+import { ScaleSelectorValue5 } from './icons/ScaleSelectorValue5.jsx';
+
+const scaleValueIcons = {
+    1: ScaleSelectorValue1,
+    2: ScaleSelectorValue2,
+    3: ScaleSelectorValue3,
+    4: ScaleSelectorValue4,
+    5: ScaleSelectorValue5,
+};
 
 export default function ScaleSelector({ label, name, selected, onChange, optionsMap }) {
     return (
@@ -8,22 +21,28 @@ export default function ScaleSelector({ label, name, selected, onChange, options
             <div className="scale-group">
                 {Object.entries(optionsMap).map(([value]) => {
                     const isSelected = String(selected) === String(value);
+                    const ScaleIcon = scaleValueIcons[value];
                     
                     return (
-                        <label 
-                            key={value} 
-                            className={`scale-option ${isSelected ? "selected" : ""}`}
-                        >
+                        <React.Fragment key={value}>
                             <input
                                 type="radio"
+                                id={`scale-${name}-${value}`}
                                 name={name}
                                 value={value}
                                 checked={isSelected}
-                                onChange={(e) => onChange(e.target.value)} // Passes value directly to your state setter
+                                onChange={(e) => onChange(e.target.value)} //   Passes value directly to your state setter
                                 className="scale-input"
                             />
-                            <span className="scale-number">{value}</span>
-                        </label>
+                            <label
+                                className={`scale-option ${isSelected ? "selected" : ""}`}
+                                htmlFor={`scale-${name}-${value}`}
+                            >
+                                {ScaleIcon ? <ScaleIcon aria-hidden="true" /> : optionsMap[value]}
+                            </label>
+                        
+                        </React.Fragment>
+
                     );
                 })}
             </div>

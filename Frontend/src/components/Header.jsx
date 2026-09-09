@@ -1,6 +1,6 @@
 import "./Header.css"
 import StaticText from "../text-content/StaticText.json"
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../hooks/useAuth.js";
 import Logout from "./Logout.jsx"
 import {AccountIcon} from "./UI/icons/AccountCircleIcon.jsx";
 

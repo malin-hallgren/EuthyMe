@@ -35,5 +35,14 @@ namespace Backend.Repositories
             await context.MoodReports.AddAsync(moodReport);
             return await context.SaveChangesAsync() > 0;
         }
+
+        public async Task<IEnumerable<MoodReport>> GetMoodReportsByUserIdAndDateAsync(int userId, DateOnly cutoffDate)
+        {
+            return await context.MoodReports
+                .AsNoTracking()
+                .Where(m => m.UserId == userId && m.Date >= cutoffDate)
+                .OrderBy(m => m.Date)
+                .ToListAsync();
+        }
     }
 }

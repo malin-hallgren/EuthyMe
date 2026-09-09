@@ -1,4 +1,3 @@
-import react from "react";
 import './PopUp.css';
 
 export default function PopUp({ children, isOpen, onClose }) {

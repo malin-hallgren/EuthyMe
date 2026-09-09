@@ -9,5 +9,7 @@ namespace Backend.Repositories.IRepositories
         Task<bool> CheckDailyReportExistsAsync(int userId, DateOnly date);
 
         Task<bool> CreateMoodReportAsync(MoodReport moodReport);
+
+        Task<IEnumerable<MoodReport>> GetMoodReportsByUserIdAndDateAsync(int userId, DateOnly cutoffDate);
     }
 }

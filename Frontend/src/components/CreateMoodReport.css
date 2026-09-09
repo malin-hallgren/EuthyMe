@@ -2,6 +2,35 @@
     display: none;
 }
 
+.scale-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.scale-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
 .scale-option {
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.scale-option svg {
+    width: 64px;
+    height: 64px;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.scale-option.selected svg {
+    color: var(--color-text);
+    transform: scale(1.2);
 }

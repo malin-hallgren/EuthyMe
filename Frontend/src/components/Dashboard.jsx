@@ -6,6 +6,7 @@ import PopUp from "./UI/PopUp";
 import CreateMoodReport from "./CreateMoodReport";
 import {getFullDashboardData} from '../services/UserServices.js';
 import DashboardText from "../text-content/UserDashboardText.json";
+import {refreshMoodReports} from "../services/MoodReportServices.js";
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -26,7 +27,15 @@ export default function Dashboard() {
     }
 
     async function handleReportCreated() {
-        await fetchUserData(); // Refresh user data after a new report is created, improve this to ONLY fetch reports
+        const refreshedData = await refreshMoodReports(); // Fetch only the updated mood reports
+        setUser(prevUser => ({
+            ...prevUser,
+            moodReports: refreshedData.moodReports,
+            hasReportedToday: refreshedData.hasReportedToday,
+            averageMoodScore: refreshedData.averageMoodScore,
+            averageSleepScore: refreshedData.averageSleepScore,
+            amountMissedMeds: refreshedData.amountMissedMeds
+        }));
         setIsCreateReportOpen(false); // Close the popup after report creation
     }
    

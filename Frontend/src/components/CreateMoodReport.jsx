@@ -1,8 +1,8 @@
-import react from 'react';
 import { useState } from 'react';
 import ContentCard from './UI/ContentCard.jsx';
 import { createMoodReport } from '../services/MoodReportServices.js';
 import ScaleSelector from './UI/ScaleSelector.jsx';
+import './CreateMoodReport.css';
 
 export default function CreateMoodReport({onClose, onCreated}) {
     const [mood, setMood] = useState('');
@@ -55,14 +55,14 @@ export default function CreateMoodReport({onClose, onCreated}) {
             <form onSubmit={handleSubmit}>
                 <ScaleSelector
                     label="Mood"
-                    name=""
+                    name="mood"
                     selected={mood}
                     onChange={setMood}
                     optionsMap={moodOptions}
                 />
                 <ScaleSelector
                     label="Sleep"
-                    name=""
+                    name="sleep"
                     selected={sleep}
                     onChange={setSleep}
                     optionsMap={sleepOptions}
