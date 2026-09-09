@@ -9,3 +9,8 @@ export async function LogoutUser() {
     const response = await api.post('auth/logout');
     return response.data;
 }
+
+export async function CheckAuthStatus() {
+    const response = await api.get('auth/status');
+    return response.data;
+}
