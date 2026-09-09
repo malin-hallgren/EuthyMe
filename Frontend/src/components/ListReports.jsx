@@ -1,13 +1,15 @@
 import {useState} from 'react'
 import api from '../api/axios.js';
 
+// DEPRECATED
+
 export default function ListReports() {
     const [reports, setReports] = useState([])
 
     const ListMoodReports = async (event) => {
         event.preventDefault();
         try {
-            const response = api.get(`/moodreport`)
+            const response = api.get(`moodreport`)
             .then((response) => {
                 setReports(response.data);
                 console.log('Mood reports response:', response.data);

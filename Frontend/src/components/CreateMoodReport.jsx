@@ -1,7 +1,7 @@
 import react from 'react';
 import { useState } from 'react';
 import ContentCard from './UI/ContentCard.jsx';
-import api from '../api/axios.js';
+import { createMoodReport } from '../services/MoodReportServices.js';
 import ScaleSelector from './UI/ScaleSelector.jsx';
 
 export default function CreateMoodReport({onClose, onCreated}) {
@@ -10,11 +10,11 @@ export default function CreateMoodReport({onClose, onCreated}) {
     const [medsTaken, setMedsTaken] = useState(false);
 
     const moodOptions = {
-        1: 'Very Bad',
-        2: 'Bad',
+        1: 'Very Low Mood',
+        2: 'Low Mood',
         3: 'Neutral',
-        4: 'Good',
-        5: 'Very Good'
+        4: 'High Mood',
+        5: 'Very High Mood'
     };
 
     const sleepOptions = {
@@ -33,8 +33,7 @@ export default function CreateMoodReport({onClose, onCreated}) {
                 sleepScore: Number(sleep),
                 medsTaken: medsTaken === 'true' || medsTaken === true //force boolean
             };
-            const response = await api.post('/moodreport', payload)
-            .then(response => response.data);
+            const response = await createMoodReport(payload);
             console.log(response.message);
             
             if (onCreated) {
@@ -56,14 +55,14 @@ export default function CreateMoodReport({onClose, onCreated}) {
             <form onSubmit={handleSubmit}>
                 <ScaleSelector
                     label="Mood"
-                    name="mood"
+                    name=""
                     selected={mood}
                     onChange={setMood}
                     optionsMap={moodOptions}
                 />
                 <ScaleSelector
                     label="Sleep"
-                    name="sleep"
+                    name=""
                     selected={sleep}
                     onChange={setSleep}
                     optionsMap={sleepOptions}

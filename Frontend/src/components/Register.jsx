@@ -1,4 +1,4 @@
-import api from "../api/axios";
+import {registerUser} from '../services/UserServices.js';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ContentCard from "./UI/ContentCard.jsx";
@@ -8,7 +8,7 @@ import SecondaryButton from "./UI/SecondaryButton.jsx";
 import "./Register.css";
 import LoginRegisterText from "../text-content/LoginRegisterText.json";
 
-export default function registerUser() {
+export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,12 +29,11 @@ export default function registerUser() {
         }
 
         try {
-            const response = await api.post('/user/register', {
+            const response = await registerUser({
                 Email: email,
                 Password: password,
                 DisplayName: displayName ? displayName : null
-            })
-            .then(response => response.data);
+            });
 
             setMessage({type : 'success', text: response.message});
         } catch (error) {
@@ -98,7 +97,5 @@ export default function registerUser() {
                 </ContentCard>
             </div> 
         </>
-         
-
     )
 }

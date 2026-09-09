@@ -4,7 +4,7 @@ import LineChart from "./Chart";
 import PrimaryButton from "./UI/PrimaryButton";
 import PopUp from "./UI/PopUp";
 import CreateMoodReport from "./CreateMoodReport";
-import api from "../api/axios";
+import {getFullDashboardData} from '../services/UserServices.js';
 import DashboardText from "../text-content/UserDashboardText.json";
 import './Dashboard.css';
 
@@ -16,9 +16,7 @@ export default function Dashboard() {
 
     async function fetchUserData() {
         try {
-            const response = await api.get('/user/dashboard')
-            .then(response => response.data);
-
+            const response = await getFullDashboardData();
             setUser(response);
             setShowWarning(showWarningIfNeeded(response));
             console.log('Fetched user data:', response);
@@ -28,7 +26,7 @@ export default function Dashboard() {
     }
 
     async function handleReportCreated() {
-        await fetchUserData(); // Refresh user data after a new report is created
+        await fetchUserData(); // Refresh user data after a new report is created, improve this to ONLY fetch reports
         setIsCreateReportOpen(false); // Close the popup after report creation
     }
    

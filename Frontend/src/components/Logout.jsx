@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
-import api from '../api/axios.js';
+import {LogoutUser} from "../services/AuthServices.js";
 import {LogoutIcon} from "./UI/icons/LogoutIcon.jsx";
 
 export default function Logout() {
@@ -11,15 +11,10 @@ export default function Logout() {
 
     const handleClick = async () => {
         try {
-            await api.post('/Auth/logout')
-            .then(response => {
-                console.log('Logged out from EuthyMe');
-
-                setIsAuthenticated(false);
-                setUserRole(null);
-
-                navigate('/login');
-            });
+            await LogoutUser();
+            setIsAuthenticated(false);
+            setUserRole(null);
+            navigate('/login');
         } 
         catch (error) {
             console.error('Error during logout:', error);

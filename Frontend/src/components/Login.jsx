@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/axios.js';
+import {LoginUser} from '../services/AuthServices.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import ContentCard from './UI/ContentCard.jsx';
 import PrimaryButton from './UI/PrimaryButton.jsx';
@@ -19,12 +19,12 @@ export default function Login() {
         e.preventDefault();
 
         try {
-            const response = await api.post('/Auth/login', {
+            const response = await LoginUser({
                 UserName: email,
                 Password: password,
             });
 
-            const { role } = response.data;
+            const { role } = response;
             setIsAuthenticated(true);
             setUserRole(role);
 
@@ -34,7 +34,7 @@ export default function Login() {
                 navigate('/dashboard', { replace: true });
             }
 
-            console.log('Login successful:', response.data);
+            console.log('Login successful:', response);
         } catch (error) {
             console.error('Login failed:', error);
         }

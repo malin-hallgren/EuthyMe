@@ -41,15 +41,12 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("logout")]
-        public async Task<IActionResult> Logout()
+        public async Task<ActionResult> Logout()
         {
             var options = await authService.GetCookieOptionsAsync();
             Response.Cookies.Delete("auth_token", options);
 
-            return Ok(new
-            {
-                message = "Logged out successfully"
-            });
+            return Ok();
         }
 
         [HttpGet]

@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import api from '../api/axios.js';
+import {getUsers} from '../services/UserServices.js';
 
 export default function ListUsers() {
     const [users, setUsers] = useState([]);
@@ -7,12 +7,8 @@ export default function ListUsers() {
     async function ListUsers () {
 
         try {
-            await api.get('/user')
-            .then(response => response.data)
-            .then(data => {
-                setUsers(data);
-                console.log('Fetched users:', data);
-            })
+            const response = await getUsers();
+            setUsers(response);
         }
         catch (error) {
             console.error('Error fetching users:', error);
