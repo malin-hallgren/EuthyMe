@@ -10,5 +10,36 @@
     "create_mood_report_btn_inactive": "Daily Report Done!",
     "resources_title": "Resources",
     "resources_description": "Here are some resources that may be helpful for you:\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "banner_warning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!"
+    "banner_warning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!",
+    
+    "mood" : {
+
+        "header": "Mood",
+        "description": "Estimate your mood for the day. Remember that low mood can be depression, but also fatigue, feelings of hopelessness or ahedony. High mood can be happiness but also stress, anxiety or irritability.",
+        "option1": "Very Low",
+        "option2": "Low",
+        "option3": "Neutral",
+        "option4": "High",
+        "option5": "Very High"
+    },
+
+    "sleep" : {
+        "header": "Sleep",
+        "description": "Estimate your sleep for the day.",
+        "option1": "Less than 4 hours of",
+        "option2": "4-6 hours of",
+        "option3": "6-8 hours of",
+        "option4": "8-10 hours of",
+        "option5": "More than 10 hours of"
+    },
+
+    "meds" : {
+        "header": "Medication",
+        "description": "Have you taken your medication today?",
+        "option1": "Took",
+        "option2": "Did not take"
+    },
+
+    "selected": "Selected: {{option}} {{label}}",
+    "select_prompt": "Select a {{label}} value"
 }

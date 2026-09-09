@@ -10,3 +10,24 @@
   justify-content: center;    
   z-index: 1000;              
 }
+.popup-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: var(--font-size-large);
+  cursor: pointer;
+}
+
+.popup-content {
+  margin: auto;
+  position: relative;
+  background-color: var(--color-bg);
+  padding: var(--spacing-20);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--box-shadow);
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+}

@@ -1,28 +1,36 @@
 import { useState } from 'react';
-import ContentCard from './UI/ContentCard.jsx';
+import UserDashboardText from '../text-content/UserDashboardText.json';
 import { createMoodReport } from '../services/MoodReportServices.js';
 import ScaleSelector from './UI/ScaleSelector.jsx';
+import PrimaryButton from './UI/PrimaryButton.jsx';
 import './CreateMoodReport.css';
 
 export default function CreateMoodReport({onClose, onCreated}) {
     const [mood, setMood] = useState('');
     const [sleep, setSleep] = useState('');
-    const [medsTaken, setMedsTaken] = useState(false);
+    const [medsTaken, setMedsTaken] = useState();
+
+    const isFormComplete = mood !== '' && sleep !== '' && medsTaken !== undefined;
 
     const moodOptions = {
-        1: 'Very Low Mood',
-        2: 'Low Mood',
-        3: 'Neutral',
-        4: 'High Mood',
-        5: 'Very High Mood'
+        1: { text: UserDashboardText.mood.option1 },
+        2: { text: UserDashboardText.mood.option2 },
+        3: { text: UserDashboardText.mood.option3 },
+        4: { text: UserDashboardText.mood.option4 },
+        5: { text: UserDashboardText.mood.option5 }
     };
 
     const sleepOptions = {
-        1: 'Less than 4 hours',
-        2: '4-6 hours',
-        3: '6-8 hours',
-        4: '8-10 hours',
-        5: 'More than 10 hours'
+        1: { text: UserDashboardText.sleep.option1 },
+        2: { text: UserDashboardText.sleep.option2 },
+        3: { text: UserDashboardText.sleep.option3 },
+        4: { text: UserDashboardText.sleep.option4 },
+        5: { text: UserDashboardText.sleep.option5 }
+    };
+
+    const medsOptions = {
+        true: { text: UserDashboardText.meds.option1 },
+        false: { text: UserDashboardText.meds.option2 }
     };
 
     const handleSubmit = async (e) => {
@@ -51,31 +59,41 @@ export default function CreateMoodReport({onClose, onCreated}) {
 
 
     return (
-        <ContentCard>
+        <div className="create-mood-report-container">
             <form onSubmit={handleSubmit}>
-                <ScaleSelector
-                    label="Mood"
+                <ScaleSelector className="scale-selector-block"
+                    label={UserDashboardText.mood.header}
+                    description={UserDashboardText.mood.description}
                     name="mood"
                     selected={mood}
                     onChange={setMood}
                     optionsMap={moodOptions}
+                    required 
                 />
-                <ScaleSelector
-                    label="Sleep"
+                <ScaleSelector className="scale-selector-block"
+                    label={UserDashboardText.sleep.header}
+                    description={UserDashboardText.sleep.description}
                     name="sleep"
                     selected={sleep}
                     onChange={setSleep}
                     optionsMap={sleepOptions}
+                    required 
                 />
-                <ScaleSelector
-                    label="Meds Taken"
+                <ScaleSelector className="scale-selector-block"
+                    label={UserDashboardText.meds.header}
+                    textKey="meds"
+                    description={UserDashboardText.meds.description}
                     name="medsTaken"
                     selected={medsTaken}
                     onChange={setMedsTaken}
-                    optionsMap={{ true: 'Yes', false: 'No' }}
+                    optionsMap={medsOptions}
+                    required 
                 />
-                <button type="submit">Submit Mood Report</button>
+                <PrimaryButton 
+                    type="submit" 
+                    text={UserDashboardText.create_mood_report_btn_active} 
+                    disabled={!isFormComplete}/>     
             </form>
-        </ContentCard>
+        </div>
     )
 }

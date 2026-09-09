@@ -1,3 +1,4 @@
+import ContentCard from './ContentCard';
 import './PopUp.css';
 
 export default function PopUp({ children, isOpen, onClose }) {
@@ -6,9 +7,13 @@ export default function PopUp({ children, isOpen, onClose }) {
         <>
             {isOpen && (
                 <div className="popup-backdrop" onClick={onClose}>
-                    {/* stopPropagation hindrar att popupen stängs när man klickar inuti själva formuläret */}
                     <div onClick={(e) => e.stopPropagation()}>
-                        {children}
+                        <ContentCard className="popup-content">
+                            <button className="popup-close-button" onClick={onClose}>
+                                &times;
+                            </button>
+                            {children}
+                        </ContentCard>
                     </div>
                 </div>
             )}

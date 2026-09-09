@@ -1,3 +1,9 @@
+.create-mood-report-container{
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: auto;
+}
+
 .scale-input {
     display: none;
 }
@@ -6,14 +12,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 10px;
+    margin: var(--spacing-16) 10px;
+}
+
+.scale-selector-label {
+    margin-bottom: 8px;
+    font-size: 2rem;
+    color: var(--color-text);
+}
+
+.scale-selector-description {
+    font-size: 1.15rem;
+    color: var(--color-text);
+    text-align: center;
 }
 
 .scale-group {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
+    margin: var(--spacing-16) auto;
+    padding: var(--spacing-2);
+    gap: var(--spacing-8);
 }
 
 .scale-option {
@@ -24,13 +44,28 @@
 }
 
 .scale-option svg {
-    width: 64px;
-    height: 64px;
+    width: 100%;
+    max-width: 5rem;
+    height: 100%;
+    max-height: 5rem;
     color: var(--color-text-muted);
+    margin-top: calc(var(--spacing-4)*-1);
     transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.scale-option svg:hover {
+    transform: scale(1.1);
 }
 
 .scale-option.selected svg {
     color: var(--color-text);
     transform: scale(1.2);
 }
+
+.context-label {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-top: calc(var(--spacing-8)*-1);
+    margin-bottom: var(--spacing-8);
+}
+

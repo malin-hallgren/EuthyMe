@@ -92,12 +92,10 @@ export default function Dashboard() {
                                 text={user.hasReportedToday ? DashboardText.create_mood_report_btn_inactive : DashboardText.create_mood_report_btn_active}
                                 onClick={() => setIsCreateReportOpen(true)} />
                             <PopUp isOpen={isCreateReportOpen} onClose={handleCloseCreateReport}>
-                                <ContentCard>
                                     <CreateMoodReport 
                                         onCreated={handleReportCreated} 
                                         onClose={handleCloseCreateReport} 
                                     />
-                                </ContentCard>
                             </PopUp>
                         </ContentCard>
                         <ContentCard className = "graph-card-small">
