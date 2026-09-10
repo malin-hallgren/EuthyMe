@@ -1,23 +1,23 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {Routes, Route} from 'react-router-dom'
 import { AuthProvider } from "./context/auth/AuthProvider.jsx";
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 import PublicRoute from './routes/PublicRoute.jsx'
 import Header from './components/Header.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
-import AdminDashboard from './pages/AdminDashboard.jsx'
+import AdminDashboardPage from './pages/AdminDashboardPage.jsx'
 import Dashboard from './pages/DashboardPage.jsx'
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <BrowserRouter>
         <main>
           <Header />
           
           <Routes>
             <Route element={<PublicRoute />}>
+              <Route path="/" element={<LoginPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
             </Route>
@@ -27,12 +27,11 @@ function App() {
             </Route>
 
             <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin" element={<AdminDashboardPage />} />
             </Route>
 
           </Routes>
         </main>
-        </BrowserRouter>
       </AuthProvider>
     </>
   )
