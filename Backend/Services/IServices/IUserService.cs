@@ -8,5 +8,6 @@ namespace Backend.Services.IServices
         Task<ThinDisplayUserDTO?> GetUserByIdAsync(int userId);
         Task<DisplayUserDTO> GetDashboardUser(int userId, int days);
         Task<(bool isSuccess, string? message)> RegisterUserAsync(RegisterUserDTO registerUser);
+        Task<bool> DeleteUserAsync(int userId);
     }
 }

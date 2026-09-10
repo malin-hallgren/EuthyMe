@@ -4,6 +4,7 @@ using Backend.Models;
 using Backend.Repositories.IRepositories;
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services
@@ -36,6 +37,7 @@ namespace Backend.Services
                 {
                     return new UserActivityDTO
                     {
+                        Id = u.Id,
                         DisplayName = u.DisplayName,
                         DaysAgo = null
                     };
@@ -45,7 +47,8 @@ namespace Backend.Services
 
 
                 return new UserActivityDTO
-                {
+                {   
+                    Id = u.Id,
                     DisplayName = u.DisplayName,
                     DaysAgo = days,
                 };
@@ -118,6 +121,18 @@ namespace Backend.Services
                 AverageSleepScore = moodReports.AverageSleepScore,
                 AmountMissedMeds = moodReports.AmountMissedMeds
             };
+        }
+
+        public async Task<bool> DeleteUserAsync(int userId)
+        {
+            var user = await userRepository.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            var result = await userRepository.DeleteUserAsync(user);
+            return result;
         }
     }
 }

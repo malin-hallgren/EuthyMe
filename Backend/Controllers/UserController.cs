@@ -57,5 +57,18 @@ namespace Backend.Controllers
             var result = await userService.GetDashboardUser(userId, days);
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("{userId:int}")]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> DeleteUser([FromRoute] int userId)
+        {
+            var result = await userService.DeleteUserAsync(userId);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
     }
 }

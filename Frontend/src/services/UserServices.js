@@ -23,3 +23,16 @@ export async function registerUser(payload) {
     const response = await api.post('user/register', payload);
     return response.data;
 }
+
+export async function deleteUser(userId) {
+    try {
+        const response = await api.delete(`user/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        throw error; // Rethrow the error to be handled by the caller
+    }
+    finally {
+        // Cleanup code if needed
+    }
+}

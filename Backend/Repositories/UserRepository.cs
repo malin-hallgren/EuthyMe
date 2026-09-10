@@ -44,5 +44,12 @@ namespace Backend.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
+
+        public async Task<bool> DeleteUserAsync(User user)
+        {
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();
+            return true;
+        }
     }
 }
