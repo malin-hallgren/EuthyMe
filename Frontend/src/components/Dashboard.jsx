@@ -37,13 +37,15 @@ export default function Dashboard() {
             amountMissedMeds: refreshedData.amountMissedMeds
         }));
         setIsCreateReportOpen(false); // Close the popup after report creation
+        showWarningIfNeeded(refreshedData); // Check if warning needs to be shown after report creation
     }
    
     function showWarningIfNeeded(response) {
-        return (
+        return(
             response.amountMissedMeds > 2 || 
-            response.averageMoodScore < 2 || 
-            response.averageSleepScore < 2 && response.averageMoodScore > 4
+            response.averageMoodScore < 2  && !response.averageMoodScore === 0 ||
+            response.averageSleepScore < 2 && 
+            response.averageMoodScore > 4
         );
     }
 
@@ -56,6 +58,7 @@ export default function Dashboard() {
             {showWarning && (
                 <div className="warning-message">
                     <p>{DashboardText.banner_warning}</p>
+                    <button className="close-warning-button" onClick={() => setShowWarning(false)}>&times;</button>
                 </div>
             )}
             <section className="dashboard-container">

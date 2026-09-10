@@ -53,7 +53,7 @@ export default function AdminDashboard() {
                     <h2>List of Inactive Users</h2>
                     {inactiveUsers.map(user => (
                         <div key={user.id} className="inactive-user-item">
-                            <p>{user.displayName} -     {user.daysAgo} {AdminDashboardText.days_ago}</p>
+                            <p>{user.displayName} -     {user.daysAgo ? `${user.daysAgo} ${AdminDashboardText.days_ago}` : 'No activity recorded'} </p>
                             <PrimaryButton onClick={() => handleDeactivateUser(user.id)} text={AdminDashboardText.deactivate_user_btn} />
                         </div>
                     ))}
