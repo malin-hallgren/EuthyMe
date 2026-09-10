@@ -41,8 +41,7 @@ export default function CreateMoodReport({onClose, onCreated}) {
                 sleepScore: Number(sleep),
                 medsTaken: medsTaken === 'true' || medsTaken === true //force boolean
             };
-            const response = await createMoodReport(payload);
-            console.log(response.message);
+            await createMoodReport(payload);
             
             if (onCreated) {
                 onCreated(); // Notify parent component of successful creation

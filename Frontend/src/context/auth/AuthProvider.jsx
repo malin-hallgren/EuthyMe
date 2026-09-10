@@ -13,17 +13,20 @@ export const AuthProvider = ({ children }) => {
         const checkAuth = async () => {
             try {
                 const response = await CheckAuthStatus();
-                
+
                 if (cancelled) return;
 
-                setIsAuthenticated(Boolean(response.isAuthenticated));
+                setIsAuthenticated(true);
                 setUserRole(response.role ?? null);
-            }
-            catch (error) {
+                
+            } catch (error) {
+
                 if (cancelled) return;
                 console.error('Error checking authentication status:', error.message);
-            }
-            finally {
+                
+                setIsAuthenticated(false);
+                setUserRole(null);
+            } finally {
                 if (!cancelled) {
                     setLoading(false);
                 }

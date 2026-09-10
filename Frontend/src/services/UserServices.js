@@ -1,8 +1,17 @@
 import api from './axios.js';
 
 export async function getUsers() {
-    const response = await api.get('user');
-    return response.data;
+    try {
+        const response = await api.get('user');
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error retrieving users:', error);
+        return { users: [], error: error.message };
+    }
+    finally {
+        // Cleanup code if needed
+    }
 }
 
 export async function getFullDashboardData() {

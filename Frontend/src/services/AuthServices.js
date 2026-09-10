@@ -11,6 +11,15 @@ export async function LogoutUser() {
 }
 
 export async function CheckAuthStatus() {
-    const response = await api.get('auth/status');
-    return response.data;
+    try {
+        const response = await api.get('auth/status');
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error checking authentication status:', error);
+        return { isAuthenticated: false, role: null, error: error.message };
+    }
+    finally {
+        // Cleanup code if needed
+    }
 }
