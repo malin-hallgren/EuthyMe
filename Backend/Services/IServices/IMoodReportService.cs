@@ -9,5 +9,7 @@ namespace Backend.Services.IServices
         Task<(bool isSuccess, string? message)> CreateMoodReportAsync(int userId, CreateMoodReportDTO createMoodReportDTO);
 
         Task<DashboardMoodReportDTO> GetMoodReportsForDashboardAsync(int userId, int days);
+
+        Task<bool> DeleteMoodReportsForUser(int userId);
     }
 }

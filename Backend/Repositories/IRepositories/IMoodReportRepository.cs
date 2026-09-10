@@ -11,5 +11,7 @@ namespace Backend.Repositories.IRepositories
         Task<bool> CreateMoodReportAsync(MoodReport moodReport);
 
         Task<IEnumerable<MoodReport>> GetMoodReportsByUserIdAndDateAsync(int userId, DateOnly cutoffDate);
+
+        Task<bool> DeleteMoodReportsForUser(int userId);
     }
 }

@@ -44,5 +44,19 @@ namespace Backend.Repositories
                 .OrderBy(m => m.Date)
                 .ToListAsync();
         }
+
+        public async Task<bool> DeleteMoodReportsForUser(int userId)
+        {
+            var moodReports = await context.MoodReports
+                .Where(m => m.UserId == userId)
+                .ToListAsync();
+
+            if (moodReports.Any())
+            {
+                context.MoodReports.RemoveRange(moodReports);
+                return await context.SaveChangesAsync() > 0;
+            }
+            return false;
+        }
     }
 }

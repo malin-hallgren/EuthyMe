@@ -111,7 +111,11 @@ namespace Backend.Services
             dashboardMoodReport.HasReportedToday = reportLookup.ContainsKey(DateOnly.FromDateTime(DateTime.UtcNow));
 
             return dashboardMoodReport;
+        }
 
+        public Task<bool> DeleteMoodReportsForUser(int userId)
+        {
+            return moodReportRepository.DeleteMoodReportsForUser(userId);
         }
     }
 }

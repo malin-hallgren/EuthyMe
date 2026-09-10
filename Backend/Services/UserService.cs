@@ -132,6 +132,10 @@ namespace Backend.Services
             }
 
             var result = await userRepository.DeleteUserAsync(user);
+            if (result == true)
+            {
+                await moodReportService.DeleteMoodReportsForUser(userId);
+            }
             return result;
         }
     }
