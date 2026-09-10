@@ -1,0 +1,46 @@
+.user-activity-container {
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-16, 1rem);
+    width: min(100% - 2rem, 1200px);
+    margin: var(--spacing-20) auto;
+    justify-content: center;
+}
+
+.user-activity-container > .content-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-12, 0.5rem);
+    align-items: center;
+    max-width: none;
+    min-width: 25vw;
+    max-height: none;
+    min-height: 25vh;
+}
+
+.inactive-user-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-12, 0.5rem);
+}
+
+.inactive-user-item .primary-button {
+    max-width: 100%;
+    height: 2rem;
+    margin:  auto;
+    align-content: center;
+    font-size: 1rem;
+}
+
+@media (max-width: 1024px) 
+{
+    .user-activity-container {
+        flex-direction: column;
+        gap: var(--spacing-16, 1rem);
+    }
+
+    .user-activity-container > .content-card {
+        min-width: 100%;
+        min-height: 20vh;
+    }
+}

@@ -21,38 +21,42 @@ namespace Backend.Services
             userManager = _userManager;
             moodReportService = _moodReportService;
         }
-        public async Task<IEnumerable<UserActivityDTO>?> GetUsersAsync()
+        public async Task<(IEnumerable<UserActivityDTO>? activeUsers, IEnumerable<UserActivityDTO>? inactiveUsers)> GetUsersAsync()
         {
             IEnumerable<User>? users = await userRepository.GetUsersAsync();
 
             if (users == null)
             {
-                return null;
+                return (null, null);
             }
 
-            return users.Select(u =>
+            var activeUsers = users.Select(u =>
             {
                 if (!u.MoodReports.Any())
                 {
                     return new UserActivityDTO
                     {
                         DisplayName = u.DisplayName,
-                        LastActive = "No activity recorded"
+                        DaysAgo = null
                     };
                 }
 
                 int days = (int)(DateTime.Now - u.MoodReports.Max(m => m.Date.ToDateTime(TimeOnly.MinValue))).TotalDays;
 
-                string timeAgo = $"{days} {(days == 1 ? "day" : "days")} ago";
 
                 return new UserActivityDTO
                 {
                     DisplayName = u.DisplayName,
                     DaysAgo = days,
-                    LastActive = timeAgo
                 };
             })
-            .OrderBy(u => u.DaysAgo);
+            .OrderBy(u => u.DaysAgo)
+            .ToList();
+
+            var inactiveUsers = activeUsers.Where(u => u.DaysAgo > 0 || u.DaysAgo == null).ToList();
+            activeUsers.RemoveAll(u => u.DaysAgo > 0 || u.DaysAgo == null);
+
+            return (activeUsers, inactiveUsers);
         }
         
         public async Task<ThinDisplayUserDTO?> GetUserByIdAsync(int userId)

@@ -24,10 +24,10 @@ namespace Backend.Controllers
 
         [HttpGet]
         [Authorize(Policy = "AdminOnly")]
-        public async Task<ActionResult<IEnumerable<DisplayUserDTO>>> GetUsers()
+        public async Task<ActionResult<(IEnumerable<UserActivityDTO>?, IEnumerable<UserActivityDTO>?)>> GetUsers()
         {
-            var users = await userService.GetUsersAsync();
-            return Ok(users);
+            var result = await userService.GetUsersAsync();
+            return Ok(new { activeUsers = result.activeUsers, inactiveUsers = result.inactiveUsers });
         }
 
         [HttpPost]
