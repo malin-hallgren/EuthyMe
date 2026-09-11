@@ -1,0 +1,24 @@
+{
+    "button_title": "Account",
+    "accountSettings": {
+        "title": "Account Settings",
+        "display_name": "Display Name",
+        "email": "Email",
+        "log_medications": "Log Medication",
+        "show_meds_option": "Do ",
+        "hide_meds_option": "Do not ",
+        "panic_link": "Panic Link",
+        "save_settings": "Save Settings",
+        "changePassword": {
+            "title": "Change Password",
+            "current_password": "Current Password",
+            "new_password": "New Password",
+            "confirm_new_password": "Confirm New Password",
+            "save_password": "Save Password"
+        },
+        "deleteAccount": {
+        "title": "Delete Account",
+        "description": "Permanently delete your account and all associated data."
+        }
+    }
+}

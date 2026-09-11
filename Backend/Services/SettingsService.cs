@@ -30,6 +30,7 @@ namespace Backend.Services
             {
                 return new SettingsOutDTO()
                 {
+                    DisplayName = user.DisplayName,
                     ShowMeds = true,
                     PanicLink = "https://www.google.com",
                     Language = "EN",
@@ -38,7 +39,8 @@ namespace Backend.Services
             }
 
             return new SettingsOutDTO
-            {
+            {   
+                DisplayName = user.DisplayName,
                 ShowMeds = settings.ShowMeds,
                 PanicLink = settings.PanicLink != null ? settings.PanicLink : "https://www.google.com",
                 Language = settings.Language,

@@ -1,13 +1,20 @@
 import "./Header.css"
-import { useRef, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import StaticText from "../text-content/StaticText.json"
 import { useAuth } from "../hooks/useAuth.js";
+import { useSettings } from "../hooks/useSettings.js";
 import Logout from "./Logout.jsx"
-import {AccountIcon} from "./UI/icons/AccountCircleIcon.jsx";
+import AccountSettings from "./AccountSettings.jsx";
+import AccountSettingsContent from "./AccountSettingsContent.jsx";
+import Popup from "./UI/Popup.jsx";
+
 
 export default function Header()  {
     const { isAuthenticated } = useAuth();
+    const { settings, setSettings } = useSettings();
     const headerRef = useRef(null);
+    const [isAccountSettingsOpen, setIsShowAccountSettingsOpen] = useState(false);
+
         
         useEffect(() => {
             if (!headerRef.current) return;
@@ -40,15 +47,28 @@ export default function Header()  {
                 <header ref={headerRef} className="header header-auth">
                     <h1 className="header-title-auth">{StaticText.title}</h1>
                     <section className="header-buttons-section">
-                        {/* TODO: Add functionality to account button */}
-                        <button className="account-button"> 
-                            <AccountIcon className="custom-icon account-icon" />
-                            <span>Account</span>
-                        </button>
+                        <AccountSettings onClick={() => setIsShowAccountSettingsOpen(true)}/>
                         <Logout />
                     </section>
                 </header>
                 
+            )}
+
+            {isAccountSettingsOpen && (
+                <Popup isOpen={isAccountSettingsOpen} onClose={() => setIsShowAccountSettingsOpen(false)}>
+                    <AccountSettingsContent
+                        displayName={settings.displayName} // Replace with actual display name if available
+                        onSaveSettings={(settings) => {
+                            setSettings(settings);
+                            setIsShowAccountSettingsOpen(false);
+                        }}
+                        onSavePasswords= {(passwords) => {
+                            // Handle password change logic here
+                            setIsShowAccountSettingsOpen(false);
+                        }}
+                    
+                    />
+                </Popup>
             )}
         </>
     )

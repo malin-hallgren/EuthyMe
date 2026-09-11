@@ -4,6 +4,7 @@ namespace Backend.DTOs.Settings
 {
     public class SettingsOutDTO
     {
+        public string DisplayName { get; set; }
         public bool ShowMeds { get; set; }
         public string? PanicLink { get; set; }
 

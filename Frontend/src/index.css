@@ -4,8 +4,27 @@
   box-sizing: border-box;
 }
 
+:root:dark {
+  --color-text: #9ca3af;
+  --color-text-muted: #6b7280;
+  --color-text-muted-grayish: #8E988B;
+  --color-white: #fff;
+  --color-bg: #16171d;
+  --color-secondary-bg: #2e303a;
+  --color-border: #2e303a;
+  --color-button-active: #9BB194;
+  --color-button-inactive: #C0CBBD;
+  --color-warning: #FFC20C;
+  --color-banner: #FFF0C4;
+  --color-sleep-graph: rgb(129, 197, 245);
+  --color-mood-graph: rgb(49, 40, 214);
+  --drop-shadow: 0px 4px 4px rgba(90, 98, 88, 0.32);
+  --box-shadow: 0 0 8.1px 0 rgba(90, 98, 88, 0.18);
+}
+
 :root {
   --color-text: #54654E;
+  --color-text-secondary: #778f6f;
   --color-text-muted: #9BB194;
   --color-text-muted-grayish: #8E988B;
   --color-white: #fff;
