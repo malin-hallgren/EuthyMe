@@ -99,10 +99,12 @@ namespace Backend
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IMoodReportRepository, MoodReportRepository>();
+            builder.Services.AddScoped<ISettingsRepository, SettingsRepository>();
 
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IMoodReportService, MoodReportService>();
+            builder.Services.AddScoped<ISettingsService, SettingsService>();
 
             var app = builder.Build();
 

@@ -16,8 +16,8 @@ export const AuthProvider = ({ children }) => {
 
                 if (cancelled) return;
 
-                setIsAuthenticated(true);
-                setUserRole(response.role ?? null);
+                setIsAuthenticated(response.isAuthenticated);
+                setUserRole(response.isAuthenticated ? response.role ?? null : null);
                 
             } catch (error) {
 

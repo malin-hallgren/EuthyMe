@@ -1,5 +1,6 @@
 import {Routes, Route} from 'react-router-dom'
 import { AuthProvider } from "./context/auth/AuthProvider.jsx";
+import { SettingsProvider } from "./context/settings/SettingsProvider.jsx";
 import ProtectedRoute from './routes/ProtectedRoute.jsx'
 import PublicRoute from './routes/PublicRoute.jsx'
 import Header from './components/Header.jsx'
@@ -12,26 +13,28 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <main>
-          <Header />
-          
-          <Routes>
-            <Route element={<PublicRoute />}>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-            </Route>
+        <SettingsProvider>
+          <main>
+            <Header />
+            
+            <Routes>
+              <Route element={<PublicRoute />}>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+              </Route>
 
-            <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-            </Route>
+              <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+              </Route>
 
-            <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
-              <Route path="/admin" element={<AdminDashboardPage />} />
-            </Route>
+              <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}>
+                <Route path="/admin" element={<AdminDashboardPage />} />
+              </Route>
 
-          </Routes>
-        </main>
+            </Routes>
+          </main>
+        </SettingsProvider>
       </AuthProvider>
     </>
   )

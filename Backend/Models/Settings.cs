@@ -6,9 +6,12 @@ namespace Backend.Models
     {
         public int Id { get; set; }
         public bool ShowMeds { get; set; } = true; //default to true
-        public string? PanicLink { get; set; }
+        public string? PanicLink { get; set; } = "https://www.google.com";
+
         [Range(2, 2)]
-        public string Language { get; set; } = "en"; //default to english, note, massive TODO
+        public string Language { get; set; } = "EN"; //default to english, note, massive TODO
+
+        public string Theme { get; set; } = "light"; //default to light theme
 
         public int UserId { get; set; } // Foreign key to the User entity
         public User User { get; set; }

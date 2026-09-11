@@ -51,9 +51,56 @@ namespace Backend.Data
                 SecurityStamp = "2"
             };
 
+            var seedUser3 = new User
+            {
+                Id = 3,
+                UserName = "test3@email.com",
+                NormalizedUserName = "TEST3@EMAIL.COM",
+                Email = "test3@email.com",
+                NormalizedEmail = "TEST3@EMAIL.COM",
+                DisplayName = "Test User 3",
+                EmailConfirmed = false,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+                ConcurrencyStamp = "3",
+                SecurityStamp = "3"
+            };
+
+            var seedSettings1 = new Settings
+            {
+                Id = 1,
+                ShowMeds = true,
+                PanicLink = "https://www.google.com",
+                Language = "EN",
+                Theme = "light",
+                UserId = 1
+            };
+
+            var seedSettings2 = new Settings
+            {
+                Id = 2,
+                ShowMeds = true,
+                PanicLink = "https://www.google.com",
+                Language = "EN",
+                Theme = "light",
+                UserId = 2
+            };
+            var seedSettings3 = new Settings
+            {
+                Id = 3,
+                ShowMeds = true,
+                PanicLink = "https://www.google.com",
+                Language = "EN",
+                Theme = "light",
+                UserId = 3
+            };
+
+
             //Passwords added later for seed data users to not break the standard Identity password flow
             builder.Entity<User>()
-                .HasData(seedUser1, seedUser2);
+                .HasData(seedUser1, seedUser2, seedUser3);
 
             builder.Entity<User>()
                 .HasIndex(u => u.Email)
@@ -95,6 +142,33 @@ namespace Backend.Data
                         SleepScore= 4,
                         MedsTaken = true,
                         Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-3))
+                    },
+                    new MoodReport
+                    {
+                        Id = 4,
+                        UserId = 3,
+                        MoodScore = 5,
+                        SleepScore = 1,
+                        MedsTaken = false,
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1))
+                    },
+                    new MoodReport
+                    {
+                        Id = 5,
+                        UserId = 3,
+                        MoodScore = 4,
+                        SleepScore = 2,
+                        MedsTaken = false,
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-2))
+                    },
+                    new MoodReport
+                    {
+                        Id = 6,
+                        UserId = 3,
+                        MoodScore = 5,
+                        SleepScore = 2,
+                        MedsTaken = true,
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-3))
                     }
                 );
 
@@ -118,6 +192,9 @@ namespace Backend.Data
                         ConcurrencyStamp = "user-concurrency-stamp-002"
                     }
                 );
+
+            builder.Entity<Settings>()
+                .HasData(seedSettings1, seedSettings2, seedSettings3);
 
             base.OnModelCreating(builder);
         }
