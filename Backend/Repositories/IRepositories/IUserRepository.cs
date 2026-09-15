@@ -10,5 +10,8 @@ namespace Backend.Repositories.IRepositories
         Task<User?> GetDashboardUserAsync(int userId, DateOnly cutoff);
 
         Task<bool> DeleteUserAsync(User user);
+
+        Task<bool> UpdateUserAsync(User user);
+        Task<bool> UpdateUserDisplayNameAsync(int userId, string displayName);
     }
 }

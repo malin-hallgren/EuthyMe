@@ -21,5 +21,6 @@
 
 .secondary-button:disabled {
   background: var(--state-disabled, --color-grey);
+  color: var(--color-text-muted);
   opacity: 0.6;
 }

@@ -19,6 +19,11 @@ export async function getFullDashboardData() {
     return response.data;
 }
 
+export async function getUpdatedUserName(user) {
+    const response = await api.get(`user/name`);
+    return response.data;
+}
+
 export async function registerUser(payload) {
     const response = await api.post('user/register', payload);
     return response.data;

@@ -51,5 +51,24 @@ namespace Backend.Repositories
             await context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            context.Users.Update(user);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdateUserDisplayNameAsync(int userId, string displayName)
+        {
+            var user = await GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.DisplayName = displayName;
+            return await UpdateUserAsync(user);
+        }
     }
 }

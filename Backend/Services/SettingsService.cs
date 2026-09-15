@@ -39,7 +39,7 @@ namespace Backend.Services
             }
 
             return new SettingsOutDTO
-            {   
+            {
                 DisplayName = user.DisplayName,
                 ShowMeds = settings.ShowMeds,
                 PanicLink = settings.PanicLink != null ? settings.PanicLink : "https://www.google.com",
@@ -47,6 +47,40 @@ namespace Backend.Services
                 Theme = settings.Theme
             };
 
+        }
+
+        public async Task<(bool isSuccess, string message)> UpdateSettingsForUserId(int userId, SettingsInDTO settingsInDTO)
+        {
+            var settings = await settingsRepository.GetSettingsForUserAsync(userId);
+            var user = await userRepository.GetUserByIdAsync(userId);
+            bool result = false;
+
+            if (settings == null) //This should never happen, but just in case, we create a new settings object if it doesn't exist
+            {
+                settings = new Settings
+                {
+                    UserId = userId,
+                    ShowMeds = settingsInDTO.ShowMeds,
+                    PanicLink = settingsInDTO.PanicLink,
+                    Language = settingsInDTO.Language,
+                    Theme = settingsInDTO.Theme
+                };
+                // Add the new settings to the database
+                result = await settingsRepository.AddSettingsToUserAsync(settings);
+            }
+            else
+            {
+                // Update existing settings
+                settings.ShowMeds = settingsInDTO.ShowMeds;
+                settings.PanicLink = settingsInDTO.PanicLink;
+                settings.Language = settingsInDTO.Language;
+                settings.Theme = settingsInDTO.Theme;
+                // Save changes to the database
+                result = await settingsRepository.UpdateSettingsForUserAsync(user, settings);
+
+                result =await userRepository.UpdateUserDisplayNameAsync(userId, settingsInDTO.DisplayName);
+            }
+            return (result, result ? "Settings updated successfully" : "Failed to update settings");
         }
     }
 }

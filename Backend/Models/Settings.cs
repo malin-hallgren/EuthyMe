@@ -8,7 +8,7 @@ namespace Backend.Models
         public bool ShowMeds { get; set; } = true; //default to true
         public string? PanicLink { get; set; } = "https://www.google.com";
 
-        [Range(2, 2)]
+        [StringLength(2, MinimumLength = 2)]
         public string Language { get; set; } = "EN"; //default to english, note, massive TODO
 
         public string Theme { get; set; } = "light"; //default to light theme

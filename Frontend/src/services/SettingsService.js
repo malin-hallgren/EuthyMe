@@ -10,3 +10,19 @@ export async function getSettings() {
         throw error; // Rethrow the error to be handled by the caller
     }
 }
+
+export async function updateSettings(settings) {
+    try {
+        const response = await api.put('settings', settings);
+        return response.data;
+    }
+    catch (error) {
+        console.error('Error updating settings:', {
+            status: error.response?.status,
+            response: error.response?.data,
+            payload: settings,
+            error,
+        });
+        throw error; // Rethrow the error to be handled by the caller
+    }
+}

@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import StaticText from "../text-content/StaticText.json"
 import { useAuth } from "../hooks/useAuth.js";
 import { useSettings } from "../hooks/useSettings.js";
+import { updateSettings } from "../services/SettingsService.js";
 import Logout from "./Logout.jsx"
 import AccountSettings from "./AccountSettings.jsx";
 import AccountSettingsContent from "./AccountSettingsContent.jsx";
@@ -15,24 +16,44 @@ export default function Header()  {
     const headerRef = useRef(null);
     const [isAccountSettingsOpen, setIsShowAccountSettingsOpen] = useState(false);
 
+    const handleSaveSettings = async (newSettings) => {
+        const showMeds = newSettings.showMeds ?? settings.showMeds;
+        const updatedSettings = {
+            displayName: newSettings.displayName ?? settings.displayName,
+            showMeds: showMeds === true || showMeds === "true",
+            panicLink: newSettings.panicLink ?? settings.panicLink,
+            language: newSettings.language ?? settings.language ?? "EN",
+            theme: newSettings.theme ?? settings.theme ?? "light",
+        };
+
+        try {
+            await updateSettings(updatedSettings);
+            setSettings(updatedSettings);
+            return true;
+        } catch (error) {
+            console.error("Error updating settings:", error);
+            return false;
+        }
+    }
+
         
-        useEffect(() => {
-            if (!headerRef.current) return;
+    useEffect(() => {
+        if (!headerRef.current) return;
+    
+        const updateHeaderHeight = () => {
+            const height = headerRef.current.getBoundingClientRect().height;
         
-            const updateHeaderHeight = () => {
-                const height = headerRef.current.getBoundingClientRect().height;
-            
-                document.documentElement.style.setProperty(
-                    "--header-height",
-                    `${height}px`
-                );
-            };
-        
-            const observer = new ResizeObserver(updateHeaderHeight);
-            observer.observe(headerRef.current);
-            updateHeaderHeight();
-        
-            return () => observer.disconnect();
+            document.documentElement.style.setProperty(
+                "--header-height",
+                `${height}px`
+            );
+        };
+    
+        const observer = new ResizeObserver(updateHeaderHeight);
+        observer.observe(headerRef.current);
+        updateHeaderHeight();
+    
+        return () => observer.disconnect();
     }, [isAuthenticated]);
 
     return (
@@ -57,11 +78,13 @@ export default function Header()  {
             {isAccountSettingsOpen && (
                 <Popup isOpen={isAccountSettingsOpen} onClose={() => setIsShowAccountSettingsOpen(false)}>
                     <AccountSettingsContent
-                        displayName={settings.displayName} // Replace with actual display name if available
-                        onSaveSettings={(settings) => {
-                            setSettings(settings);
-                            setIsShowAccountSettingsOpen(false);
-                        }}
+                        displayName={settings.displayName}
+                        showMeds={settings.showMeds}
+                        panicLink={settings.panicLink}
+                        language={settings.language}
+                        theme={settings.theme}
+                        onSaveSettings={handleSaveSettings}
+                        onClose={() => setIsShowAccountSettingsOpen(false)}
                         onSavePasswords= {(passwords) => {
                             // Handle password change logic here
                             setIsShowAccountSettingsOpen(false);

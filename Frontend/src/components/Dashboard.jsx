@@ -1,8 +1,9 @@
 import {useState, useEffect} from "react";
+import {useSettings} from "../hooks/useSettings.js";
 import ContentCard from "./UI/ContentCard";
 import LineChart from "./Chart";
 import PrimaryButton from "./UI/PrimaryButton";
-import PopUp from "./UI/PopUp";
+import PopUp from "./UI/Popup.jsx";
 import CreateMoodReport from "./CreateMoodReport";
 import {getFullDashboardData} from '../services/UserServices.js';
 import DashboardText from "../text-content/UserDashboardText.json";
@@ -10,6 +11,7 @@ import {refreshMoodReports} from "../services/MoodReportServices.js";
 import './Dashboard.css';
 
 export default function Dashboard() {
+    const {settings} = useSettings();
     const [user, setUser] = useState({});
     const [isCreateReportOpen, setIsCreateReportOpen] = useState(false);
     const [showWarning, setShowWarning] = useState(false);
@@ -62,7 +64,7 @@ export default function Dashboard() {
                 </div>
             )}
             <section className="dashboard-container">
-                <h2>{DashboardText.greeting.replace("{{name}}", user.displayName)}</h2>
+                <h2>{DashboardText.greeting.replace("{{name}}", settings?.displayName ?? user.displayName ?? "")}</h2>
                 <section className="dashboard-content">
                     <ContentCard className = "graph-card-big">
                         <ContentCard className = "graph-card-graph">

@@ -31,15 +31,21 @@ namespace Backend.Controllers
             return Ok(await settingsService.GetSettingsForUserId(userId));
         }
 
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateSettings([FromBody] SettingsInDTO settings)
-        //{
-        //    var result = await settingsService.UpdateSettingsAsync(settings);
-        //    if (!result.isSuccess)
-        //    {
-        //        return BadRequest(result.message);
-        //    }
-        //    return Ok(new { message = result.message });
-        //}
+        [HttpPut]
+        public async Task<IActionResult> UpdateSettings([FromBody] SettingsInDTO settings)
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var result = await settingsService.UpdateSettingsForUserId(userId, settings);
+            if (!result.isSuccess)
+            {
+                return BadRequest(result.message);
+            }
+            return Ok(new { message = result.message });
+        }
     }
 }
