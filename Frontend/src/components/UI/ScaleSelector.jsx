@@ -23,6 +23,7 @@ export default function ScaleSelector({ label, description,name, selected, onCha
 
     const textContent = UserDashboardText[label] || {};
     const displayLabel = textContent.header || label;
+    const hasSelection = selected !== undefined && selected !== null && selected !== '';
 
     return (
         <div className="scale-selector">
@@ -61,7 +62,7 @@ export default function ScaleSelector({ label, description,name, selected, onCha
 
             {/* Bottom context label shows the text description (e.g., "Good") */}
             <div className="context-label">
-                {selected
+                {hasSelection
                  ? UserDashboardText.selected.replace(
                        '{{option}}',
                        optionsMap[selected].text

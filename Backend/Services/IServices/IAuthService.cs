@@ -1,5 +1,7 @@
-﻿using Backend.DTOs.User;
+﻿using Backend.DTOs.Password;
+using Backend.DTOs.User;
 using Backend.Models;
+using System.Net;
 
 namespace Backend.Services.IServices
 {
@@ -10,5 +12,7 @@ namespace Backend.Services.IServices
         Task<CookieOptions> GetCookieOptionsAsync();
 
         Task<(bool isAuthenticated, string? message)> IsUserAuthenticatedAsync(HttpContext context);
+
+        Task<HttpStatusCode> UpdateUserPasswordAsync(int userId, UpdatePasswordDTO updatePassword);
     }
 }

@@ -20,7 +20,9 @@
 }
 
 .secondary-button:disabled {
-  background: var(--state-disabled, --color-grey);
-  color: var(--color-text-muted);
+  background-color: var(--color-button-inactive);
+  color: var(--color-text-secondary);
   opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
 }

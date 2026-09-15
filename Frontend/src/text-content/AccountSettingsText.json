@@ -14,7 +14,7 @@
             "current_password": "Current Password",
             "new_password": "New Password",
             "confirm_new_password": "Confirm New Password",
-            "save_password": "Save Password"
+            "save_password": "Update Password"
         },
         "theme_selector_title": "Theme Selector",
         "theme_light": "Light Theme",

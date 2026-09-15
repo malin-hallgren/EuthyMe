@@ -1,9 +1,11 @@
-﻿using Backend.DTOs.User;
+﻿using Backend.DTOs.Password;
+using Backend.DTOs.User;
 using Backend.Models;
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -121,6 +123,19 @@ namespace Backend.Services
                 return (false, "Invalid user session.");
 
             }
+        }
+
+        public async Task<HttpStatusCode> UpdateUserPasswordAsync(int userId, UpdatePasswordDTO updatePassword)
+        {
+            var user = await userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return HttpStatusCode.NotFound;
+            }
+            
+
+            var result = await userManager.ChangePasswordAsync(user, updatePassword.OldPassword, updatePassword.NewPassword);
+            return result.Succeeded ? HttpStatusCode.OK : HttpStatusCode.BadRequest;
         }
     }
 }

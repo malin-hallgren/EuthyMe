@@ -23,3 +23,8 @@ export async function CheckAuthStatus() {
         // Cleanup code if needed
     }
 }
+
+export async function updatePassword(payload) {
+    const response = await api.post('auth/update/password', payload);
+    return response.data;
+}

@@ -1,7 +1,10 @@
-﻿using Backend.DTOs.User;
+﻿using Backend.DTOs.Password;
+using Backend.DTOs.User;
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Security.Claims;
 using System.Text;
 
 
@@ -57,5 +60,25 @@ namespace Backend.Controllers
 
             return Ok(new { isAuthenticated = result.isAuthenticated, role = result.message });
         }
+
+        [HttpPost]
+        [Route("update/password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordDTO updatePassword)
+        {
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var result = await authService.UpdateUserPasswordAsync(userId, updatePassword);
+            if (result != HttpStatusCode.OK)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
     }
 }
