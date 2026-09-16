@@ -17,6 +17,7 @@ export const SettingsProvider = ({children}) => {
 
     useEffect(() => {
         if (!isAuthenticated) {
+            setSettings(null);
             return;
         }
 
