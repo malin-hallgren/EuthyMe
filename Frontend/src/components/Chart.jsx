@@ -1,11 +1,15 @@
 import {Chart, LineElement} from 'chart.js/auto';
 import {Line} from 'react-chartjs-2';
+import {useSettings} from '../hooks/useSettings.js';
 import UserDashboardText from '../text-content/UserDashboardText.json';
 import './Chart.css';
 
 Chart.register(LineElement);
 
 export default function LineChart({ chartData = [], chartOptions }) {
+
+    const { settings } = useSettings();
+
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -16,7 +20,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 ...chartOptions?.scales?.x,
                 ticks: {
                     ...chartOptions?.scales?.x?.ticks,
-                    color: '#54654E',
+                    color: settings?.theme === 'light' ? '#9BB194' : '#6b7280',
                 },
             },
             y: {
@@ -25,7 +29,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 max: 6,
                 ticks: {
                     ...chartOptions?.scales?.y?.ticks,
-                    color: '#54654E',
+                    color: settings?.theme === 'light' ? '#9BB194' : '#6b7280',
                 },
             },
         },
@@ -65,8 +69,8 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 spanGaps: false,
                 pointRadius: 5,
                 pointHoverRadius: 7,
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: settings?.theme.toLowerCase() === 'light' ? 'rgb(75, 192, 192)' : 'rgb(80, 146, 113)',
+                backgroundColor: settings?.theme.toLowerCase() === 'light' ? 'rgba(174, 246, 246, 0.2)' : 'rgba(107, 114, 128, 0.2)',
             },
             {
                 label: 'Sleep',
@@ -74,8 +78,8 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 spanGaps: false,
                 pointRadius: 5,
                 pointHoverRadius: 7,
-                borderColor: 'rgb(49, 40, 214)',
-                backgroundColor: 'rgba(129, 197, 245, 0.2)',
+                borderColor: settings?.theme.toLowerCase() === 'light' ? 'rgb(49, 40, 214)' : 'rgb(104, 133, 193)',
+                backgroundColor: settings?.theme.toLowerCase() === 'light' ? 'rgba(112, 105, 243, 0.2)' : 'rgba(107, 114, 128, 0.2)',
                 borderDash: [5, 5],
             },
             {
@@ -85,8 +89,8 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 pointStyle: 'triangle',
                 pointRadius: 10,
                 pointHoverRadius: 12,
-                borderColor: '#FFC20C',
-                backgroundColor: '#FFF0C4',
+                borderColor: settings?.theme.toLowerCase() === 'light' ? '#FFC20C' : '#C0CBBD',
+                backgroundColor: settings?.theme.toLowerCase() === 'light' ? '#FFF0C4' : '#2e303a',
             }
         ],
     };

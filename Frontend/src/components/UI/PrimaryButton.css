@@ -5,7 +5,7 @@
   gap: var(--spacing-8, 0.5rem);
   padding: var(--spacing-16, 1rem) var(--spacing-24, 1.5rem);
   border-radius: var(--radius-pill);
-  color: var(--color-white);
+  color: var(--color-button-active-text);
   background-color: var(--color-button-active);
   border: none;
   width: 100%;  
@@ -20,6 +20,7 @@
 
 .primary-button:disabled {
   background: var(--color-text-muted);
+  color: var(--color-text);
   opacity: 0.6;
   cursor: not-allowed;
 }

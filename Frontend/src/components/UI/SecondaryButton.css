@@ -5,7 +5,7 @@
   gap: var(--spacing-8, 0.5rem);
   padding: var(--spacing-16, 1rem) var(--spacing-24, 1.5rem);
   border-radius: var(--radius-pill);
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   background-color: var(--color-border);
   border: none;
   width: 100%;  
@@ -21,7 +21,7 @@
 
 .secondary-button:disabled {
   background-color: var(--color-button-inactive);
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted-grayish);
   opacity: 0.6;
   cursor: not-allowed;
   box-shadow: none;

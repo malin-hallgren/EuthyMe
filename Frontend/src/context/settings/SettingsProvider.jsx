@@ -8,6 +8,14 @@ export const SettingsProvider = ({children}) => {
     const {isAuthenticated} = useAuth();
 
     useEffect(() => {
+        const theme = isAuthenticated && settings?.theme?.toLowerCase() === 'dark'
+            ? 'dark'
+            : 'light';
+
+        document.documentElement.dataset.theme = theme;
+    }, [isAuthenticated, settings?.theme]);
+
+    useEffect(() => {
         if (!isAuthenticated) {
             return;
         }

@@ -27,7 +27,7 @@ export default function ScaleSelector({ label, description,name, selected, onCha
 
     return (
         <div className="scale-selector">
-            <span className="scale-selector-label">{displayLabel || label}</span>
+            <h3 className="scale-selector-label">{displayLabel || label}</h3>
             <span className="scale-selector-description">{textContent.description || description}</span>
             
             <div className="scale-group">

@@ -97,8 +97,8 @@ export default function AccountSettingsContent({onClose}) {
 
     return (
         <div className="account-settings-content">
-            <h2>{AccountSettingsText.accountSettings.title}</h2>
             <form className="account-form settings-form" onSubmit={async (e) => {e.preventDefault(); const saved = await handleSaveSettings({displayName: displayNameInput, showMeds: showMedsCheckbox, panicLink: panicLinkInput, theme}); if (saved) onClose();}}>
+                <h2 className="settings-form-title">{AccountSettingsText.accountSettings.title}</h2>
                 <InputField
                     label={AccountSettingsText.accountSettings.display_name}
                     id="displayName"
@@ -116,7 +116,7 @@ export default function AccountSettingsContent({onClose}) {
                 />
 
                 <ScaleSelector
-                    label="Log Medication"
+                    label={AccountSettingsText.accountSettings.log_medications}
                     name="showMeds"
                     value={showMedsCheckbox}
                     selected={showMedsCheckbox}
@@ -160,7 +160,6 @@ export default function AccountSettingsContent({onClose}) {
                 <PrimaryButton type="submit" text={AccountSettingsText.accountSettings.save_settings}></PrimaryButton>
             </form>
   
-            <h3>{AccountSettingsText.accountSettings.changePassword.title}</h3>
             <form className="account-form password-form" onSubmit={(e) => {
                 e.preventDefault(); 
                 handleSavePasswords({
@@ -170,6 +169,7 @@ export default function AccountSettingsContent({onClose}) {
                 }).then((saved) => {
                     if (saved) onClose();
                 })}}>
+                <h2 className="password-form-title">{AccountSettingsText.accountSettings.changePassword.title}</h2>
 
                 <InputField
                     label={AccountSettingsText.accountSettings.changePassword.current_password}
@@ -194,11 +194,10 @@ export default function AccountSettingsContent({onClose}) {
                 />
                 <SecondaryButton type="submit" text={AccountSettingsText.accountSettings.changePassword.save_password} disabled={!isPasswordFormComplete}></SecondaryButton>
                 { passwordError.length > 0 && (
-                        <div className="password-error-container">
-                            {passwordError.map((error, index) => (<p key={index} className="password-error-message">{error}</p>))}
-                        </div>
-                    )
-                }
+                    <div className="password-error-container">
+                        {passwordError.map((error, index) => (<p key={index} className="password-error-message">{error}</p>))}
+                    </div>
+                )}
             </form>
         </div>
     );

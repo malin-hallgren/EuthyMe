@@ -49,7 +49,36 @@
     margin-top: var(--spacing-24);
     margin-bottom: calc(var(--spacing-8) * -1);
     color: var(--color-white);
-    background-color: var(--color-button-active);
+    background-color: var(--color-button-active-light);
     padding: var(--spacing-12);
     border-radius: var(--radius-pill);
+}
+
+.theme-selector
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-16, 1rem);
+    margin-top: calc(-1 * var(--spacing-16, 1rem));
+    margin-bottom: var(--spacing-16, 1rem);
+}
+
+.account-form > .scale-selector > .scale-selector-label {
+    margin-top: var(--spacing-16, 1rem);
+    font-size: 1.2rem;
+}
+
+.account-form > .scale-selector > .scale-group{
+    margin-top: calc( -1 *var(--spacing-16, 1rem));
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: var(--spacing-16, 1rem);
+}
+
+.password-form-title {
+    margin-top: var(--spacing-32, 2rem);
 }
