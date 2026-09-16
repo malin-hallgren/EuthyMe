@@ -75,7 +75,7 @@
     position: sticky;
     top: var(--header-height, 0px);
     z-index: 999;
-    color: var(--color-bg);
+    color: var(--color-text);
 }
 
 .close-warning-button {

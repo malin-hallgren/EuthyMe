@@ -2,8 +2,6 @@ import "./Header.css"
 import { useRef, useState, useEffect } from "react";
 import StaticText from "../text-content/StaticText.json"
 import { useAuth } from "../hooks/useAuth.js";
-import { useSettings } from "../hooks/useSettings.js";
-
 import Logout from "./Logout.jsx"
 import AccountSettings from "./AccountSettings.jsx";
 import AccountSettingsContent from "./AccountSettingsContent.jsx";
@@ -12,7 +10,6 @@ import Popup from "./UI/Popup.jsx";
 
 export default function Header()  {
     const { isAuthenticated } = useAuth();
-    const { settings } = useSettings();
     const headerRef = useRef(null);
     const [isAccountSettingsOpen, setIsShowAccountSettingsOpen] = useState(false);
         
