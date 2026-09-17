@@ -52,7 +52,7 @@
     align-self: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .header-auth {
         display: flex;
         flex-direction: column;
