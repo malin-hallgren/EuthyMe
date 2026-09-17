@@ -19,3 +19,19 @@
     font-size: 1rem;
     color: var(--color-text-muted);
 }
+
+@media (max-width: 1024px) {
+    .footer {
+        position: relative;
+        margin-top: var(--spacing-32);
+        padding: var(--spacing-16);
+    }
+
+    .footer-text-title {
+        font-size: 1rem;
+    }
+
+    .footer-text {
+        font-size: 0.875rem;
+    }
+}
