@@ -34,7 +34,11 @@ namespace Backend
             builder.Logging.AddDebug();
 
             var connectionString = builder.Configuration["ConnectionString"]
-                                   ?? builder.Configuration.GetConnectionString("DefaultConnection");
+                ?? builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? Environment.GetEnvironmentVariable("SQLCONNSTR_ConnectionString")
+                ?? Environment.GetEnvironmentVariable("SQLCONNSTR_DefaultConnection");
+
+
             var missing = new List<string>();
             if (string.IsNullOrWhiteSpace(connectionString)) missing.Add("ConnectionString (or DefaultConnection via GetConnectionString)");
             if (string.IsNullOrWhiteSpace(builder.Configuration["Jwt:Key"])) missing.Add("Jwt__Key (Jwt:Key)");
@@ -52,7 +56,7 @@ namespace Backend
 
             builder.Services.AddDbContext<EuthyMeDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration["ConnectionString"]);
+                options.UseSqlServer(connectionString);
             });
 
             
