@@ -137,15 +137,15 @@ namespace Backend
                 await app.CompleteUserSeedAsync();
             }
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
 
-                var context = services.GetRequiredService<EuthyMeDbContext>();
+            //    var context = services.GetRequiredService<EuthyMeDbContext>();
 
-                await context.Database.MigrateAsync();
-                await app.CompleteUserSeedAsync();
-            }
+            //    await context.Database.MigrateAsync();
+            //    await app.CompleteUserSeedAsync();
+            //}
 
             app.UseHttpsRedirection();
 
