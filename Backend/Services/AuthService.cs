@@ -32,7 +32,7 @@ namespace Backend.Services
             var user = await userManager.FindByEmailAsync(logInUser.UserName); //UserName is duplicated from Email
             if (user == null || !await userManager.CheckPasswordAsync(user, logInUser.Password))
             {
-                errors.Add("Invalid credentials");
+                errors.Add("ERR_LOGIN_CRED_400");
                 return (false, errors, null, null);
             }
 
