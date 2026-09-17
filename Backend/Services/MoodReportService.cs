@@ -55,7 +55,7 @@ namespace Backend.Services
             var cutoff = DateOnly.FromDateTime(DateTime.Today.AddDays(-(days - 1)));
             var createdMoodReports = await moodReportRepository.GetMoodReportsByUserIdAndDateAsync(userId, cutoff);
 
-            var reportLookup = createdMoodReports.ToDictionary(m => m.Date);
+            var reportLookup = createdMoodReports.DistinctBy(m => m.Date).ToDictionary(m => m.Date);
 
             var dashboardMoodReport = new DashboardMoodReportDTO();
 

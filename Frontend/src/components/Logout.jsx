@@ -24,12 +24,9 @@ export default function Logout() {
     }
 
     return (
-        <div className="logout-container">
             <button className="logout-button" onClick={handleClick}>
                 <LogoutIcon className="custom-icon logout-icon" />
                 <span>Logout</span>
             </button>
-
-        </div>
     )
 }
