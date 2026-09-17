@@ -41,7 +41,7 @@ namespace Backend
                 options.AddPolicy(name: corsConfig,
                     policy =>
                     {
-                        policy.WithOrigins("https://localhost:5173") //Todo, set up for production in Azure
+                        policy.WithOrigins(builder.Configuration["FrontendUrl"])
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials();
@@ -113,6 +113,16 @@ namespace Backend
                 
                 app.MapOpenApi();
                 app.MapScalarApiReference();
+                await app.CompleteUserSeedAsync();
+            }
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var context = services.GetRequiredService<EuthyMeDbContext>();
+
+                await context.Database.MigrateAsync();
                 await app.CompleteUserSeedAsync();
             }
 

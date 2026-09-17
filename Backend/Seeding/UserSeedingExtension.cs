@@ -17,18 +17,30 @@ namespace Backend.Seeding
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
+                string[] roles = { "Admin", "User" };
+                foreach (var role in roles)
+                {
+                    if (!await roleManager.RoleExistsAsync(role))
+                    {
+                        await roleManager.CreateAsync(new IdentityRole<int> { Name = role });
+                    }
+                }
+
                 var users = await userManager.Users.ToListAsync();
 
                 foreach (var user in users)
-                {;
-                    await userManager.AddPasswordAsync(user, "Password123!");
+                {
+                    if (!await userManager.HasPasswordAsync(user))
+                    {
+                        var passwordResult = await userManager.AddPasswordAsync(user, "Password123!");
+                    }
+
                     if (user.Id == 1)
                     {
                         if (!await userManager.IsInRoleAsync(user, "Admin"))
                         {
                             await userManager.AddToRoleAsync(user, "Admin");
                         }
-
                     }
                     else
                     {
