@@ -21,8 +21,10 @@
   --color-button-inactive: #50535a;
   --color-warning: #FFC20C;
   --color-banner: #5f697c;
-  --color-sleep-graph: rgb(48, 165, 103);
-  --color-mood-graph: rgb(92, 84, 245);
+  --color-error: #FF0000;
+  --color-error-bg: hsla(0, 100%, 50%, 0.14);
+  --color-success: #00FF00;
+  --color-success-bg: hsla(120, 100%, 50%, 0.14);
   --drop-shadow: 0px 4px 4px rgba(90, 98, 88, 0.32);
   --box-shadow: 0 0 8.1px 0 rgba(90, 98, 88, 0.18);
 }
@@ -46,8 +48,6 @@
   --color-button-inactive: #C0CBBD;
   --color-warning: #FFC20C;
   --color-banner: #FFF0C4;
-  --color-sleep-graph: rgb(129, 197, 245);
-  --color-mood-graph: rgb(49, 40, 214);
   --color-error: #FF0000;
   --color-error-bg: hsla(0, 100%, 50%, 0.14);
   --color-success: #00FF00;
@@ -105,6 +105,8 @@ main {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
   
 }
 

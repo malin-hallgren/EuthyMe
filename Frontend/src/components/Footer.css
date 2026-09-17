@@ -1,9 +1,7 @@
 .footer {
     background-color: var(--color-secondary-bg);
-    position:absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: static;
+    margin-top: auto;
     padding: var(--spacing-32);
     box-shadow: var(--box-shadow);
     color: var(--color-text);
@@ -22,8 +20,7 @@
 
 @media (max-width: 1024px) {
     .footer {
-        position: relative;
-        margin-top: var(--spacing-32);
+        margin-top: auto;
         padding: var(--spacing-16);
     }
 
