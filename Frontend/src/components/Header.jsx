@@ -5,7 +5,7 @@ import { useAuth } from "../hooks/useAuth.js";
 import Logout from "./Logout.jsx"
 import AccountSettings from "./AccountSettings.jsx";
 import AccountSettingsContent from "./AccountSettingsContent.jsx";
-import Popup from "./UI/Popup.jsx";
+import Popup from "./UI/PopUp.jsx";
 
 
 export default function Header()  {

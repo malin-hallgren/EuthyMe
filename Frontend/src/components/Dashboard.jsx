@@ -3,7 +3,7 @@ import {useSettings} from "../hooks/useSettings.js";
 import ContentCard from "./UI/ContentCard";
 import LineChart from "./Chart";
 import PrimaryButton from "./UI/PrimaryButton";
-import PopUp from "./UI/Popup.jsx";
+import PopUp from "./UI/PopUp.jsx";
 import CreateMoodReport from "./CreateMoodReport";
 import {getFullDashboardData} from '../services/UserServices.js';
 import DashboardText from "../text-content/UserDashboardText.json";
