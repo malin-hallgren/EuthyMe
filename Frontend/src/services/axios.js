@@ -13,7 +13,6 @@ const api = axios.create({
 api.interceptors.response.use(
     response => response,
     error => {
-        const status = error.response?.status;
         const errorMessage = error.response?.data?.message || error.message || 'An unexpected error occurred.';
         if (error.response)
         {

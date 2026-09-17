@@ -19,7 +19,7 @@ export async function getFullDashboardData() {
     return response.data;
 }
 
-export async function getUpdatedUserName(user) {
+export async function getUpdatedUserName() {
     const response = await api.get(`user/name`);
     return response.data;
 }

@@ -6,6 +6,7 @@ import {useAuth} from '../../hooks/useAuth.js';
 export const SettingsProvider = ({children}) => {
     const [settings, setSettings] = useState(null);
     const {isAuthenticated} = useAuth();
+    const visibleSettings = isAuthenticated ? settings : null;
 
     useEffect(() => {
         const theme = isAuthenticated && settings?.theme?.toLowerCase() === 'dark'
@@ -17,24 +18,34 @@ export const SettingsProvider = ({children}) => {
 
     useEffect(() => {
         if (!isAuthenticated) {
-            setSettings(null);
             return;
         }
 
-        const loadSettings = async () => {
+        let cancelled = false;
+
+        async function loadSettings() {
             try {
                 const response = await getSettings();
-                setSettings(response);
+
+                if (!cancelled) {
+                    setSettings(response);
+                }
             } catch (error) {
-                console.error('Error loading settings:', error);
+                if (!cancelled) {
+                    console.error('Error loading settings:', error);
+                }
             }
-        };
+        }
 
         loadSettings();
+
+        return () => {
+            cancelled = true;
+        };
     }, [isAuthenticated]);
 
     return (
-        <SettingsContext.Provider value={{settings: isAuthenticated ? settings : null, setSettings}}>
+        <SettingsContext.Provider value={{settings: visibleSettings, setSettings}}>
             {children}
         </SettingsContext.Provider>
     );

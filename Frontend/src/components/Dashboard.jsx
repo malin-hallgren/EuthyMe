@@ -17,16 +17,7 @@ export default function Dashboard() {
     const [showWarning, setShowWarning] = useState(false);
     const handleCloseCreateReport = () => setIsCreateReportOpen(false);
 
-    async function fetchUserData() {
-        try {
-            const response = await getFullDashboardData();
-            setUser(response);
-            setShowWarning(showWarningIfNeeded(response));
-            console.log('Fetched user data:', response);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    }
+    
 
     async function handleReportCreated() {
         const refreshedData = await refreshMoodReports(); // Fetch only the updated mood reports
@@ -52,6 +43,17 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
+        async function fetchUserData() {
+            try {
+                const response = await getFullDashboardData();
+                setUser(response);
+                setShowWarning(showWarningIfNeeded(response));
+                console.log('Fetched user data:', response);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+
         fetchUserData();
     }, []);
 

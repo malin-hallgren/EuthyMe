@@ -55,11 +55,6 @@ export default function Header()  {
                 <Popup isOpen={isAccountSettingsOpen} onClose={() => setIsShowAccountSettingsOpen(false)}>
                     <AccountSettingsContent
                         onClose={() => setIsShowAccountSettingsOpen(false)}
-                        onSavePasswords= {(passwords) => {
-                            // Handle password change logic here
-                            setIsShowAccountSettingsOpen(false);
-                        }}
-                    
                     />
                 </Popup>
             )}

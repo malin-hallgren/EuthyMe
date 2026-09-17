@@ -1,12 +1,10 @@
 import { useAuth } from "../../hooks/useAuth.js";
-import {useSettings} from '../../hooks/useSettings.js'
 import {useNavigate} from 'react-router-dom'
 import PrimaryButton from '../UI/PrimaryButton.jsx'
 import './NotFound.css'
 
 export default function NotFound() {
-    const {isAuthenticated, user} = useAuth()
-    const {theme} = useSettings()
+    const {isAuthenticated} = useAuth()
     const navigate = useNavigate()
 
     return (

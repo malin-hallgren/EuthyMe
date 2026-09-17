@@ -10,7 +10,7 @@ export default function AdminDashboard() {
     const [activeUsers, setActiveUsers] = useState([]);
     const [inactiveUsers, setInactiveUsers] = useState([]);
     
-    async function ListUsers () {
+    async function loadUsers() {
 
         try {
             const response = await getUsers();
@@ -26,17 +26,18 @@ export default function AdminDashboard() {
         try {
             await deleteUser(userId);
             console.log('User deleted');
+            await loadUsers();
         } catch (error) {
             console.error('Error deleting user:', error);
-        }
-        finally {
-            // Refresh the user lists after deletion
-            ListUsers();
         }
     };
 
     useEffect(() => {
-        ListUsers();
+        async function fetchUsers() {
+            await loadUsers();
+        }
+
+        fetchUsers();
     }, []);
 
     return (
