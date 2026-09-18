@@ -86,16 +86,24 @@ namespace Backend.Services
                 UserName = registerUser.Email
             };
 
+           
             var result = await userManager.CreateAsync(user, registerUser.Password);
+
             await userManager.AddToRoleAsync(user, "User");
 
             if (result.Succeeded)
             {
-                return (true, "User registered successfully.");
+                return (true, "SUC_USER_REGISTERED");
             }
-
-            var message = string.Join("; ", result.Errors.Select(e => e.Description));
-            return (false, message);
+            else if (result.Errors.Any(e => e.Code == "DuplicateUserName"))
+            {
+                return (false, "ERR_EMAIL_ALREADY_REGISTERED");
+            }
+            else
+            {
+                var message = "ERR_GENERIC_REGISTER_ERROR";
+                return (false, message);
+            }
         }
 
         public async Task<DisplayUserDTO?> GetDashboardUser(int userId, int days)

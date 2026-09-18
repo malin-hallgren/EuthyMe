@@ -20,12 +20,16 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setIsAuthenticated, setUserRole } = useAuth();
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 
-    const { globalError, setGlobalError, clearGlobalError } = useGlobalError();
+    const [localError, setLocalError] = useState();
+    const { globalError, clearGlobalError } = useGlobalError();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLocalError(null); // Clear any previous local error messages
         clearGlobalError(); // Clear any previous global error messages
+        setHasSubmitted(true);
 
         try {
             const response = await loginUser({
@@ -54,7 +58,7 @@ export default function Login() {
 
             const message = ErrorMessagesText[combinedMessage];
 
-            setGlobalError(message);
+            setLocalError(message);
         }
     };
 
@@ -81,6 +85,9 @@ export default function Login() {
                         required />
                     {globalError && (
                         <ErrorMessage message={globalError} type="error" />
+                    )}
+                    {hasSubmitted && localError && (
+                        <ErrorMessage message={localError} type="error" />
                     )}
                     <PrimaryButton 
                         text={`${LoginRegisterText.LoginPage.login}`} 

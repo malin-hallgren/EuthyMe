@@ -1,3 +1,9 @@
 {
-    "ERR_LOGIN_CRED_400": "Invalid username or password. Please try again."
+    "ERR_GENERIC_500": "An unexpected error occurred. Please try again later.",
+    "ERR_LOGIN_CRED_400": "Invalid email or password. Please try again.",
+    "SUC_USER_REGISTERED": "Registration successful!",
+    "ERR_EMAIL_ALREADY_REGISTERED": "This email is already registered.",
+    "ERR_GENERIC_REGISTER_ERROR": "Registration failed. Please try again.",
+    "ERR_PASSWORDS_DO_NOT_MATCH": "Passwords do not match.",
+    "ERR_SESSION_EXPIRED": "Your session has expired. Please log in again."
 }

@@ -6,8 +6,10 @@ import SecondaryButton from "../UI/secondary-button/SecondaryButton.jsx";
 import ContentCard from "../UI/content-card/ContentCard.jsx";
 import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
 import InputField from "../UI/input-field/InputField.jsx";
+import ErrorMessage from "../error-message/ErrorMessage.jsx";
 
 import LoginRegisterText from "../../text-content/LoginRegisterText.json";
+import ErrorMessagesText from "../../text-content/ErrorMessagesText.json";
 
 import "./Register.css";
 
@@ -26,7 +28,7 @@ export default function Register() {
         setMessage('');
         setHasSubmitted(false);
         if (password !== confirmPassword) {
-            setMessage({type : 'error', text: 'Passwords do not match'});
+            setMessage({type : 'error', text: 'ERR_PASSWORDS_DO_NOT_MATCH'});
             setHasSubmitted(true);
             return;
         }
@@ -41,7 +43,7 @@ export default function Register() {
             setMessage({type : 'success', text: response.message});
         } catch (error) {
             const errorMessage = error?.response?.data;
-            setMessage({type : 'error', text: errorMessage.errors?.Password?.join(" ") || errorMessage?.title || errorMessage.message || 'An error occurred'});
+            setMessage({type : 'error', text: errorMessage || 'ERR_GENERIC_REGISTER_ERROR'});
         }
         finally {
             setHasSubmitted(true);
@@ -86,16 +88,16 @@ export default function Register() {
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
                         />
+                        {hasSubmitted && message.type === 'success' && (
+                            <ErrorMessage message={ErrorMessagesText.SUC_USER_REGISTERED} type="success" />
+                        )}
+                        {hasSubmitted && message.type === 'error' &&  (
+                            <ErrorMessage message={ErrorMessagesText[message.text] || message.text} type="error" />
+                        )}
                         <PrimaryButton text={`${LoginRegisterText.RegisterPage.register_btn}`} type="submit" />
                     </form> 
-                    <p>
-                        {hasSubmitted && message.type === 'success' && (
-                            <span style={{ color: 'green' }}>{message.text}</span>
-                        )}
-                        {hasSubmitted && message.type === 'error' && (
-                            <span style={{ color: 'red' }}>{message.text}</span>
-                        )}
-                    </p>
+                    
+                   
                 <SecondaryButton onClick={() => { navigate('/login') }} text={`${LoginRegisterText.RegisterPage.back_to_login}`}/>
                 </ContentCard>
             </div> 
