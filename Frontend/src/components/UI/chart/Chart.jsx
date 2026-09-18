@@ -93,6 +93,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 pointHoverRadius: 12,
                 borderColor: settings?.theme.toLowerCase() === 'light' ? '#FFC20C' : '#C0CBBD',
                 backgroundColor: settings?.theme.toLowerCase() === 'light' ? '#FFF0C4' : '#2e303a',
+                hidden: settings?.showMeds === false,
             }
         ],
     };

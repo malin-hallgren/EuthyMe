@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createMoodReport } from '../../services/MoodReportServices.js';
+import { useSettings } from '../../hooks/useSettings.js';
 
 import ScaleSelector from '../UI/scale-selector/ScaleSelector.jsx';
 import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
@@ -12,8 +13,9 @@ export default function CreateMoodReport({onClose, onCreated}) {
     const [mood, setMood] = useState('');
     const [sleep, setSleep] = useState('');
     const [medsTaken, setMedsTaken] = useState();
+    const settings = useSettings();
 
-    const isFormComplete = mood !== '' && sleep !== '' && medsTaken !== undefined;
+    const isFormComplete = mood !== '' && sleep !== '' && (settings?.showMeds ? medsTaken !== undefined : true);
 
     const moodOptions = {
         1: { text: UserDashboardText.mood.option1 },
@@ -81,16 +83,18 @@ export default function CreateMoodReport({onClose, onCreated}) {
                     optionsMap={sleepOptions}
                     required 
                 />
-                <ScaleSelector className="scale-selector-block"
-                    label={UserDashboardText.meds.header}
-                    textKey="meds"
-                    description={UserDashboardText.meds.description}
-                    name="medsTaken"
-                    selected={medsTaken}
-                    onChange={setMedsTaken}
-                    optionsMap={medsOptions}
-                    required 
-                />
+                {settings?.showMeds && (
+                    <ScaleSelector className="scale-selector-block"
+                        label={UserDashboardText.meds.header}
+                        textKey="meds"
+                        description={UserDashboardText.meds.description}
+                        name="medsTaken"
+                        selected={settings?.showMeds ? medsTaken : true} // If showMeds is false, default to true
+                        onChange={setMedsTaken}
+                        optionsMap={medsOptions}
+                        required = {settings?.showMeds} // Only required if showMeds is true
+                    />
+                )}
                 <PrimaryButton 
                     type="submit" 
                     text={UserDashboardText.create_mood_report_btn_active} 

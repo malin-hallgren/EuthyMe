@@ -84,10 +84,12 @@ export default function Dashboard() {
                                 <h3 className="graph-card-title">{DashboardText.avg_mood}</h3>
                                 <p className="graph-card-value">{user.averageMoodScore}</p>
                             </ContentCard>
-                            <ContentCard className = "graph-card-small">
-                                <h3 className="graph-card-title">{DashboardText.missed_meds}</h3>
-                                <p className="graph-card-value">{user.amountMissedMeds}</p>
-                            </ContentCard>
+                            {settings?.showMeds && (
+                                <ContentCard className = "graph-card-small">
+                                    <h3 className="graph-card-title">{DashboardText.missed_meds}</h3>
+                                    <p className="graph-card-value">{user.amountMissedMeds}</p>
+                                </ContentCard>
+                            )}
                         </section>
                     </ContentCard>
                     <section className="dashboard-right-side">
