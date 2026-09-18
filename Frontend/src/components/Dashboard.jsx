@@ -36,7 +36,7 @@ export default function Dashboard() {
     function showWarningIfNeeded(response) {
         return(
             response.amountMissedMeds > 2 || 
-            response.averageMoodScore < 2  && !response.averageMoodScore === 0 ||
+            response.averageMoodScore < 2  && !response.averageMoodScore !== 0 ||
             response.averageSleepScore < 2 && 
             response.averageMoodScore > 4
         );
