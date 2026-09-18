@@ -28,14 +28,14 @@ namespace Backend
 
             builder.Services.AddOpenApi();
 
-            //var connectionString = builder.Configuration["ConnectionString"]
-            //    ?? builder.Configuration.GetConnectionString("DefaultConnection")
-            //    ?? Environment.GetEnvironmentVariable("SQLCONNSTR_ConnectionString")
-            //    ?? Environment.GetEnvironmentVariable("SQLCONNSTR_DefaultConnection");
+            var connectionString = builder.Configuration["ConnectionString"]
+                ?? builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? Environment.GetEnvironmentVariable("SQLCONNSTR_ConnectionString")
+                ?? Environment.GetEnvironmentVariable("SQLCONNSTR_DefaultConnection");
 
             builder.Services.AddDbContext<EuthyMeDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration["ConnectionString"]);
+                options.UseSqlServer(connectionString);
             });
 
             
