@@ -21,7 +21,6 @@ namespace Backend
         {
             var builder = WebApplication.CreateBuilder(args);
             var corsConfig = "AllowFrontend";
-            var isDevelopment = builder.Environment.IsDevelopment();
 
             builder.Configuration.AddUserSecrets<Program>(optional: true);
 
@@ -29,34 +28,14 @@ namespace Backend
 
             builder.Services.AddOpenApi();
 
-            builder.Logging.ClearProviders();
-            builder.Logging.AddConsole();
-            builder.Logging.AddDebug();
-
-            var connectionString = builder.Configuration["ConnectionString"]
-                ?? builder.Configuration.GetConnectionString("DefaultConnection")
-                ?? Environment.GetEnvironmentVariable("SQLCONNSTR_ConnectionString")
-                ?? Environment.GetEnvironmentVariable("SQLCONNSTR_DefaultConnection");
-
-
-            var missing = new List<string>();
-            if (string.IsNullOrWhiteSpace(connectionString)) missing.Add("ConnectionString (or DefaultConnection via GetConnectionString)");
-            if (string.IsNullOrWhiteSpace(builder.Configuration["Jwt:Key"])) missing.Add("Jwt__Key (Jwt:Key)");
-            if (string.IsNullOrWhiteSpace(builder.Configuration["Jwt:Issuer"])) missing.Add("Jwt__Issuer (Jwt:Issuer)");
-            if (string.IsNullOrWhiteSpace(builder.Configuration["Jwt:Audience"])) missing.Add("Jwt__Audience (Jwt:Audience)");
-            if (missing.Any())
-            {
-                var msg = "Missing required configuration keys: " + string.Join(", ", missing) +
-                          ". In Azure App Service use double-underscores for section names (e.g. Jwt__Key).";
-                Console.Error.WriteLine(msg);
-                throw new InvalidOperationException(msg);
-            }
-
-
+            //var connectionString = builder.Configuration["ConnectionString"]
+            //    ?? builder.Configuration.GetConnectionString("DefaultConnection")
+            //    ?? Environment.GetEnvironmentVariable("SQLCONNSTR_ConnectionString")
+            //    ?? Environment.GetEnvironmentVariable("SQLCONNSTR_DefaultConnection");
 
             builder.Services.AddDbContext<EuthyMeDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(builder.Configuration["ConnectionString"]);
             });
 
             
