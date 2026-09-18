@@ -1,4 +1,5 @@
-import ContentCard from './ContentCard';
+import ContentCard from '../content-card/ContentCard';
+
 import './PopUp.css';
 
 export default function PopUp({ children, isOpen, onClose }) {

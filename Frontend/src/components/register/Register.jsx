@@ -1,12 +1,15 @@
-import {registerUser} from '../services/UserServices.js';
+import {registerUser} from '../../services/UserServices.js';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ContentCard from "./UI/ContentCard.jsx";
-import PrimaryButton from "./UI/PrimaryButton.jsx";
-import InputField from "./InputField.jsx";
-import SecondaryButton from "./UI/SecondaryButton.jsx";
+
+import SecondaryButton from "../UI/secondary-button/SecondaryButton.jsx";
+import ContentCard from "../UI/content-card/ContentCard.jsx";
+import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
+import InputField from "../UI/input-field/InputField.jsx";
+
+import LoginRegisterText from "../../text-content/LoginRegisterText.json";
+
 import "./Register.css";
-import LoginRegisterText from "../text-content/LoginRegisterText.json";
 
 export default function Register() {
     const [email, setEmail] = useState('');

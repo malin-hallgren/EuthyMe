@@ -1,12 +1,14 @@
 import React from 'react';
-import UserDashboardText from '../../text-content/UserDashboardText.json';
-import { ScaleSelectorValue1 } from './icons/ScaleSelectorValue1.jsx';
-import { ScaleSelectorValue2 } from './icons/ScaleSelectorValue2.jsx';
-import { ScaleSelectorValue3 } from './icons/ScaleSelectorValue3.jsx';
-import { ScaleSelectorValue4 } from './icons/ScaleSelectorValue4.jsx';
-import { ScaleSelectorValue5 } from './icons/ScaleSelectorValue5.jsx';
-import { ScaleSelectorValueTrue } from './icons/ScaleSelectorValueTrue.jsx';
-import { ScaleSelectorValueFalse } from './icons/ScaleSelectorValueFalse.jsx';
+
+import { ScaleSelectorValue1 } from '../icons/ScaleSelectorValue1.jsx';
+import { ScaleSelectorValue2 } from '../icons/ScaleSelectorValue2.jsx';
+import { ScaleSelectorValue3 } from '../icons/ScaleSelectorValue3.jsx';
+import { ScaleSelectorValue4 } from '../icons/ScaleSelectorValue4.jsx';
+import { ScaleSelectorValue5 } from '../icons/ScaleSelectorValue5.jsx';
+import { ScaleSelectorValueTrue } from '../icons/ScaleSelectorValueTrue.jsx';
+import { ScaleSelectorValueFalse } from '../icons/ScaleSelectorValueFalse.jsx';
+
+import UserDashboardText from '../../../text-content/UserDashboardText.json';
 
 const scaleValueIcons = {
     1: ScaleSelectorValue1,

@@ -1,7 +1,9 @@
-import {Chart, LineElement} from 'chart.js/auto';
-import {Line} from 'react-chartjs-2';
-import {useSettings} from '../hooks/useSettings.js';
-import UserDashboardText from '../text-content/UserDashboardText.json';
+import { Chart, LineElement } from 'chart.js/auto';
+import { Line } from 'react-chartjs-2';
+import { useSettings } from '../../../hooks/useSettings.js';
+
+import UserDashboardText from '../../../text-content/UserDashboardText.json';
+
 import './Chart.css';
 
 Chart.register(LineElement);

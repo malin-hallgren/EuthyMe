@@ -1,4 +1,4 @@
-import Dashboard from "../components/Dashboard.jsx";
+import Dashboard from "../components/dashboard/Dashboard.jsx";
 
 export default function DashboardPage() {
 

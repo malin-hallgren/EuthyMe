@@ -1,6 +1,8 @@
 import { useAuth } from "../../hooks/useAuth.js";
-import {useNavigate} from 'react-router-dom'
-import PrimaryButton from '../UI/PrimaryButton.jsx'
+import { useNavigate } from 'react-router-dom'
+
+import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx'
+
 import './NotFound.css'
 
 export default function NotFound() {

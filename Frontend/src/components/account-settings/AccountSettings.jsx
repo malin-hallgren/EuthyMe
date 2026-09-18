@@ -1,5 +1,5 @@
-import { AccountIcon } from "./UI/icons/AccountCircleIcon.jsx";
-import AccountSettingsText from "../text-content/AccountSettingsText.json";
+import { AccountIcon } from "../UI/icons/AccountCircleIcon.jsx";
+import AccountSettingsText from "../../text-content/AccountSettingsText.json";
 
 export default function AccountSettings({onClick})  {
     

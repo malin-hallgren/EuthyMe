@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LoginUser} from '../services/AuthServices.js';
-import { useAuth } from "../hooks/useAuth.js";
-import { useGlobalError } from "../hooks/useGlobalError.js";
-import ErrorMessage from './error-message/ErrorMessage.jsx';
-import ContentCard from './UI/ContentCard.jsx';
-import PrimaryButton from './UI/PrimaryButton.jsx';
-import SecondaryButton from './UI/SecondaryButton.jsx';
-import InputField from './InputField.jsx';
-import LoginRegisterText from '../text-content/LoginRegisterText.json';
-import ErrorMessagesText from '../text-content/ErrorMessagesText.json';
+import { loginUser} from '../../services/AuthServices.js';
+import { useAuth } from "../../hooks/useAuth.js";
+import { useGlobalError } from "../../hooks/useGlobalError.js";
+
+import ErrorMessage from '../error-message/ErrorMessage.jsx';
+import ContentCard from '../UI/content-card/ContentCard.jsx';
+import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
+import SecondaryButton from '../UI/secondary-button/SecondaryButton.jsx';
+import InputField from '../UI/input-field/InputField.jsx';
+
+import LoginRegisterText from '../../text-content/LoginRegisterText.json';
+import ErrorMessagesText from '../../text-content/ErrorMessagesText.json';
+
 import './Login.css'
 
 export default function Login() {
@@ -25,7 +28,7 @@ export default function Login() {
         clearGlobalError(); // Clear any previous global error messages
 
         try {
-            const response = await LoginUser({
+            const response = await loginUser({
                 UserName: email,
                 Password: password,
             });

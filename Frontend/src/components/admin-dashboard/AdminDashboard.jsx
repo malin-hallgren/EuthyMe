@@ -1,10 +1,13 @@
 import {useState, useEffect} from "react";
-import {getUsers} from '../services/UserServices.js';
-import ContentCard from "./UI/ContentCard.jsx";
-import PrimaryButton from "./UI/PrimaryButton.jsx";
-import {deleteUser} from "../services/UserServices.js";
+import {getUsers} from '../../services/UserServices.js';
+import {deleteUser} from "../../services/UserServices.js";
+
+import ContentCard from "../UI/content-card/ContentCard.jsx";
+import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
+
+import AdminDashboardText from "../../text-content/AdminDashboardText.json";
+
 import './AdminDashboard.css';
-import AdminDashboardText from "../text-content/AdminDashboardText.json";
 
 export default function AdminDashboard() {
     const [activeUsers, setActiveUsers] = useState([]);

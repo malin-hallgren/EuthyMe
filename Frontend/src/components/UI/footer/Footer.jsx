@@ -1,4 +1,5 @@
-import StaticText from "../text-content/StaticText.json"
+import StaticText from "../../../text-content/StaticText.json"
+
 import './Footer.css'
 
 export default function Footer()  {

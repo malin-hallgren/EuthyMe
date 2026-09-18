@@ -1,13 +1,16 @@
 import {useState, useEffect} from "react";
-import {useSettings} from "../hooks/useSettings.js";
-import ContentCard from "./UI/ContentCard";
-import LineChart from "./Chart";
-import PrimaryButton from "./UI/PrimaryButton";
-import PopUp from "./UI/PopUp.jsx";
-import CreateMoodReport from "./CreateMoodReport";
-import {getFullDashboardData} from '../services/UserServices.js';
-import DashboardText from "../text-content/UserDashboardText.json";
-import {refreshMoodReports} from "../services/MoodReportServices.js";
+import {useSettings} from "../../hooks/useSettings.js";
+import {getFullDashboardData} from '../../services/UserServices.js';
+import {refreshMoodReports} from "../../services/MoodReportServices.js";
+
+import ContentCard from "../UI/content-card/ContentCard.jsx";
+import LineChart from "../UI/chart/Chart.jsx";
+import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
+import PopUp from "../UI/pop-up/PopUp.jsx";
+import CreateMoodReport from "../create-mood-report/CreateMoodReport.jsx";
+
+import DashboardText from "../../text-content/UserDashboardText.json";
+
 import './Dashboard.css';
 
 export default function Dashboard() {

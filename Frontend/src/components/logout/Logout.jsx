@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
-import { useSettings } from "../hooks/useSettings.js";
-import {LogoutUser} from "../services/AuthServices.js";
-import {LogoutIcon} from "./UI/icons/LogoutIcon.jsx";
+import { useAuth } from "../../hooks/useAuth.js";
+import { useSettings } from "../../hooks/useSettings.js";
+import { logoutUser } from "../../services/AuthServices.js";
+import { LogoutIcon } from "../UI/icons/LogoutIcon.jsx";
 
 export default function Logout() {
     const { setIsAuthenticated, setUserRole } = useAuth();
@@ -12,7 +12,7 @@ export default function Logout() {
 
     const handleClick = async () => {
         try {
-            await LogoutUser();
+            await logoutUser();
             setIsAuthenticated(false);
             setUserRole(null);
             setSettings(null);

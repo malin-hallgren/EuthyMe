@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react';
-import {SettingsContext} from './SettingsContext.js';
-import {getSettings} from '../../services/SettingsService.js';
-import {useAuth} from '../../hooks/useAuth.js';
+import { useState, useEffect } from 'react';
+import { SettingsContext } from './SettingsContext.js';
+import { getSettings } from '../../services/SettingsService.js';
+import { useAuth } from '../../hooks/useAuth.js';
 
 export const SettingsProvider = ({children}) => {
     const [settings, setSettings] = useState(null);

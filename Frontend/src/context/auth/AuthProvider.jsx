@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext.js";
-import {CheckAuthStatus} from "../../services/AuthServices.js";
+import { checkAuthStatus } from "../../services/AuthServices.js";
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
 
         const checkAuth = async () => {
             try {
-                const response = await CheckAuthStatus();
+                const response = await checkAuthStatus();
 
                 if (cancelled) return;
 

@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import UserDashboardText from '../text-content/UserDashboardText.json';
-import { createMoodReport } from '../services/MoodReportServices.js';
-import ScaleSelector from './UI/ScaleSelector.jsx';
-import PrimaryButton from './UI/PrimaryButton.jsx';
+import { createMoodReport } from '../../services/MoodReportServices.js';
+
+import ScaleSelector from '../UI/scale-selector/ScaleSelector.jsx';
+import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
+
+import UserDashboardText from '../../text-content/UserDashboardText.json';
+
 import './CreateMoodReport.css';
 
 export default function CreateMoodReport({onClose, onCreated}) {

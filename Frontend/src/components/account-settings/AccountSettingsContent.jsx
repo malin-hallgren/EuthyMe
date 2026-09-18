@@ -1,13 +1,16 @@
 import {useState} from 'react';
-import {useSettings} from '../hooks/useSettings.js';
-import { updateSettings } from "../services/SettingsService.js";
-import { updatePassword } from "../services/AuthServices.js";
-import SecondaryButton from './UI/SecondaryButton.jsx';
-import ScaleSelector from './UI/ScaleSelector.jsx';
-import PrimaryButton from './UI/PrimaryButton.jsx';
-import InputField from './InputField.jsx';
-import AccountSettingsText from '../text-content/AccountSettingsText.json';
-import ContentCard from './UI/ContentCard.jsx';
+import { useSettings } from "../../hooks/useSettings.js";
+import { updateSettings } from "../../services/SettingsService.js";
+import { updatePassword } from "../../services/AuthServices.js";
+
+import SecondaryButton from '../UI/secondary-button/SecondaryButton.jsx';
+import ScaleSelector from '../UI/scale-selector/ScaleSelector.jsx';
+import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
+import InputField from '../UI/input-field/InputField.jsx';
+import ContentCard from '../UI/content-card/ContentCard.jsx';
+
+import AccountSettingsText from '../../text-content/AccountSettingsText.json';
+
 import './AccountSettingsContent.css';
 
 export default function AccountSettingsContent({onClose}) {

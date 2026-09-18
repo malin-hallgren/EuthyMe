@@ -1,11 +1,14 @@
-import "./Header.css"
 import { useRef, useState, useEffect } from "react";
-import StaticText from "../text-content/StaticText.json"
-import { useAuth } from "../hooks/useAuth.js";
-import Logout from "./Logout.jsx"
-import AccountSettings from "./AccountSettings.jsx";
-import AccountSettingsContent from "./AccountSettingsContent.jsx";
-import Popup from "./UI/PopUp.jsx";
+import { useAuth } from "../../../hooks/useAuth.js";
+
+import Logout from "../../logout/Logout.jsx"
+import AccountSettings from "../../account-settings/AccountSettings.jsx";
+import AccountSettingsContent from "../../account-settings/AccountSettingsContent.jsx";
+import Popup from "../pop-up/PopUp.jsx";
+
+import StaticText from "../../../text-content/StaticText.json"
+
+import "./Header.css"
 
 
 export default function Header()  {
