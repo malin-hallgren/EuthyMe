@@ -115,64 +115,6 @@ namespace Backend.Data
                 .IsRequired();
 
             builder.Entity<MoodReport>()
-                .HasData(
-                    new MoodReport
-                    {
-                        Id = 1,
-                        UserId = 2,
-                        MoodScore = 5,
-                        SleepScore = 3,
-                        MedsTaken = true,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1))
-                    },
-                    new MoodReport
-                    {
-                        Id = 2,
-                        UserId = 2,
-                        MoodScore = 3,
-                        SleepScore = 4,
-                        MedsTaken = false,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-2))
-                    },
-                    new MoodReport
-                    {
-                        Id = 3,
-                        UserId = 2,
-                        MoodScore = 3,
-                        SleepScore= 4,
-                        MedsTaken = true,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-3))
-                    },
-                    new MoodReport
-                    {
-                        Id = 4,
-                        UserId = 3,
-                        MoodScore = 5,
-                        SleepScore = 1,
-                        MedsTaken = false,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-1))
-                    },
-                    new MoodReport
-                    {
-                        Id = 5,
-                        UserId = 3,
-                        MoodScore = 4,
-                        SleepScore = 2,
-                        MedsTaken = false,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-2))
-                    },
-                    new MoodReport
-                    {
-                        Id = 6,
-                        UserId = 3,
-                        MoodScore = 5,
-                        SleepScore = 2,
-                        MedsTaken = true,
-                        Date = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(-3))
-                    }
-                );
-
-            builder.Entity<MoodReport>()
                 .HasIndex(m => new { m.UserId, m.Date });
 
             builder.Entity<IdentityRole<int>>()
