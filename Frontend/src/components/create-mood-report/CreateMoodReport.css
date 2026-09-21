@@ -2,6 +2,7 @@
     width: 100%;
     max-width: 100vw;
     padding : var(--spacing-16);
+    margin-top: calc( -2 * var(--spacing-32));
 }
 
 .scale-input {

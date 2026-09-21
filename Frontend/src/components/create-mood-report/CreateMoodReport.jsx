@@ -13,7 +13,7 @@ export default function CreateMoodReport({onClose, onCreated}) {
     const [mood, setMood] = useState('');
     const [sleep, setSleep] = useState('');
     const [medsTaken, setMedsTaken] = useState();
-    const settings = useSettings();
+    const { settings } = useSettings();
 
     const isFormComplete = mood !== '' && sleep !== '' && (settings?.showMeds ? medsTaken !== undefined : true);
 
@@ -44,16 +44,16 @@ export default function CreateMoodReport({onClose, onCreated}) {
             const payload = {
                 moodScore: Number(mood),
                 sleepScore: Number(sleep),
-                medsTaken: medsTaken === 'true' || medsTaken === true //force boolean
+                medsTaken: settings?.showMeds ? (medsTaken === 'true' || medsTaken === true) : true
             };
             await createMoodReport(payload);
             
             if (onCreated) {
-                onCreated(); // Notify parent component of successful creation
+                onCreated();
             }
 
             if (onClose) {
-                onClose(); // Close the popup after submission
+                onClose();
             }
 
         } catch (error) {
@@ -89,7 +89,7 @@ export default function CreateMoodReport({onClose, onCreated}) {
                         textKey="meds"
                         description={UserDashboardText.meds.description}
                         name="medsTaken"
-                        selected={settings?.showMeds ? medsTaken : true} // If showMeds is false, default to true
+                        selected={medsTaken} 
                         onChange={setMedsTaken}
                         optionsMap={medsOptions}
                         required = {settings?.showMeds} // Only required if showMeds is true
