@@ -13,4 +13,5 @@
 .not-found-container .primary-button {
     margin-top: var(--spacing-16);
     max-width: 25%;
+    min-width: 200px;
 }

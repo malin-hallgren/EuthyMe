@@ -8,6 +8,7 @@ import LineChart from "../UI/chart/Chart.jsx";
 import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
 import PopUp from "../UI/pop-up/PopUp.jsx";
 import CreateMoodReport from "../create-mood-report/CreateMoodReport.jsx";
+import PanicButton from "../panic-button/PanicButton.jsx";
 
 import DashboardText from "../../text-content/UserDashboardText.json";
 
@@ -71,12 +72,13 @@ export default function Dashboard() {
             <section className="dashboard-container">
                 <h2>{DashboardText.greeting.replace("{{name}}", settings?.displayName ?? user.displayName ?? "")}</h2>
                 <section className="dashboard-content">
-                    <ContentCard className = "graph-card-big">
-                        <ContentCard className = "graph-card-graph">
-                            <LineChart chartData={user.moodReports} />
-                        </ContentCard>
-                        <section className="dashboard-graph-stats">
-                            <ContentCard className = "graph-card-small">
+                    <section className="dashboard-left-side">
+                        <ContentCard className = "graph-card-big">
+                            <ContentCard className = "graph-card-graph">
+                                <LineChart chartData={user.moodReports} />
+                            </ContentCard>
+                            <section className="dashboard-graph-stats">
+                                <ContentCard className = "graph-card-small">
                                 <h3 className="graph-card-title">{DashboardText.avg_sleep}</h3>
                                 <p className="graph-card-value">{user.averageSleepScore}</p>
                             </ContentCard>
@@ -90,8 +92,12 @@ export default function Dashboard() {
                                     <p className="graph-card-value">{user.amountMissedMeds}</p>
                                 </ContentCard>
                             )}
-                        </section>
-                    </ContentCard>
+                            </section>
+                        </ContentCard>
+                        <div className="desktop-panic-button-container">
+                            <PanicButton />
+                        </div>
+                    </section>
                     <section className="dashboard-right-side">
                         <ContentCard className = "graph-card-small">
                             <h3 className="graph-card-title">
@@ -111,10 +117,23 @@ export default function Dashboard() {
                             </PopUp>
                         </ContentCard>
                         <ContentCard className = "graph-card-small">
-                            <p className="graph-card-title resourcesTitle">{DashboardText.resources_title}</p>
-                            <p className="graph-card-description">{DashboardText.resources_description}</p>
+                            <h3 className="graph-card-title resources-title">{DashboardText.resources.header}</h3>
+                            <p className="graph-card-description">{DashboardText.resources.description}</p>
+                            <section className="resources-list-container">
+                                <ul className="resources-list">
+                                    {Object.values(DashboardText.resources.list).map((resource, index) => (
+                                        <li key={index} className="resource-item">
+                                            <p><span className="resource-title">{resource.title}: </span>{resource.description}</p>
+                                            <a href={resource.link} target="_blank" rel="noopener noreferrer" className="resource-link">{resource.link_text}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
                         </ContentCard>
                     </section>
+                    <div className="mobile-panic-button-container">
+                        <PanicButton />
+                    </div>
                 </section>
             </section>
         </>

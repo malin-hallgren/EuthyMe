@@ -8,8 +8,6 @@
     "create_mood_report_description": "Please fill out the following questions to create your daily mood report. This will help you track your mental health and provide valuable insights for your well-being.",
     "create_mood_report_btn_active": "Create Mood Report",
     "create_mood_report_btn_inactive": "Daily Report Done!",
-    "resources_title": "Resources",
-    "resources_description": "Here are some resources that may be helpful for you:\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "banner_warning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!",
     
     "mood" : {
@@ -41,5 +39,26 @@
     },
 
     "selected": "Selected: {{option}} {{label}}",
-    "select_prompt": "Select a {{label}} value"
+    "select_prompt": "Select a {{label}} value",
+    "resources": {
+        "header": "Resources",
+        "description": "Here are some resources that may be helpful for you:",
+        "list": {
+            "resource1": {
+                "title": "Your Doctor or Therapist",
+                "description": "If you have specific questions about your condition, consult your healthcare practicioner or therapist. They can provide personalized advice and support."
+            },
+            "resource2": {
+                "title": "Emergency Services",
+                "description": "If you are in crisis and need immediate support, always contact Emergency Services by calling you local SOS number."
+            },
+            "resource3": {
+                "title": "International Bipolar Foundation (IBPF)",
+                "description": "The IBPF provides resources, support, and education for individuals living with bipolar disorder and their families.",
+                "link": "https://ibpf.org/",
+                "link_text": "Visit IBPF >>"
+            }
+        },
+        "panic_button": "Leave Page"
+    }
 }
