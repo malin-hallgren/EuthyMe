@@ -72,12 +72,16 @@ namespace Backend.Controllers
             }
 
             var result = await authService.UpdateUserPasswordAsync(userId, updatePassword);
-            if (result != HttpStatusCode.OK)
+            if (result == HttpStatusCode.BadRequest)
             {
-                return BadRequest();
+                return BadRequest(new { message = "ERR_INVALID_CREDENTIALS_PW_UPDATE"});
+            }
+            else if ( result == HttpStatusCode.NotFound)
+            {
+                return NotFound();
             }
 
-            return Ok();
+            return Ok(new {message = "SUC_PASSWORD_UPDATED"});
         }
 
     }

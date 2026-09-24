@@ -6,7 +6,7 @@ export async function getSettings() {
         return response.data;
     }
     catch (error) {
-        console.error('Error fetching settings:', error);
+        console.error("Error fetching settings:", error);
         throw error; // Rethrow the error to be handled by the caller
     }
 }
@@ -17,12 +17,7 @@ export async function updateSettings(settings) {
         return response.data;
     }
     catch (error) {
-        console.error('Error updating settings:', {
-            status: error.response?.status,
-            response: error.response?.data,
-            payload: settings,
-            error,
-        });
+        console.error("Error updating settings:", error);
         throw error; // Rethrow the error to be handled by the caller
     }
 }

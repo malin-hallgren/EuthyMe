@@ -82,3 +82,8 @@ h2 {
 .password-form-title {
     margin-top: var(--spacing-32, 2rem);
 }
+
+.status-message-container {
+    margin-top: var(--spacing-16, 1rem);
+    margin-bottom: var(--spacing-16, 1rem);
+}

@@ -25,6 +25,11 @@ export async function checkAuthStatus() {
 }
 
 export async function updatePassword(payload) {
-    const response = await api.post('auth/update/password', payload);
-    return response.data;
+    try {
+        const response = await api.post('auth/update/password', payload);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating password:', error);
+        throw error;
+    }
 }

@@ -80,7 +80,7 @@ namespace Backend.Services
 
                 result =await userRepository.UpdateUserDisplayNameAsync(userId, settingsInDTO.DisplayName);
             }
-            return (result, result ? "Settings updated successfully" : "Failed to update settings");
+            return (result, result ? "SUC_SETTINGS_UPDATED_COMPLETE" : "ERR_SETTINGS_UPDATE_FAILED");
         }
     }
 }

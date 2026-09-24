@@ -20,8 +20,8 @@
         "theme_light": "Light Theme",
         "theme_dark": "Dark Theme",
         "deleteAccount": {
-        "title": "Delete Account",
-        "description": "Permanently delete your account and all associated data."
+            "title": "Delete Account",
+            "description": "Permanently delete your account and all associated data."
         }
     }
 }

@@ -128,6 +128,7 @@ namespace Backend.Services
         public async Task<HttpStatusCode> UpdateUserPasswordAsync(int userId, UpdatePasswordDTO updatePassword)
         {
             var user = await userManager.FindByIdAsync(userId.ToString());
+            //If this happens we have other, major, issues
             if (user == null)
             {
                 return HttpStatusCode.NotFound;

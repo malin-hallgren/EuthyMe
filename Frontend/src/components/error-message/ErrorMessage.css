@@ -13,3 +13,8 @@
     border-radius: var(--radius-small, 0.5rem);
     padding: var(--spacing-12, 0.75rem);
 }
+
+.error-message p {
+    white-space: pre-line;
+    text-align: left;
+}

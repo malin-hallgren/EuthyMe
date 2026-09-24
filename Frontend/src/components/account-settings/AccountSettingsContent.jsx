@@ -8,8 +8,10 @@ import ScaleSelector from '../UI/scale-selector/ScaleSelector.jsx';
 import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
 import InputField from '../UI/input-field/InputField.jsx';
 import ContentCard from '../UI/content-card/ContentCard.jsx';
+import ErrorMessage from '../error-message/ErrorMessage.jsx';
 
 import AccountSettingsText from '../../text-content/AccountSettingsText.json';
+import ErrorMessagesText from '../../text-content/ErrorMessagesText.json';
 
 import './AccountSettingsContent.css';
 
@@ -21,7 +23,7 @@ export default function AccountSettingsContent({onClose}) {
     const [currentPasswordInput, setCurrentPasswordInput] = useState('');
     const [newPasswordInput, setNewPasswordInput] = useState('');
     const [confirmNewPasswordInput, setConfirmNewPasswordInput] = useState('');
-    const [passwordError, setPasswordError] = useState([]);
+    const [passwordError, setPasswordError] = useState({message: '', type: ''});
 
     const initialShowMeds = settings?.showMeds ?? true;
     const [showMedsCheckbox, setShowMedsCheckbox] = useState(
@@ -30,12 +32,26 @@ export default function AccountSettingsContent({onClose}) {
 
     const [panicLinkInput, setPanicLinkInput] = useState(settings?.panicLink ?? '');
 
+    const [message, setMessage] = useState({text: '', type: ''}); 
+
     const showMedsOptions = {
         true: { text: AccountSettingsText.accountSettings.show_meds_option },
         false: { text:AccountSettingsText.accountSettings.hide_meds_option }
     };
 
     const isPasswordFormComplete = newPasswordInput !== '' && confirmNewPasswordInput !== '' && currentPasswordInput !== '';
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setMessage({text: '', type: ''});
+
+        await handleSaveSettings({
+            displayName: displayNameInput, 
+            showMeds: showMedsCheckbox, 
+            panicLink: panicLinkInput, 
+            theme
+        });
+    };
 
     const handleSaveSettings = async (newSettings) => {
         const showMeds = newSettings.showMeds ?? settings.showMeds;
@@ -48,11 +64,20 @@ export default function AccountSettingsContent({onClose}) {
         };
 
         try {
-            await updateSettings(updatedSettings);
+            const updatedSettingsResponse = await updateSettings(updatedSettings);
+
             setSettings(updatedSettings);
+            setMessage({text: ErrorMessagesText[updatedSettingsResponse.message], type: 'success'});
+
             return true;
         } catch (error) {
-            console.error("Error updating settings:", error);
+            const errorMessage = error.response?.data?.message ??
+                error.response?.data ??
+                error.message;
+
+            const message = ErrorMessagesText[errorMessage] || combinedMessage;
+
+            setMessage({text: message, type: 'error'});
             return false;
         }
     }
@@ -79,12 +104,13 @@ export default function AccountSettingsContent({onClose}) {
                 errors.push("New password must contain at least one uppercase letter.");
             }
             if (errors.length > 0) {
-                setPasswordError(errors);
+                setPasswordError({message: errors.join('\r\n'), type: 'error'});
                 return false;
             }
 
             await updatePassword(passwords);
-            setPasswordError([]);
+            setPasswordError({message: ErrorMessagesText.SUC_PASSWORD_UPDATED, type: 'success'});
+
             setCurrentPasswordInput('');
             setNewPasswordInput('');
             setConfirmNewPasswordInput('');
@@ -92,15 +118,16 @@ export default function AccountSettingsContent({onClose}) {
         }
         catch (error) {
             console.error("Error updating password:", error);
-            setPasswordError(["An error occurred while updating the password. Check your current password and try again."]);
+            setPasswordError({message: ErrorMessagesText[error.response?.data?.message] ||
+                ErrorMessagesText.ERR_GENERIC_PASSWORD_UPDATE_ERROR, 
+                type: 'error'});
             return false;
         }
     }
 
-
     return (
         <div className="account-settings-content">
-            <form className="account-form settings-form" onSubmit={async (e) => {e.preventDefault(); const saved = await handleSaveSettings({displayName: displayNameInput, showMeds: showMedsCheckbox, panicLink: panicLinkInput, theme}); if (saved) onClose();}}>
+            <form className="account-form settings-form" onSubmit={handleSubmit}>
                 <h2 className="settings-form-title">{AccountSettingsText.accountSettings.title}</h2>
                 <InputField
                     label={AccountSettingsText.accountSettings.display_name}
@@ -161,6 +188,11 @@ export default function AccountSettingsContent({onClose}) {
                 </section>
 
                 <PrimaryButton type="submit" text={AccountSettingsText.accountSettings.save_settings}></PrimaryButton>
+                { message.text  && (
+                    <div className={"status-message-container"}>
+                        <ErrorMessage message={message.text} type={message.type} />
+                    </div>
+                )}
             </form>
   
             <form className="account-form password-form" onSubmit={(e) => {
@@ -169,9 +201,8 @@ export default function AccountSettingsContent({onClose}) {
                     oldPassword: currentPasswordInput, 
                     newPassword: newPasswordInput, 
                     confirmPassword: confirmNewPasswordInput
-                }).then((saved) => {
-                    if (saved) onClose();
-                })}}>
+                })
+            }}>
                 <h2 className="password-form-title">{AccountSettingsText.accountSettings.changePassword.title}</h2>
 
                 <InputField
@@ -196,9 +227,14 @@ export default function AccountSettingsContent({onClose}) {
                     onChange={(e) => setConfirmNewPasswordInput(e.target.value)}
                 />
                 <SecondaryButton type="submit" text={AccountSettingsText.accountSettings.changePassword.save_password} disabled={!isPasswordFormComplete}></SecondaryButton>
-                { passwordError.length > 0 && (
+                {/* { passwordError.length > 0 && (
                     <div className="password-error-container">
                         {passwordError.map((error, index) => (<p key={index} className="password-error-message">{error}</p>))}
+                    </div>
+                )} */}
+                { passwordError.message && (
+                    <div className="status-message-container">
+                        <ErrorMessage message={passwordError.message} type={passwordError.type} />
                     </div>
                 )}
             </form>

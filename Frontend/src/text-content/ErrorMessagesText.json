@@ -5,5 +5,17 @@
     "ERR_EMAIL_ALREADY_REGISTERED": "This email is already registered.",
     "ERR_GENERIC_REGISTER_ERROR": "Registration failed. Please try again.",
     "ERR_PASSWORDS_DO_NOT_MATCH": "Passwords do not match.",
-    "ERR_SESSION_EXPIRED": "Your session has expired. Please log in again."
+    "ERR_SESSION_EXPIRED": "Your session has expired. Please log in again.",
+    "ERR_SETTINGS_UPDATE_FAILED": "Failed to update settings. Please try again.",
+    "SUC_SETTINGS_UPDATED_COMPLETE": "Settings updated successfully.",
+    "ERR_INVALID_CREDENTIALS_PW_UPDATE": "Invalid current password. Please try again.",
+    "ERR_PASSWORDS_DO_NOT_MATCH_PW_UPDATE": "New Password and Confirm Password do not match.",
+    "ERR_PASSWORD_LENGTH": "Password must be at least 6 characters long.",
+    "ERR_PASSWORD_IDENTICAL": "New password cannot be the same as the current password.",
+    "ERR_PASSWORD_MISSING_DIGIT": "Password must contain at least one digit.",
+    "ERR_PASSWORD_MISSING_LOWERCASE": "Password must contain at least one lowercase letter.",
+    "ERR_PASSWORD_MISSING_UPPERCASE": "Password must contain at least one uppercase letter.",
+    "SUC_PASSWORD_UPDATED": "Password updated successfully.",
+    "ERR_GENERIC_PASSWORD_UPDATE_ERROR": "An error occurred while updating the password. Check your input and try again."
+
 }
