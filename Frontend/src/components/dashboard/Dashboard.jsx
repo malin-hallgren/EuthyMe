@@ -34,12 +34,12 @@ export default function Dashboard() {
             amountMissedMeds: refreshedData.amountMissedMeds
         }));
         setIsCreateReportOpen(false); // Close the popup after report creation
-        showWarningIfNeeded(refreshedData); // Check if warning needs to be shown after report creation
+        setShowWarning(showWarningIfNeeded(refreshedData)); // Check if warning needs to be shown after report creation
     }
    
     function showWarningIfNeeded(response) {
         return(
-            response.amountMissedMeds > 2 || 
+            (response.amountMissedMeds > 2  && (settings?.showMeds === true || settings?.showMeds === "true")) || 
             response.averageMoodScore < 2  && response.averageMoodScore !== 0 ||
             (response.averageSleepScore < 2 &&  response.averageSleepScore !== 0) 
             && response.averageMoodScore > 4
@@ -52,7 +52,6 @@ export default function Dashboard() {
                 const response = await getFullDashboardData();
                 setUser(response);
                 setShowWarning(showWarningIfNeeded(response));
-                console.log('Fetched user data:', response);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -60,6 +59,12 @@ export default function Dashboard() {
 
         fetchUserData();
     }, []);
+
+    useEffect(() => {
+        if (settings && user.amountMissedMeds !== undefined) {
+            setShowWarning(showWarningIfNeeded(user));
+        }
+    }, [settings, user]);
 
     return (
         <>
