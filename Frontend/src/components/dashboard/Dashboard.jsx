@@ -18,10 +18,14 @@ export default function Dashboard() {
     const {settings} = useSettings();
     const [user, setUser] = useState({});
     const [isCreateReportOpen, setIsCreateReportOpen] = useState(false);
-    const [showWarning, setShowWarning] = useState(false);
+    const [warningDismissed, setWarningDismissed] = useState(false);
     const handleCloseCreateReport = () => setIsCreateReportOpen(false);
 
-    
+    const shouldShowWarning = !warningDismissed && (
+        (user.amountMissedMeds > 2 && (settings?.showMeds === true || settings?.showMeds === "true")) ||
+        (user.averageMoodScore < 2 && user.averageMoodScore !== 0) ||
+        (user.averageSleepScore < 2 && user.averageSleepScore !== 0 && user.averageMoodScore > 4)
+    );
 
     async function handleReportCreated() {
         const refreshedData = await refreshMoodReports(); // Fetch only the updated mood reports
@@ -34,16 +38,7 @@ export default function Dashboard() {
             amountMissedMeds: refreshedData.amountMissedMeds
         }));
         setIsCreateReportOpen(false); // Close the popup after report creation
-        setShowWarning(showWarningIfNeeded(refreshedData)); // Check if warning needs to be shown after report creation
-    }
-   
-    function showWarningIfNeeded(response) {
-        return(
-            (response.amountMissedMeds > 2  && (settings?.showMeds === true || settings?.showMeds === "true")) || 
-            response.averageMoodScore < 2  && response.averageMoodScore !== 0 ||
-            (response.averageSleepScore < 2 &&  response.averageSleepScore !== 0) 
-            && response.averageMoodScore > 4
-        );
+        setWarningDismissed(false);
     }
 
     useEffect(() => {
@@ -51,7 +46,6 @@ export default function Dashboard() {
             try {
                 const response = await getFullDashboardData();
                 setUser(response);
-                setShowWarning(showWarningIfNeeded(response));
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -60,18 +54,12 @@ export default function Dashboard() {
         fetchUserData();
     }, []);
 
-    useEffect(() => {
-        if (settings && user.amountMissedMeds !== undefined) {
-            setShowWarning(showWarningIfNeeded(user));
-        }
-    }, [settings, user]);
-
     return (
         <>
-            {showWarning && (
+            {shouldShowWarning && (
                 <div className="warning-message">
                     <p>{DashboardText.banner_warning}</p>
-                    <button className="close-warning-button" onClick={() => setShowWarning(false)}>&times;</button>
+                    <button className="close-warning-button" onClick={() => setWarningDismissed(true)}>&times;</button>
                 </div>
             )}
             <section className="dashboard-container">

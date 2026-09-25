@@ -15,7 +15,7 @@ import ErrorMessagesText from '../../text-content/ErrorMessagesText.json';
 
 import './AccountSettingsContent.css';
 
-export default function AccountSettingsContent({onClose}) {
+export default function AccountSettingsContent() {
     const { settings, setSettings } = useSettings();
     const [displayNameInput, setDisplayNameInput] = useState(settings.displayName);
     const [theme, setTheme] = useState(settings?.theme ?? 'light');
@@ -75,7 +75,7 @@ export default function AccountSettingsContent({onClose}) {
                 error.response?.data ??
                 error.message;
 
-            const message = ErrorMessagesText[errorMessage] || combinedMessage;
+            const message = ErrorMessagesText[errorMessage] || errorMessage;
 
             setMessage({text: message, type: 'error'});
             return false;
