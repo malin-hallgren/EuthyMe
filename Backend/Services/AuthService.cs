@@ -26,7 +26,7 @@ namespace Backend.Services
             env = _env;
         }
 
-        public async Task<(HttpStatusCode status, List<string>? errors, string? token, string? role)> AuthenticateUserAsync(LogInUser logInUser)
+        public async Task<(HttpStatusCode status, List<string>? errors, string? token, string? role)> AuthenticateUserAsync(LogInUserDTO logInUser)
         {
             var errors = new List<string>();
             var user = await userManager.FindByEmailAsync(logInUser.UserName); //UserName is duplicated from Email

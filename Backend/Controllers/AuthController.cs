@@ -23,7 +23,7 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LogInUser logInUser)
+        public async Task<IActionResult> Login([FromBody] LogInUserDTO logInUser)
         {
             var result = await authService.AuthenticateUserAsync(logInUser);
 

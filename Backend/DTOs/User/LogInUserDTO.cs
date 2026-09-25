@@ -2,7 +2,7 @@
 
 namespace Backend.DTOs.User
 {
-    public class LogInUser
+    public class LogInUserDTO
     {
         [Required]
         public string UserName { get; set; }
