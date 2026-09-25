@@ -5,6 +5,7 @@ using Backend.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Security.Claims;
 
 
@@ -27,6 +28,10 @@ namespace Backend.Controllers
         public async Task<ActionResult<(IEnumerable<UserActivityDTO>?, IEnumerable<UserActivityDTO>?)>> GetUsers()
         {
             var result = await userService.GetUsersAsync();
+            if (result.activeUsers == null || result.inactiveUsers == null)
+            {
+                return NoContent();
+            }
             return Ok(new { activeUsers = result.activeUsers, inactiveUsers = result.inactiveUsers });
         }
 
@@ -36,12 +41,18 @@ namespace Backend.Controllers
         {
             var result = await userService.RegisterUserAsync(registerUser);
 
-            if(!result.isSuccess)
+            if(result.status == HttpStatusCode.Created)
+            {
+                return Created("", new { message = result.message });
+            }
+            else if(result.status == HttpStatusCode.Conflict)
+            {
+                return Conflict(result.message);
+            }
+            else 
             {
                 return BadRequest(result.message);
             }
-
-            return Created("", new {message = result.message});
         }
 
         [HttpGet]
@@ -64,7 +75,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> DeleteUser([FromRoute] int userId)
         {
             var result = await userService.DeleteUserAsync(userId);
-            if (!result)
+            if (result == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }

@@ -6,6 +6,7 @@ using Backend.Services.IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Backend.Services
 {
@@ -77,7 +78,7 @@ namespace Backend.Services
             };
         }
 
-        public async Task<(bool isSuccess, string? message)> RegisterUserAsync(RegisterUserDTO registerUser)
+        public async Task<(HttpStatusCode status, string? message)> RegisterUserAsync(RegisterUserDTO registerUser)
         {
             var user = new User
             {
@@ -93,16 +94,16 @@ namespace Backend.Services
 
             if (result.Succeeded)
             {
-                return (true, "SUC_USER_REGISTERED");
+                return (HttpStatusCode.Created, "SUC_USER_REGISTERED");
             }
             else if (result.Errors.Any(e => e.Code == "DuplicateUserName"))
             {
-                return (false, "ERR_EMAIL_ALREADY_REGISTERED");
+                return (HttpStatusCode.Conflict, "ERR_EMAIL_ALREADY_REGISTERED");
             }
             else
             {
                 var message = "ERR_GENERIC_REGISTER_ERROR";
-                return (false, message);
+                return (HttpStatusCode.BadRequest, message);
             }
         }
 
@@ -131,12 +132,12 @@ namespace Backend.Services
             };
         }
 
-        public async Task<bool> DeleteUserAsync(int userId)
+        public async Task<HttpStatusCode> DeleteUserAsync(int userId)
         {
             var user = await userRepository.GetUserByIdAsync(userId);
             if (user == null)
             {
-                return false;
+                return HttpStatusCode.NotFound;
             }
 
             var result = await userRepository.DeleteUserAsync(user);
@@ -144,7 +145,7 @@ namespace Backend.Services
             {
                 await moodReportService.DeleteMoodReportsForUser(userId);
             }
-            return result;
+            return HttpStatusCode.OK;
         }
     }
 }

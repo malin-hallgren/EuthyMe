@@ -2,6 +2,7 @@
 using Backend.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Security.Claims;
 
 namespace Backend.Controllers
@@ -41,7 +42,7 @@ namespace Backend.Controllers
             }
 
             var result = await settingsService.UpdateSettingsForUserId(userId, settings);
-            if (!result.isSuccess)
+            if (result.status != HttpStatusCode.OK)
             {
                 return BadRequest(result.message);
             }

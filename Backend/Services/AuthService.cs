@@ -26,14 +26,14 @@ namespace Backend.Services
             env = _env;
         }
 
-        public async Task<(bool isSuccess, List<string>? errors, string? token, string? role)> AuthenticateUserAsync(LogInUser logInUser)
+        public async Task<(HttpStatusCode status, List<string>? errors, string? token, string? role)> AuthenticateUserAsync(LogInUser logInUser)
         {
             var errors = new List<string>();
             var user = await userManager.FindByEmailAsync(logInUser.UserName); //UserName is duplicated from Email
             if (user == null || !await userManager.CheckPasswordAsync(user, logInUser.Password))
             {
                 errors.Add("ERR_LOGIN_CRED_400");
-                return (false, errors, null, null);
+                return (HttpStatusCode.BadRequest, errors, null, null);
             }
 
             var roles = await userManager.GetRolesAsync(user);
@@ -41,7 +41,7 @@ namespace Backend.Services
 
             var token = await GenerateJwtToken(user);
 
-            return (true, null, token, primaryRole);
+            return (HttpStatusCode.OK, null, token, primaryRole);
         }
 
         public async Task<string> GenerateJwtToken(User user)
@@ -128,7 +128,7 @@ namespace Backend.Services
         public async Task<HttpStatusCode> UpdateUserPasswordAsync(int userId, UpdatePasswordDTO updatePassword)
         {
             var user = await userManager.FindByIdAsync(userId.ToString());
-            //If this happens we have other, major, issues
+            //If this happens we have other
             if (user == null)
             {
                 return HttpStatusCode.NotFound;

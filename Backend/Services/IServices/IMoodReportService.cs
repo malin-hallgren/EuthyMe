@@ -1,4 +1,5 @@
 ﻿using Backend.DTOs.MoodReport;
+using System.Net;
 
 namespace Backend.Services.IServices
 {
@@ -6,7 +7,7 @@ namespace Backend.Services.IServices
     {
         Task<List<DisplayMoodReportDTO>?> GetMoodReportsByUserIdAsync(int userId);
 
-        Task<(bool isSuccess, string? message)> CreateMoodReportAsync(int userId, CreateMoodReportDTO createMoodReportDTO);
+        Task<(HttpStatusCode status, string? message)> CreateMoodReportAsync(int userId, CreateMoodReportDTO createMoodReportDTO);
 
         Task<DashboardMoodReportDTO> GetMoodReportsForDashboardAsync(int userId, int days);
 

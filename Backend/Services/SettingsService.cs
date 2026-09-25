@@ -2,6 +2,7 @@
 using Backend.Models;
 using Backend.Repositories.IRepositories;
 using Backend.Services.IServices;
+using System.Net;
 
 namespace Backend.Services
 {
@@ -49,11 +50,11 @@ namespace Backend.Services
 
         }
 
-        public async Task<(bool isSuccess, string message)> UpdateSettingsForUserId(int userId, SettingsInDTO settingsInDTO)
+        public async Task<(HttpStatusCode status, string message)> UpdateSettingsForUserId(int userId, SettingsInDTO settingsInDTO)
         {
             var settings = await settingsRepository.GetSettingsForUserAsync(userId);
             var user = await userRepository.GetUserByIdAsync(userId);
-            bool result = false;
+            bool isSuccess = false;
 
             if (settings == null) //This should never happen, but just in case, we create a new settings object if it doesn't exist
             {
@@ -66,7 +67,7 @@ namespace Backend.Services
                     Theme = settingsInDTO.Theme
                 };
                 // Add the new settings to the database
-                result = await settingsRepository.AddSettingsToUserAsync(settings);
+                isSuccess = await settingsRepository.AddSettingsToUserAsync(settings);
             }
             else
             {
@@ -76,11 +77,15 @@ namespace Backend.Services
                 settings.Language = settingsInDTO.Language;
                 settings.Theme = settingsInDTO.Theme;
                 // Save changes to the database
-                result = await settingsRepository.UpdateSettingsForUserAsync(user, settings);
+                isSuccess = await settingsRepository.UpdateSettingsForUserAsync(user, settings);
 
-                result =await userRepository.UpdateUserDisplayNameAsync(userId, settingsInDTO.DisplayName);
+                isSuccess =await userRepository.UpdateUserDisplayNameAsync(userId, settingsInDTO.DisplayName);
             }
-            return (result, result ? "SUC_SETTINGS_UPDATED_COMPLETE" : "ERR_SETTINGS_UPDATE_FAILED");
+            if (!isSuccess)
+            {
+                return (HttpStatusCode.BadRequest, "ERR_SETTINGS_UPDATE_FAILED");
+            }
+            return (HttpStatusCode.OK, isSuccess ? "SUC_SETTINGS_UPDATED_COMPLETE" : "ERR_SETTINGS_UPDATE_FAILED");
         }
     }
 }

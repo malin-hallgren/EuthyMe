@@ -2,6 +2,7 @@
 using Backend.Models;
 using Backend.Repositories.IRepositories;
 using Backend.Services.IServices;
+using System.Net;
 
 namespace Backend.Services
 {
@@ -26,11 +27,11 @@ namespace Backend.Services
             }).ToList();
         }
 
-        public async Task<(bool isSuccess, string? message)> CreateMoodReportAsync(int userId,CreateMoodReportDTO createMoodReportDTO)
+        public async Task<(HttpStatusCode status, string? message)> CreateMoodReportAsync(int userId,CreateMoodReportDTO createMoodReportDTO)
         {
             if(await moodReportRepository.CheckDailyReportExistsAsync(userId, DateOnly.FromDateTime(DateTime.UtcNow)))
             {
-                return (false, "A mood report for this date already exists");
+                return (HttpStatusCode.Conflict, "A mood report for this date already exists");
             }
 
             var moodReport = new MoodReport
@@ -45,9 +46,9 @@ namespace Backend.Services
             var result = await moodReportRepository.CreateMoodReportAsync(moodReport);
             if (!result)
             {
-                return (false, "Failed to create mood report");
+                return (HttpStatusCode.BadRequest, "Failed to create mood report");
             }
-            return (true, $"Mood report for {DateOnly.FromDateTime(DateTime.UtcNow)} created successfully");
+            return (HttpStatusCode.Created, $"Mood report for {DateOnly.FromDateTime(DateTime.UtcNow)} created successfully");
         }
 
         public async Task<DashboardMoodReportDTO> GetMoodReportsForDashboardAsync(int userId, int days)

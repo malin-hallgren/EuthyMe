@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System.Net;
 using System.Security.Claims;
 
 namespace Backend.Controllers
@@ -59,11 +60,19 @@ namespace Backend.Controllers
                 return NotFound(new { message = "User not found" });
             }
             var moodReport = await moodReportService.CreateMoodReportAsync(id, createMoodReportDTO);
-            if (!moodReport.isSuccess)
+            if (moodReport.status == HttpStatusCode.Created)
+            {
+                return Created("", new { message = moodReport.message });
+            }
+            else if (moodReport.status == HttpStatusCode.Conflict)
+            {
+                return Conflict(new { message = moodReport.message });
+            }
+            else
             {
                 return BadRequest(new { message = moodReport.message });
+
             }
-            return Created("", new { message = moodReport.message });
         }
 
         [HttpGet]

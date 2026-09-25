@@ -27,7 +27,7 @@ namespace Backend.Controllers
         {
             var result = await authService.AuthenticateUserAsync(logInUser);
 
-            if (!result.isSuccess)
+            if (result.status != HttpStatusCode.OK)
             {
                 return BadRequest(new { message = result.errors });
             }
