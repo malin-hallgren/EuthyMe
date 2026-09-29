@@ -4,8 +4,8 @@ EuthyMe is a light-weight web-based mood and sleep tracker aimed at people with 
 ## Deploy ##
 The web-app based on the main branch can be found [here](https://euthymefrontend-aucze9f9awc8f5da.denmarkeast-01.azurewebsites.net/login). The main content is locked behind a login page, but accounts for access can be created on the page. 
 ## Known Issues ##
-- The app currently lacks refresh tokens meaning as a user, you will experience frequent prompts to log in as your session expires.
-- The functionality yo switch languages has yet to be implemented.
+- The app currently lacks refresh tokens meaning as a user, you will experience frequent prompts to log in as your session expires. This has been deemed acceptable as expected time on the page considering the functionality is quite short. 
+- The functionality to switch language is incomplete, and the status message is displayed in the old language. Unauthenticated users always use English as of now
 - Theme selections are tied to your account and thus, when logged out or otherwise unauthorized, the app will always default to light mode.
 ## Build Instructions ##
 ### Frontend ### 
