@@ -1,0 +1,23 @@
+{
+    "LoginPage": {
+        "login": "Logga in",
+        "email": "E-post:",
+        "email_placeholder": "E-post",
+        "password": "Lösenord:",
+        "password_placeholder": "Lösenord",
+        "register": "Registrera"
+    },
+    "RegisterPage": {
+        "register": "Registrera",
+        "email": "E-post:",
+        "email_placeholder": "E-post",
+        "password": "Lösenord:",
+        "password_placeholder": "Lösenord",
+        "confirmPassword": "Bekräfta lösenord:",
+        "confirm_password_placeholder": "Bekräfta lösenord",
+        "display_name": "Visningsnamn:",
+        "display_name_placeholder": "Visningsnamn (valfritt)",
+        "register_btn": "Registrera",
+        "back_to_login": "Tillbaka till inloggning"
+    }
+}

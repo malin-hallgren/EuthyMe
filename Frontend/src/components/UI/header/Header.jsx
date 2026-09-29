@@ -1,18 +1,18 @@
 import { useRef, useState, useEffect } from "react";
 import { useAuth } from "../../../hooks/useAuth.js";
+import { useLanguage } from '../../../hooks/useLanguage.js';
 
 import Logout from "../../logout/Logout.jsx"
 import AccountSettings from "../../account-settings/AccountSettings.jsx";
 import AccountSettingsContent from "../../account-settings/AccountSettingsContent.jsx";
 import Popup from "../pop-up/PopUp.jsx";
 
-import StaticText from "../../../text-content/StaticText.json"
-
 import "./Header.css"
 
 
 export default function Header()  {
     const { isAuthenticated } = useAuth();
+    const { StaticText } = useLanguage();
     const headerRef = useRef(null);
     const [isAccountSettingsOpen, setIsShowAccountSettingsOpen] = useState(false);
         

@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {useSettings} from "../../hooks/useSettings.js";
+import { useLanguage } from '../../hooks/useLanguage.js';
 import {getFullDashboardData} from '../../services/UserServices.js';
 import {refreshMoodReports} from "../../services/MoodReportServices.js";
 
@@ -10,12 +11,11 @@ import PopUp from "../UI/pop-up/PopUp.jsx";
 import CreateMoodReport from "../create-mood-report/CreateMoodReport.jsx";
 import PanicButton from "../panic-button/PanicButton.jsx";
 
-import DashboardText from "../../text-content/UserDashboardText.json";
-
 import './Dashboard.css';
 
 export default function Dashboard() {
     const {settings} = useSettings();
+    const { UserDashboardText } = useLanguage();
     const [user, setUser] = useState({});
     const [isCreateReportOpen, setIsCreateReportOpen] = useState(false);
     const [warningDismissed, setWarningDismissed] = useState(false);
@@ -58,12 +58,12 @@ export default function Dashboard() {
         <>
             {shouldShowWarning && (
                 <div className="warning-message">
-                    <p>{DashboardText.banner_warning}</p>
+                    <p>{UserDashboardText.banner_warning}</p>
                     <button className="close-warning-button" onClick={() => setWarningDismissed(true)}>&times;</button>
                 </div>
             )}
             <section className="dashboard-container">
-                <h2>{DashboardText.greeting.replace("{{name}}", settings?.displayName ?? user.displayName ?? "")}</h2>
+                <h2>{UserDashboardText.greeting.replace("{{name}}", settings?.displayName ?? user.displayName ?? "")}</h2>
                 <section className="dashboard-content">
                     <section className="dashboard-left-side">
                         <ContentCard className = "graph-card-big">
@@ -72,16 +72,16 @@ export default function Dashboard() {
                             </ContentCard>
                             <section className="dashboard-graph-stats">
                                 <ContentCard className = "graph-card-small">
-                                <h3 className="graph-card-title">{DashboardText.avg_sleep}</h3>
+                                <h3 className="graph-card-title">{UserDashboardText.avg_sleep}</h3>
                                 <p className="graph-card-value">{user.averageSleepScore}</p>
                             </ContentCard>
                             <ContentCard className = "graph-card-small">
-                                <h3 className="graph-card-title">{DashboardText.avg_mood}</h3>
+                                <h3 className="graph-card-title">{UserDashboardText.avg_mood}</h3>
                                 <p className="graph-card-value">{user.averageMoodScore}</p>
                             </ContentCard>
                             {settings?.showMeds && (
                                 <ContentCard className = "graph-card-small">
-                                    <h3 className="graph-card-title">{DashboardText.missed_meds}</h3>
+                                    <h3 className="graph-card-title">{UserDashboardText.missed_meds}</h3>
                                     <p className="graph-card-value">{user.amountMissedMeds}</p>
                                 </ContentCard>
                             )}
@@ -94,13 +94,13 @@ export default function Dashboard() {
                     <section className="dashboard-right-side">
                         <ContentCard className = "graph-card-small">
                             <h3 className="graph-card-title">
-                                {user.hasReportedToday ? DashboardText.create_mood_report_btn_inactive : DashboardText.create_mood_report_btn_active}
+                                {user.hasReportedToday ? UserDashboardText.create_mood_report_btn_inactive : UserDashboardText.create_mood_report_btn_active}
                             </h3>
-                            <p className="graph-card-description">{DashboardText.create_mood_report_description}</p>
+                            <p className="graph-card-description">{UserDashboardText.create_mood_report_description}</p>
                             <PrimaryButton 
                                 className="graph-card-create-mood-report-button" 
                                 disabled={user.hasReportedToday}
-                                text={user.hasReportedToday ? DashboardText.create_mood_report_btn_inactive : DashboardText.create_mood_report_btn_active}
+                                text={user.hasReportedToday ? UserDashboardText.create_mood_report_btn_inactive : UserDashboardText.create_mood_report_btn_active}
                                 onClick={() => setIsCreateReportOpen(true)} />
                             <PopUp isOpen={isCreateReportOpen} onClose={handleCloseCreateReport}>
                                     <CreateMoodReport 
@@ -110,11 +110,11 @@ export default function Dashboard() {
                             </PopUp>
                         </ContentCard>
                         <ContentCard className = "graph-card-small">
-                            <h3 className="graph-card-title resources-title">{DashboardText.resources.header}</h3>
-                            <p className="graph-card-description">{DashboardText.resources.description}</p>
+                            <h3 className="graph-card-title resources-title">{UserDashboardText.resources.header}</h3>
+                            <p className="graph-card-description">{UserDashboardText.resources.description}</p>
                             <section className="resources-list-container">
                                 <ul className="resources-list">
-                                    {Object.values(DashboardText.resources.list).map((resource, index) => (
+                                    {Object.values(UserDashboardText.resources.list).map((resource, index) => (
                                         <li key={index} className="resource-item">
                                             <p><span className="resource-title">{resource.title}: </span>{resource.description}</p>
                                             <a href={resource.link} target="_blank" rel="noopener noreferrer" className="resource-link">{resource.link_text}</a>

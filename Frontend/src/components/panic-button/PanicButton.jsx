@@ -1,11 +1,11 @@
 import { useSettings } from "../../hooks/useSettings.js";
+import { useLanguage } from '../../hooks/useLanguage.js';
 import { useState } from "react";
 
 import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
-import UserDashboardText from "../../text-content/UserDashboardText.json";
-
 export default function PanicButton() {
     const { settings } = useSettings();
+    const { UserDashboardText } = useLanguage();
     const [ panicLink ] = useState(settings?.panicLink ?? 'https://www.google.com/');
 
     const handlePanicButtonClick = () => {

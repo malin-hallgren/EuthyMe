@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser} from '../../services/AuthServices.js';
 import { useAuth } from "../../hooks/useAuth.js";
 import { useGlobalError } from "../../hooks/useGlobalError.js";
+import { useLanguage } from '../../hooks/useLanguage.js';
 
 import ErrorMessage from '../error-message/ErrorMessage.jsx';
 import ContentCard from '../UI/content-card/ContentCard.jsx';
@@ -10,12 +11,10 @@ import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
 import SecondaryButton from '../UI/secondary-button/SecondaryButton.jsx';
 import InputField from '../UI/input-field/InputField.jsx';
 
-import LoginRegisterText from '../../text-content/LoginRegisterText.json';
-import ErrorMessagesText from '../../text-content/ErrorMessagesText.json';
-
 import './Login.css'
 
 export default function Login() {
+    const { LoginRegisterText, ErrorMessagesText } = useLanguage();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -24,6 +23,7 @@ export default function Login() {
 
     const [localError, setLocalError] = useState();
     const { globalError, clearGlobalError } = useGlobalError();
+    const translatedGlobalError = ErrorMessagesText[globalError] ?? globalError;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,7 +71,7 @@ export default function Login() {
                         label={`${LoginRegisterText.LoginPage.email}`} 
                         id="email"
                         type="text" 
-                        placeholder="Email" 
+                        placeholder={LoginRegisterText.LoginPage.email_placeholder}
                         autocomplete="username" 
                         onChange={(e) => setEmail(e.target.value)} 
                         required />
@@ -79,12 +79,12 @@ export default function Login() {
                         label={`${LoginRegisterText.LoginPage.password}`}
                         id="password" 
                         type="password" 
-                        placeholder="Password" 
+                        placeholder={LoginRegisterText.LoginPage.password_placeholder}
                         autocomplete="current-password" 
                         onChange={(e) => setPassword(e.target.value)}
                         required />
                     {globalError && (
-                        <ErrorMessage message={globalError} type="error" />
+                        <ErrorMessage message={translatedGlobalError} type="error" />
                     )}
                     {hasSubmitted && localError && (
                         <ErrorMessage message={localError} type="error" />

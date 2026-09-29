@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { createMoodReport } from '../../services/MoodReportServices.js';
 import { useSettings } from '../../hooks/useSettings.js';
+import { useLanguage } from '../../hooks/useLanguage.js';
 
 import ScaleSelector from '../UI/scale-selector/ScaleSelector.jsx';
 import PrimaryButton from '../UI/primary-button/PrimaryButton.jsx';
-
-import UserDashboardText from '../../text-content/UserDashboardText.json';
 
 import './CreateMoodReport.css';
 
@@ -14,6 +13,7 @@ export default function CreateMoodReport({onClose, onCreated}) {
     const [sleep, setSleep] = useState('');
     const [medsTaken, setMedsTaken] = useState();
     const { settings } = useSettings();
+    const { UserDashboardText } = useLanguage();
 
     const isFormComplete = mood !== '' && sleep !== '' && (settings?.showMeds ? medsTaken !== undefined : true);
 

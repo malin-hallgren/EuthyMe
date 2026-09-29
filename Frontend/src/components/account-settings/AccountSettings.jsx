@@ -1,7 +1,8 @@
 import { AccountIcon } from "../UI/icons/AccountCircleIcon.jsx";
-import AccountSettingsText from "../../text-content/AccountSettingsText.json";
+import { useLanguage } from '../../hooks/useLanguage.js';
 
 export default function AccountSettings({onClick})  {
+    const { AccountSettingsText } = useLanguage();
     
     return (
 

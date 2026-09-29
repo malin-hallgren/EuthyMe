@@ -1,6 +1,7 @@
 import {registerUser} from '../../services/UserServices.js';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from '../../hooks/useLanguage.js';
 
 import SecondaryButton from "../UI/secondary-button/SecondaryButton.jsx";
 import ContentCard from "../UI/content-card/ContentCard.jsx";
@@ -8,12 +9,10 @@ import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
 import InputField from "../UI/input-field/InputField.jsx";
 import ErrorMessage from "../error-message/ErrorMessage.jsx";
 
-import LoginRegisterText from "../../text-content/LoginRegisterText.json";
-import ErrorMessagesText from "../../text-content/ErrorMessagesText.json";
-
 import "./Register.css";
 
 export default function Register() {
+    const { LoginRegisterText, ErrorMessagesText } = useLanguage();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -60,7 +59,7 @@ export default function Register() {
                             htmlFor="Email"
                             label={`${LoginRegisterText.RegisterPage.email}`}
                             type="email"
-                            placeholder="Email"
+                            placeholder={LoginRegisterText.RegisterPage.email_placeholder}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -68,7 +67,7 @@ export default function Register() {
                             htmlFor="Password"
                             label={`${LoginRegisterText.RegisterPage.password}`}
                             type="password"
-                            placeholder="Password"
+                            placeholder={LoginRegisterText.RegisterPage.password_placeholder}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -76,7 +75,7 @@ export default function Register() {
                             htmlFor="ConfirmPassword"
                             label={`${LoginRegisterText.RegisterPage.confirmPassword}`}
                             type="password"
-                            placeholder="Confirm Password"
+                            placeholder={LoginRegisterText.RegisterPage.confirm_password_placeholder}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
@@ -84,7 +83,7 @@ export default function Register() {
                             htmlFor="DisplayName"
                             label={`${LoginRegisterText.RegisterPage.display_name}`}
                             type="text"
-                            placeholder="Display Name (optional)"
+                            placeholder={LoginRegisterText.RegisterPage.display_name_placeholder}
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
                         />
