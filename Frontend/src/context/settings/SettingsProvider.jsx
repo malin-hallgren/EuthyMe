@@ -16,11 +16,11 @@ export const SettingsProvider = ({children}) => {
         document.documentElement.dataset.theme = theme;
     }, [isAuthenticated, settings?.theme]);
 
-    useEffect(() => {
-        if (settings?.language) {
-            localStorage.setItem('language', settings.language.toLowerCase());
-        }
-    }, [settings?.language]);
+    // useEffect(() => {
+    //     if (settings?.language) {
+    //         localStorage.setItem('language', settings.language.toLowerCase());
+    //     }
+    // }, [settings?.language]);
 
     useEffect(() => {
         if (!isAuthenticated) {
