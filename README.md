@@ -7,6 +7,7 @@ The web-app based on the main branch can be found [here](https://euthymefrontend
 - The app currently lacks refresh tokens meaning as a user, you will experience frequent prompts to log in as your session expires. This has been deemed acceptable as expected time on the page considering the functionality is quite short. 
 - The functionality to switch language is incomplete, and the status message is displayed in the old language. Unauthenticated users always use English as of now
 - Theme selections are tied to your account and thus, when logged out or otherwise unauthorized, the app will always default to light mode.
+- There is no way to create a new Admin-account in the frontend
 ## Build Instructions ##
 ### Frontend ### 
 - Navigate to the `/Frontend` folder and run `npm install`. This should install all required packages
