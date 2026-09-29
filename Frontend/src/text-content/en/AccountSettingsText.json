@@ -19,6 +19,9 @@
         "theme_selector_title": "Theme Selector",
         "theme_light": "Light Theme",
         "theme_dark": "Dark Theme",
+        "language_selector_title": "Language",
+        "language_english": "English",
+        "language_swedish": "Swedish",
         "deleteAccount": {
             "title": "Delete Account",
             "description": "Permanently delete your account and all associated data."

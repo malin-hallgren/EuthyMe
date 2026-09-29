@@ -1,0 +1,30 @@
+{
+    "button_title": "Konto",
+    "accountSettings": {
+        "title": "Kontoinställningar",
+        "display_name": "Visningsnamn:",
+        "email": "E-post",
+        "log_medications": "Logga medicinering",
+        "show_meds_option": "Ja, ",
+        "hide_meds_option": "Nej, låt bli att ",
+        "panic_link": "Paniklänk:",
+        "save_settings": "Spara inställningar",
+        "changePassword": {
+            "title": "Byt lösenord",
+            "current_password": "Nuvarande lösenord:",
+            "new_password": "Nytt lösenord:",
+            "confirm_new_password": "Bekräfta nytt lösenord:",
+            "save_password": "Uppdatera lösenord"
+        },
+        "theme_selector_title": "Välj tema",
+        "theme_light": "Ljust tema",
+        "theme_dark": "Mörkt tema",
+        "language_selector_title": "Språk",
+        "language_english": "Engelska",
+        "language_swedish": "Svenska",
+        "deleteAccount": {
+            "title": "Ta bort konto",
+            "description": "Ta permanent bort ditt konto och all tillhörande information."
+        }
+    }
+}

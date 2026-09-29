@@ -1,0 +1,21 @@
+{
+    "ERR_GENERIC_500": "Ett oväntat fel inträffade. Försök igen senare.",
+    "ERR_LOGIN_CRED_400": "Ogiltig e-postadress eller lösenord. Försök igen.",
+    "SUC_USER_REGISTERED": "Registreringen lyckades!",
+    "ERR_EMAIL_ALREADY_REGISTERED": "Den här e-postadressen är redan registrerad.",
+    "ERR_GENERIC_REGISTER_ERROR": "Registreringen misslyckades. Försök igen.",
+    "ERR_PASSWORDS_DO_NOT_MATCH": "Lösenorden matchar inte.",
+    "ERR_SESSION_EXPIRED": "Din session har löpt ut. Logga in igen.",
+    "ERR_SETTINGS_UPDATE_FAILED": "Det gick inte att uppdatera inställningarna. Försök igen.",
+    "SUC_SETTINGS_UPDATED_COMPLETE": "Inställningarna har uppdaterats.",
+    "ERR_INVALID_CREDENTIALS_PW_UPDATE": "Det nuvarande lösenordet är ogiltigt. Försök igen.",
+    "ERR_PASSWORDS_DO_NOT_MATCH_PW_UPDATE": "Det nya lösenordet och bekräftelsen matchar inte.",
+    "ERR_PASSWORD_LENGTH": "Lösenordet måste innehålla minst 6 tecken.",
+    "ERR_PASSWORD_IDENTICAL": "Det nya lösenordet får inte vara samma som det nuvarande.",
+    "ERR_PASSWORD_MISSING_DIGIT": "Lösenordet måste innehålla minst en siffra.",
+    "ERR_PASSWORD_MISSING_LOWERCASE": "Lösenordet måste innehålla minst en liten bokstav.",
+    "ERR_PASSWORD_MISSING_UPPERCASE": "Lösenordet måste innehålla minst en stor bokstav.",
+    "ERR_PASSWORDS_DO_NOT_MATCH_VALIDATION": "Det nya lösenordet och lösenordsbekräftelsen matchar inte.",
+    "SUC_PASSWORD_UPDATED": "Lösenordet har uppdaterats.",
+    "ERR_GENERIC_PASSWORD_UPDATE_ERROR": "Ett fel inträffade när lösenordet uppdaterades. Kontrollera dina uppgifter och försök igen."
+}

@@ -1,0 +1,64 @@
+{
+    "greeting": "Hej, {{name}}!",
+    "chart_title": "Din 7-dagarsöversikt",
+    "chart_mood": "Humör",
+    "chart_sleep": "Sömn",
+    "chart_missed_meds": "Missad medicinering",
+    "medication_taken": "Medicinering tagen",
+    "medication_not_taken": "Medicinering inte tagen",
+    "avg_sleep": "Genomsnittligt sömnvärde:",
+    "avg_mood": "Genomsnittligt humörvärde:",
+    "missed_meds": "Dagar med missad medicinering:",
+    "create_mood_report_title": "Skapa humörrapport",
+    "create_mood_report_description": "Besvara följande frågor för att skapa din dagliga humörrapport. Det hjälper dig att följa din mentala hälsa och ger värdefulla insikter om ditt psykiska mående.",
+    "create_mood_report_btn_active": "Skapa humörrapport",
+    "create_mood_report_btn_inactive": "Dagens rapport är klar!",
+    "banner_warning": "Hur mår du? Vi har sett oroande trender i dina loggar. Överväg att kontakta vårdpersonal för stöd om du eller personer omkring dig upplever att ditt mående är påverkat!",
+    "mood": {
+        "header": "Humör",
+        "description": "Uppskatta ditt humör för dagen. Lågt humör kan kännetecknas av depression, men även äve trötthet, apati eller hopplöshet. Högt humör kan vara glädje eller mani, men även stress, ångest eller irritation.",
+        "option1": "Mycket lågt",
+        "option2": "Lågt",
+        "option3": "Neutralt",
+        "option4": "Högt",
+        "option5": "Mycket högt"
+    },
+    "sleep": {
+        "header": "Sömn",
+        "description": "Uppskatta hur mycket du sovit.",
+        "option1": "Mindre än 4 timmar",
+        "option2": "4-6 timmar",
+        "option3": "6-8 timmar",
+        "option4": "8-10 timmar",
+        "option5": "Mer än 10 timmar"
+    },
+    "meds": {
+        "header": "Medicinering",
+        "description": "Har du tagit din medicin idag?",
+        "option1": "Tog",
+        "option2": "Tog inte"
+    },
+    "selected": "Valt: {{option}} {{label}}",
+    "select_prompt": "Välj ett värde för {{label}}",
+    "resources": {
+        "header": "Resurser",
+        "description": "Här är några resurser som kan vara till hjälp:",
+        "list": {
+            "resource1": {
+                "title": "Din läkare eller terapeut",
+                "description": "Om du har specifika frågor om ditt tillstånd, kontakta din läkare eller terapeut. De kan ge personliga råd och stöd."
+            },
+            "resource2": {
+                "title": "Akut hjälp",
+                "description": "Om du befinner dig i kris och behöver omedelbar hjälp, kontakta alltid akutmottagning eller ditt lokala nödnummer."
+            },
+            "resource3": {
+                "title": "International Bipolar Foundation (IBPF)",
+                "description": "IBPF erbjuder resurser, stöd och utbildning för personer som lever med bipolär sjukdom och deras familjer.",
+                "link": "https://ibpf.org/",
+                "link_text": "Besök IBPF >>"
+            }
+        },
+        "panic_button": "Lämna sidan"
+    }
+}

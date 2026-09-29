@@ -1,8 +1,7 @@
 import { Chart, LineElement } from 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
 import { useSettings } from '../../../hooks/useSettings.js';
-
-import UserDashboardText from '../../../text-content/UserDashboardText.json';
+import { useLanguage } from '../../../hooks/useLanguage.js';
 
 import './Chart.css';
 
@@ -11,6 +10,7 @@ Chart.register(LineElement);
 export default function LineChart({ chartData = [], chartOptions }) {
 
     const { settings } = useSettings();
+    const { UserDashboardText } = useLanguage();
 
     const options = {
         responsive: true,
@@ -53,8 +53,10 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 ...chartOptions?.plugins?.tooltip,
                 callbacks: {
                     label: context => {
-                        if (context.dataset.label === 'Missed Meds') {
-                            return context.raw === 5.5 ? 'Medication not taken' : 'Medication taken';
+                        if (context.dataset.label === UserDashboardText.chart_missed_meds) {
+                            return context.raw === 5.5
+                                ? UserDashboardText.medication_not_taken
+                                : UserDashboardText.medication_taken;
                         }
                     }
                 }
@@ -66,7 +68,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
         labels: chartData.map(item => item.date),
         datasets: [
             {
-                label: 'Mood',
+                label: UserDashboardText.chart_mood,
                 data: chartData.map(item => item.moodScore),
                 spanGaps: false,
                 pointRadius: 5,
@@ -75,7 +77,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 backgroundColor: settings?.theme.toLowerCase() === 'light' ? 'rgba(174, 246, 246, 0.2)' : 'rgba(107, 114, 128, 0.2)',
             },
             {
-                label: 'Sleep',
+                label: UserDashboardText.chart_sleep,
                 data: chartData.map(item => item.sleepScore),
                 spanGaps: false,
                 pointRadius: 5,
@@ -85,7 +87,7 @@ export default function LineChart({ chartData = [], chartOptions }) {
                 borderDash: [5, 5],
             },
             {
-                label: 'Missed Meds',
+                label: UserDashboardText.chart_missed_meds,
                 data: chartData.map(item => item.medsTaken === false ? 5.5 : null),
                 showLine: false,
                 pointStyle: 'triangle',

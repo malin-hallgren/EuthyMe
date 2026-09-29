@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { useSettings } from "../../hooks/useSettings.js";
+import { useLanguage } from '../../hooks/useLanguage.js';
 import { updateSettings } from "../../services/SettingsService.js";
 import { updatePassword } from "../../services/AuthServices.js";
 
@@ -10,15 +11,14 @@ import InputField from '../UI/input-field/InputField.jsx';
 import ContentCard from '../UI/content-card/ContentCard.jsx';
 import ErrorMessage from '../error-message/ErrorMessage.jsx';
 
-import AccountSettingsText from '../../text-content/AccountSettingsText.json';
-import ErrorMessagesText from '../../text-content/ErrorMessagesText.json';
-
 import './AccountSettingsContent.css';
 
 export default function AccountSettingsContent() {
     const { settings, setSettings } = useSettings();
+    const { AccountSettingsText, ErrorMessagesText } = useLanguage();
     const [displayNameInput, setDisplayNameInput] = useState(settings.displayName);
     const [theme, setTheme] = useState(settings?.theme ?? 'light');
+    const [language, setLanguage] = useState(settings?.language?.toLowerCase() ?? 'en');
 
     const [currentPasswordInput, setCurrentPasswordInput] = useState('');
     const [newPasswordInput, setNewPasswordInput] = useState('');
@@ -49,7 +49,8 @@ export default function AccountSettingsContent() {
             displayName: displayNameInput, 
             showMeds: showMedsCheckbox, 
             panicLink: panicLinkInput, 
-            theme
+            theme,
+            language
         });
     };
 
@@ -59,7 +60,7 @@ export default function AccountSettingsContent() {
             displayName: newSettings.displayName ?? settings.displayName,
             showMeds: showMeds === true || showMeds === "true",
             panicLink: newSettings.panicLink ?? settings.panicLink,
-            language: newSettings.language ?? settings.language ?? "EN",
+            language: newSettings.language?.toUpperCase() ?? settings.language ?? "EN",
             theme: newSettings.theme ?? settings.theme ?? "light",
         };
 
@@ -86,22 +87,22 @@ export default function AccountSettingsContent() {
         const errors = [];
         try {
             if (passwords.newPassword !== passwords.confirmPassword) {
-                errors.push("New password and confirmation do not match.");
+                errors.push(ErrorMessagesText.ERR_PASSWORDS_DO_NOT_MATCH_VALIDATION);
             }
             if (passwords.newPassword.length < 6) {
-                errors.push("New password must be at least 6 characters long.");
+                errors.push(ErrorMessagesText.ERR_PASSWORD_LENGTH);
             }
             if (passwords.oldPassword === passwords.newPassword) {
-                errors.push("New password cannot be the same as the current password.");
+                errors.push(ErrorMessagesText.ERR_PASSWORD_IDENTICAL);
             }
             if (passwords.newPassword.search(/\d/) == -1) {
-                errors.push("New password must contain at least one digit.");
+                errors.push(ErrorMessagesText.ERR_PASSWORD_MISSING_DIGIT);
             }
             if (passwords.newPassword.search(/[a-z]/) == -1) {
-                errors.push("New password must contain at least one lowercase letter.");
+                errors.push(ErrorMessagesText.ERR_PASSWORD_MISSING_LOWERCASE);
             }
             if (passwords.newPassword.search(/[A-Z]/) == -1) {
-                errors.push("New password must contain at least one uppercase letter.");
+                errors.push(ErrorMessagesText.ERR_PASSWORD_MISSING_UPPERCASE);
             }
             if (errors.length > 0) {
                 setPasswordError({message: errors.join('\r\n'), type: 'error'});
@@ -187,6 +188,19 @@ export default function AccountSettingsContent() {
                     </div>  
                 </section>
 
+                <section className="language-selector">
+                    <h3>{AccountSettingsText.accountSettings.language_selector_title}</h3>
+                    <select
+                        className="language-select"
+                        value={language}
+                        onChange={(e) => setLanguage(e.target.value)}
+                        aria-label={AccountSettingsText.accountSettings.language_selector_title}
+                    >
+                        <option value="en">{AccountSettingsText.accountSettings.language_english}</option>
+                        <option value="sv">{AccountSettingsText.accountSettings.language_swedish}</option>
+                    </select>
+                </section>
+
                 <PrimaryButton type="submit" text={AccountSettingsText.accountSettings.save_settings}></PrimaryButton>
                 { message.text  && (
                     <div className={"status-message-container"}>
@@ -227,11 +241,6 @@ export default function AccountSettingsContent() {
                     onChange={(e) => setConfirmNewPasswordInput(e.target.value)}
                 />
                 <SecondaryButton type="submit" text={AccountSettingsText.accountSettings.changePassword.save_password} disabled={!isPasswordFormComplete}></SecondaryButton>
-                {/* { passwordError.length > 0 && (
-                    <div className="password-error-container">
-                        {passwordError.map((error, index) => (<p key={index} className="password-error-message">{error}</p>))}
-                    </div>
-                )} */}
                 { passwordError.message && (
                     <div className="status-message-container">
                         <ErrorMessage message={passwordError.message} type={passwordError.type} />

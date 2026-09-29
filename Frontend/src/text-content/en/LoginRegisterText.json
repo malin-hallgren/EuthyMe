@@ -2,15 +2,21 @@
     "LoginPage": {
         "login": "Login",
         "email": "Email:",
+        "email_placeholder": "Email",
         "password": "Password:",
+        "password_placeholder": "Password",
         "register": "Register"
     },
     "RegisterPage": {
         "register": "Register",
         "email": "Email:",
+        "email_placeholder": "Email",
         "password": "Password:",
+        "password_placeholder": "Password",
         "confirmPassword": "Confirm Password:",
+        "confirm_password_placeholder": "Confirm Password",
         "display_name": "Display Name:",
+        "display_name_placeholder": "Display Name (optional)",
         "register_btn": "Register",
         "back_to_login": "Back to Login"
     }

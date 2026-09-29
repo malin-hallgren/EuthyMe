@@ -15,7 +15,7 @@
     "ERR_PASSWORD_MISSING_DIGIT": "Password must contain at least one digit.",
     "ERR_PASSWORD_MISSING_LOWERCASE": "Password must contain at least one lowercase letter.",
     "ERR_PASSWORD_MISSING_UPPERCASE": "Password must contain at least one uppercase letter.",
+    "ERR_PASSWORDS_DO_NOT_MATCH_VALIDATION": "New password and confirmation do not match.",
     "SUC_PASSWORD_UPDATED": "Password updated successfully.",
     "ERR_GENERIC_PASSWORD_UPDATE_ERROR": "An error occurred while updating the password. Check your input and try again."
-
 }

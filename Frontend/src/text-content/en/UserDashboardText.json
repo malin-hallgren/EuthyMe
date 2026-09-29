@@ -1,6 +1,11 @@
 {
     "greeting": "Hello, {{name}}!",
     "chart_title": "Your 7 day summary",
+    "chart_mood": "Mood",
+    "chart_sleep": "Sleep",
+    "chart_missed_meds": "Missed Meds",
+    "medication_taken": "Medication taken",
+    "medication_not_taken": "Medication not taken",
     "avg_sleep": "Average sleep score:",
     "avg_mood": "Average mood score:",
     "missed_meds": "Days of meds missed:",
@@ -9,9 +14,7 @@
     "create_mood_report_btn_active": "Create Mood Report",
     "create_mood_report_btn_inactive": "Daily Report Done!",
     "banner_warning": "How are you doing? We have noticed some concerning trends in your logs. Please consider reaching out to a mental health professional for support if you or people around you find this trend concerning!",
-    
-    "mood" : {
-
+    "mood": {
         "header": "Mood",
         "description": "Estimate your mood for the day. Remember that low mood can be depression, but also fatigue, feelings of hopelessness or ahedony. High mood can be happiness but also stress, anxiety or irritability.",
         "option1": "Very Low",
@@ -20,8 +23,7 @@
         "option4": "High",
         "option5": "Very High"
     },
-
-    "sleep" : {
+    "sleep": {
         "header": "Sleep",
         "description": "Estimate your sleep for the day.",
         "option1": "Less than 4 hours of",
@@ -30,14 +32,12 @@
         "option4": "8-10 hours of",
         "option5": "More than 10 hours of"
     },
-
-    "meds" : {
+    "meds": {
         "header": "Medication",
         "description": "Have you taken your medication today?",
         "option1": "Took",
         "option2": "Did not take"
     },
-
     "selected": "Selected: {{option}} {{label}}",
     "select_prompt": "Select a {{label}} value",
     "resources": {

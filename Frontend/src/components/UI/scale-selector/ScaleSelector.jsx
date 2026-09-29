@@ -7,8 +7,7 @@ import { ScaleSelectorValue4 } from '../icons/ScaleSelectorValue4.jsx';
 import { ScaleSelectorValue5 } from '../icons/ScaleSelectorValue5.jsx';
 import { ScaleSelectorValueTrue } from '../icons/ScaleSelectorValueTrue.jsx';
 import { ScaleSelectorValueFalse } from '../icons/ScaleSelectorValueFalse.jsx';
-
-import UserDashboardText from '../../../text-content/UserDashboardText.json';
+import { useLanguage } from '../../../hooks/useLanguage.js';
 
 const scaleValueIcons = {
     1: ScaleSelectorValue1,
@@ -22,6 +21,7 @@ const scaleValueIcons = {
 
 
 export default function ScaleSelector({ label, description,name, selected, onChange, optionsMap, required }) {
+    const { UserDashboardText } = useLanguage();
 
     const textContent = UserDashboardText[label] || {};
     const displayLabel = textContent.header || label;

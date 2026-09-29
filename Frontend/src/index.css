@@ -6,6 +6,7 @@
 
 :root[data-theme="dark"] {
   --color-text: #b7c1d3;
+  --color-text-secondary: #9fa8b8;
   --color-text-muted: #6b7280;
   --color-text-muted-grayish: #a7a8a9;
   --color-white: #fff;

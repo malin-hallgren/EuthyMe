@@ -1,15 +1,15 @@
 import {useState, useEffect} from "react";
+import { useLanguage } from '../../hooks/useLanguage.js';
 import {getUsers} from '../../services/UserServices.js';
 import {deleteUser} from "../../services/UserServices.js";
 
 import ContentCard from "../UI/content-card/ContentCard.jsx";
 import PrimaryButton from "../UI/primary-button/PrimaryButton.jsx";
 
-import AdminDashboardText from "../../text-content/AdminDashboardText.json";
-
 import './AdminDashboard.css';
 
 export default function AdminDashboard() {
+    const { AdminDashboardText } = useLanguage();
     const [activeUsers, setActiveUsers] = useState([]);
     const [inactiveUsers, setInactiveUsers] = useState([]);
     
@@ -45,19 +45,19 @@ export default function AdminDashboard() {
 
     return (
         <>
-            <h1>Admin Dashboard</h1>
+            <h1>{AdminDashboardText.title}</h1>
             <section className="user-activity-container">
                 <ContentCard>
-                    <h2>List of Active Users</h2>
+                    <h2>{AdminDashboardText.active_users}</h2>
                     {activeUsers.map(user => (
                         <p key={user.id}>{user.displayName} -     {user.daysAgo} {AdminDashboardText.days_ago}</p>
                     ))}
                 </ContentCard>
                 <ContentCard >
-                    <h2>List of Inactive Users</h2>
+                    <h2>{AdminDashboardText.inactive_users}</h2>
                     {inactiveUsers.map(user => (
                         <div key={user.id} className="inactive-user-item">
-                            <p>{user.displayName} -     {user.daysAgo ? `${user.daysAgo} ${AdminDashboardText.days_ago}` : 'No activity recorded'} </p>
+                            <p>{user.displayName} -     {user.daysAgo ? `${user.daysAgo} ${AdminDashboardText.days_ago}` : AdminDashboardText.no_activity} </p>
                             <PrimaryButton onClick={() => handleDeactivateUser(user.id)} text={AdminDashboardText.deactivate_user_btn} />
                         </div>
                     ))}
