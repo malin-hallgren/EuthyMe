@@ -78,13 +78,11 @@ namespace Backend.Services
 
         public Task<CookieOptions> GetCookieOptionsAsync()
         {
-            var isProd = !env.IsDevelopment();
-
             return Task.FromResult(new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Strict,
+                SameSite = SameSiteMode.None,
                 Path = "/",
                 Expires = DateTimeOffset.UtcNow.AddHours(1)
             });

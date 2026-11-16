@@ -117,7 +117,7 @@ namespace Backend
                 
                 app.MapOpenApi();
                 app.MapScalarApiReference();
-                //await app.CompleteUserSeedAsync();
+                await app.CompleteUserSeedAsync();
             }
 
             using (var scope = app.Services.CreateScope())
